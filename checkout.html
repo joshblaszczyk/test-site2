@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Checkout · ThomKat Fashion &amp; Art Boutique</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='14' fill='%23171217'/%3E%3Ccircle cx='24' cy='24' r='11' fill='%23f04e8a'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink: #171217; --muted: #766c72; --paper: #fffdfb; --pink: #f04e8a; --pink-dark: #b52f62; --pink-pale: #f9d9e5; --line: #d9ced1; --ok: #23704a; --bad: #a3203f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "DM Sans", sans-serif; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .mono { font-family: "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; font-size: 11px; }
+    header { border-bottom: 2px solid var(--ink); background: var(--paper); }
+    .nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .brand svg { width: 40px; height: 40px; flex: none; }
+    .brand span { font-size: 15px; font-weight: 700; line-height: 1.05; max-width: 190px; }
+    .back { font-size: 13px; font-weight: 600; }
+    h1 { margin: 34px 0 6px; font: 500 clamp(38px, 6vw, 58px)/1 "Playfair Display", serif; letter-spacing: -.045em; }
+    h1 em { color: var(--pink); }
+    .lede { margin: 0 0 28px; color: var(--muted); }
+    .test-banner { margin: 18px 0 0; padding: 10px 16px; border: 2px dashed var(--pink-dark); border-radius: 14px; background: var(--pink-pale); font-size: 13px; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 36px; align-items: start; padding-bottom: 80px; }
+    section.step { margin-bottom: 22px; padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: #fff; }
+    section.step h2 { display: flex; align-items: baseline; gap: 10px; margin: 0 0 16px; font: 500 24px/1.1 "Playfair Display", serif; }
+    section.step h2 .mono { color: var(--pink-dark); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid .wide { grid-column: 1 / -1; }
+    label { display: block; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+    label .hint { color: var(--muted); font-weight: 500; }
+    input, select { width: 100%; min-height: 46px; margin-top: 6px; padding: 10px 13px; border: 1px solid var(--ink); border-radius: 12px; background: var(--paper); color: var(--ink); }
+    input:focus, select:focus { outline: 3px solid var(--pink-pale); outline-offset: 1px; }
+    .choices { display: grid; gap: 10px; }
+    .choice { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; cursor: pointer; font-weight: 500; letter-spacing: 0; }
+    .choice:has(input:checked) { border-color: var(--ink); background: var(--pink-pale); }
+    .choice input { width: 18px; min-height: 18px; margin: 3px 0 0; accent-color: var(--pink-dark); }
+    .choice strong { display: block; font-size: 14px; }
+    .choice small { color: var(--muted); }
+    .choice .price { margin-left: auto; font: 500 14px "DM Mono", monospace; white-space: nowrap; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border: 1px solid var(--ink); border-radius: 100px;
+      background: var(--pink); color: var(--ink); font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+    .button.secondary { background: var(--paper); }
+    .button:disabled { opacity: .5; cursor: not-allowed; }
+    .button.pay { width: 100%; min-height: 54px; font-size: 14px; }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .msg { margin: 12px 0 0; padding: 11px 14px; border-radius: 12px; font-size: 14px; }
+    .msg.error { background: #fbe4ea; color: var(--bad); border: 1px solid #efb7c6; }
+    .msg.info { background: #f3eff0; color: var(--ink); }
+    .msg.ok { background: #e3f3ea; color: var(--ok); border: 1px solid #b9e0c9; }
+    aside.summary { position: sticky; top: 18px; padding: 22px; border: 2px solid var(--ink); border-radius: 20px; background: #fff; }
+    aside.summary h2 { margin: 0 0 14px; font: 500 26px/1 "Playfair Display", serif; }
+    .lines { margin: 0 0 14px; padding: 0; list-style: none; }
+    .line { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .line img { width: 54px; height: 72px; object-fit: cover; border-radius: 9px; background: var(--pink-pale); }
+    .line p { margin: 0; font-size: 13px; font-weight: 600; line-height: 1.3; }
+    .line small { display: block; color: var(--muted); font-weight: 500; }
+    .line button { padding: 0; border: 0; background: none; color: var(--pink-dark); font-size: 11px; font-weight: 700; cursor: pointer; }
+    .line .amount { font: 500 13px "DM Mono", monospace; text-align: right; }
+    .totals { display: grid; gap: 6px; margin: 0; font-size: 14px; }
+    .totals div { display: flex; justify-content: space-between; }
+    .totals dd { margin: 0; font-family: "DM Mono", monospace; }
+    .totals dt { color: var(--muted); }
+    .totals .grand { margin-top: 6px; padding-top: 10px; border-top: 2px solid var(--ink); font-size: 17px; font-weight: 700; }
+    .totals .grand dt { color: var(--ink); }
+    #cardContainer { min-height: 90px; margin-bottom: 12px; }
+    .card-help { margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+    .secure { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font-size: 12px; }
+    .done { padding: 30px; border: 2px solid var(--ink); border-radius: 22px; background: #fff; }
+    .done h2 { margin: 0 0 8px; font: 500 34px/1.05 "Playfair Display", serif; }
+    .done .number { display: inline-block; margin: 6px 0 16px; padding: 6px 12px; border: 1px solid var(--ink); border-radius: 100px; background: var(--pink-pale); font: 500 14px "DM Mono", monospace; }
+    .empty { padding: 40px 0 90px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 880px) {
+      .layout { grid-template-columns: 1fr; gap: 0; }
+      aside.summary { position: static; order: -1; margin-bottom: 22px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="divisions.css">
+</head>
+<body>
+  <header>
+    <nav class="divisions" aria-label="Our divisions">
+      <div class="divisions-inner">
+        <a class="division" href="ladies-room.html"><b>01</b>The Ladies' Room Inc.</a>
+        <a class="division" href="index.html"><b>02</b>ThomKat Fashion</a>
+        <a class="division" href="tlr-foundation.html"><b>03</b>TLR Gives Back</a>
+        <a class="division" href="shop.html" aria-current="page"><b>04</b>Shop Online</a>
+      </div>
+    </nav>
+    <div class="nav container">
+      <a class="brand" href="index.html" aria-label="ThomKat Fashion &amp; Art Boutique home">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#171217"/><path d="M11 15.5 16.2 13l2.7 4.8-2.2 5.5 4.2 14.2H7.6l4.1-14.2-2.1-5.5Z" fill="#f04e8a"/><path d="M13.1 15.3 16 13.7l2.8 1.6-2.8 2.3Z" fill="#f9d9e5"/><path d="m29.2 13.1 4.1 2.5 4.1-2.5 2.8 5.5-2.9 4.5 2.4 14.4H25.1l2.4-14.4-2.9-4.5Z" fill="#fffdfb"/><path d="m33.3 15.6-2.8 4.7-2.6-2.5 1.9-3.7 3.5 2.1 3.5-2.1 1.9 3.7-2.6 2.5Z" fill="#171217"/><path d="m33.3 15.6-1.6 3.1 1.6 2.1 1.6-2.1Z" fill="#f04e8a"/></svg>
+        <span>ThomKat Fashion &amp; Art Boutique</span>
+      </a>
+      <a class="back" href="index.html#occasions">← Back to the boutique</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="test-banner" id="testBanner" hidden></p>
+    <h1 id="pageTitle">Check<em>out</em></h1>
+    <p class="lede" id="pageLede">One-of-a-kind pieces — each is held for you for 15 minutes while you pay.</p>
+
+    <div class="msg error" id="offline" hidden>Online checkout is unavailable right now. Please call the boutique at <a href="tel:+16306150640">630.615.0640</a> — we’d love to help.</div>
+
+    <div class="empty" id="emptyBag" hidden>
+      <p>Your bag is empty.</p>
+      <a class="button" href="shop.html">Shop the gowns</a>
+    </div>
+
+    <div class="done" id="doneBox" hidden>
+      <p class="mono" id="doneKicker">Thank you</p>
+      <h2 id="doneTitle">Your order is in.</h2>
+      <span class="number" id="doneNumber"></span>
+      <p id="doneText"></p>
+      <ul class="lines" id="doneLines"></ul>
+      <dl class="totals" id="doneTotals"></dl>
+      <div class="row-actions">
+        <a class="button" href="shop.html">Keep shopping</a>
+        <a class="button secondary" id="doneReceipt" href="#" target="_blank" rel="noopener" hidden>Card receipt ↗</a>
+      </div>
+    </div>
+
+    <div class="layout" id="checkout" hidden>
+      <div>
+        <section class="step" aria-labelledby="contactTitle">
+          <h2 id="contactTitle"><span class="mono">01</span> Your details</h2>
+          <div class="grid">
+            <label class="wide">Full name<input id="name" autocomplete="name" required maxlength="80" /></label>
+            <label>Email <span class="hint">· for your receipt</span><input id="email" type="email" autocomplete="email" required maxlength="120" /></label>
+            <label>Phone <span class="hint">· optional</span><input id="phone" type="tel" autocomplete="tel" maxlength="30" /></label>
+          </div>
+        </section>
+
+        <section class="step" aria-labelledby="deliveryTitle">
+          <h2 id="deliveryTitle"><span class="mono">02</span> Delivery</h2>
+          <div class="choices" role="radiogroup" aria-label="Delivery">
+            <label class="choice"><input type="radio" name="fulfillment" value="ship" checked /><span><strong>Ship to me</strong><small>Live USPS rates for your address</small></span></label>
+            <label class="choice" id="pickupChoice"><input type="radio" name="fulfillment" value="pickup" /><span><strong>Free pickup at the boutique</strong><small id="pickupText">1 N. Main St., Lombard, IL</small></span><span class="price">$0.00</span></label>
+          </div>
+          <div id="addressBox">
+            <div class="grid" style="margin-top:16px">
+              <label class="wide">Street address<input id="street1" autocomplete="address-line1" maxlength="100" /></label>
+              <label class="wide">Apartment, suite <span class="hint">· optional</span><input id="street2" autocomplete="address-line2" maxlength="100" /></label>
+              <label>City<input id="city" autocomplete="address-level2" maxlength="60" /></label>
+              <label>State<select id="state" autocomplete="address-level1"><option value="">Choose…</option></select></label>
+              <label>ZIP code<input id="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" /></label>
+            </div>
+            <div class="row-actions"><button class="button secondary" id="getRates" type="button">Show shipping options</button></div>
+            <div class="choices" id="rates" style="margin-top:14px" role="radiogroup" aria-label="Shipping options"></div>
+          </div>
+          <p class="msg error" id="deliveryError" role="alert" hidden></p>
+        </section>
+
+        <section class="step" aria-labelledby="payTitle">
+          <h2 id="payTitle"><span class="mono">03</span> Payment</h2>
+          <p class="card-help" id="cardHelp">Cards are processed securely by Square. We never see your card number.</p>
+          <div id="cardContainer"></div>
+          <div id="mockCard" hidden>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="mockCard" value="mock-ok" checked /><span><strong>Test card that works</strong><small>Mock mode — no money moves</small></span></label>
+              <label class="choice"><input type="radio" name="mockCard" value="mock-declined" /><span><strong>Test card that is declined</strong><small>To try the error path</small></span></label>
+            </div>
+          </div>
+          <button class="button pay" id="payButton" type="button" disabled>Pay</button>
+          <p class="msg error" id="payError" role="alert" hidden></p>
+          <p class="msg info" id="payStatus" role="status" hidden></p>
+          <p class="secure"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout · Questions? Call 630.615.0640</p>
+        </section>
+      </div>
+
+      <aside class="summary" aria-labelledby="summaryTitle">
+        <h2 id="summaryTitle">Your order</h2>
+        <ul class="lines" id="lines"></ul>
+        <dl class="totals">
+          <div><dt>Pieces</dt><dd id="tItems">—</dd></div>
+          <div><dt id="tShipLabel">Shipping</dt><dd id="tShip">—</dd></div>
+          <div id="tTaxRow" hidden><dt>Sales tax</dt><dd id="tTax">—</dd></div>
+          <div class="grand"><dt>Total</dt><dd id="tTotal">—</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </main>
+  <script src="shop/checkout.js"></script>
+</body>
+</html>

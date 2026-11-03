@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Morgan Ellis’s consignment edit · ThomKat Fashion</title>
+  <meta name="description" content="A shareable consignment edit from ThomKat Fashion &amp; Art Boutique.">
+  <!-- SEO:START (shop/cron/seo.php writes this block; the title and description above are the page's own) -->
+  <meta name="robots" content="noindex">
+  <!-- SEO:END -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#171217; --white:#fffdfb; --paper:#fffdfb; --pink:#f04e8a; --pink-pale:#f9d9e5; --pink-dark:#c52e68; --muted:#756a70; --line:#d8cdd0; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--white); font-family:"DM Sans",sans-serif; }
+    a { color:inherit; }
+    .mono { color:var(--pink-dark); font:10px "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .nav-wrap { border-bottom:1px solid var(--ink); background:var(--white); }
+    .nav { width:min(1120px,calc(100% - 56px)); min-height:82px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:25px; }
+    .brand { display:flex; align-items:center; gap:12px; font-size:12px; font-weight:600; text-decoration:none; }
+    .brand-mark { width:38px; height:38px; flex:none; }
+    .back-link { color:var(--muted); font:10px "DM Mono",monospace; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; }
+    .back-link:hover, .back-link:focus-visible { color:var(--pink-dark); text-decoration:underline; text-underline-offset:4px; }
+    main { width:min(1120px,calc(100% - 56px)); margin:0 auto; padding:82px 0 105px; }
+    .hero { display:flex; align-items:end; justify-content:space-between; gap:35px; margin-bottom:43px; }
+    h1 { max-width:700px; margin:12px 0 0; font:500 clamp(48px,7vw,86px)/.92 "Playfair Display",serif; letter-spacing:-.055em; }
+    h1 em { color:var(--pink-dark); font-weight:500; }
+    .hero-copy { max-width:310px; margin:0 0 4px; color:var(--muted); font-size:14px; line-height:1.65; }
+    .summary { display:grid; grid-template-columns:1.6fr repeat(3,1fr); gap:1px; margin-bottom:48px; border:1px solid var(--ink); background:var(--ink); }
+    .summary-cell { min-height:105px; padding:18px 20px; background:var(--white); }
+    .summary-cell:first-child { color:var(--white); background:var(--ink); }
+    .summary-value { display:block; margin-top:12px; font:500 28px/1 "Playfair Display",serif; }
+    .summary-detail { margin:9px 0 0; color:var(--muted); font-size:11px; line-height:1.4; }
+    .summary-cell:first-child .summary-detail { color:#d9ced1; }
+    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:20px; }
+    .filters { display:flex; flex-wrap:wrap; gap:8px; }
+    .filter { padding:9px 12px; border:1px solid var(--line); color:var(--ink); background:var(--white); cursor:pointer; font:10px "DM Mono",monospace; letter-spacing:.05em; text-transform:uppercase; }
+    .filter:hover, .filter:focus-visible, .filter.active { border-color:var(--ink); background:var(--pink); }
+    .count { margin:0; color:var(--muted); font:10px "DM Mono",monospace; letter-spacing:.05em; text-transform:uppercase; text-align:right; }
+    .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:28px 16px; }
+    .card[hidden] { display:none; }
+    .photo { position:relative; aspect-ratio:.78; overflow:hidden; border:1px solid var(--ink); background:var(--pink-pale); }
+    .photo img { width:100%; height:100%; display:block; object-fit:cover; transition:transform .45s ease; }
+    .card:hover .photo img { transform:scale(1.045); }
+    .status { position:absolute; right:10px; bottom:10px; padding:7px 9px; color:var(--ink); background:var(--pink); font:10px "DM Mono",monospace; letter-spacing:.05em; text-transform:uppercase; }
+    .status.sold { color:var(--white); background:var(--ink); }
+    .meta { padding:12px 2px 0; }
+    .name { margin:0 0 5px; font-size:13px; font-weight:600; }
+    .detail { margin:0; color:var(--muted); font-size:11px; line-height:1.5; }
+    .price { margin:8px 0 0; color:var(--pink-dark); font:11px "DM Mono",monospace; }
+    .note { margin:38px 0 0; color:var(--muted); font-size:11px; line-height:1.6; }
+    @media (max-width:900px) { .grid { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:680px) {
+      .nav, main { width:min(100% - 34px,500px); }
+      .nav { min-height:73px; }
+      .brand-name { max-width:180px; }
+      main { padding:58px 0 75px; }
+      .hero { display:block; margin-bottom:30px; }
+      .hero-copy { margin-top:20px; }
+      .summary { grid-template-columns:repeat(2,1fr); margin-bottom:32px; }
+      .summary-cell:first-child { grid-column:1 / -1; }
+      .toolbar { align-items:flex-start; flex-direction:column; gap:15px; }
+      .count { text-align:left; }
+      .grid { grid-template-columns:repeat(2,1fr); gap:27px 12px; }
+    }
+  </style>
+  <link rel="stylesheet" href="divisions.css">
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="divisions" aria-label="Our divisions">
+      <div class="divisions-inner">
+        <a class="division" href="ladies-room.html"><b>01</b>The Ladies' Room Inc.</a>
+        <a class="division" href="index.html" aria-current="page"><b>02</b>ThomKat Fashion</a>
+        <a class="division" href="tlr-foundation.html"><b>03</b>TLR Gives Back</a>
+        <a class="division" href="shop.html"><b>04</b>Shop Online</a>
+      </div>
+    </nav>
+    <nav class="nav" aria-label="Shared consignment navigation">
+      <a class="brand" href="index.html#top" aria-label="Return to ThomKat Fashion &amp; Art Boutique home">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="14" fill="#171217"/><path d="M11 15.5 16.2 13l2.7 4.8-2.2 5.5 4.2 14.2H7.6l4.1-14.2-2.1-5.5Z" fill="#f04e8a"/><path d="M13.1 15.3 16 13.7l2.8 1.6-2.8 2.3Z" fill="#f9d9e5"/><path d="m29.2 13.1 4.1 2.5 4.1-2.5 2.8 5.5-2.9 4.5 2.4 14.4H25.1l2.4-14.4-2.9-4.5Z" fill="#fffdfb"/><path d="m33.3 15.6-2.8 4.7-2.6-2.5 1.9-3.7 3.5 2.1 3.5-2.1 1.9 3.7-2.6 2.5Z" fill="#171217"/><path d="m33.3 15.6-1.6 3.1 1.6 2.1 1.6-2.1Z" fill="#f04e8a"/></svg>
+        <span class="brand-name">ThomKat Fashion &amp; Art Boutique</span>
+      </a>
+      <a class="back-link" href="client-portal.html">Client view ↗</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="pageTitle">
+      <div><div class="mono">Shared consignment edit · TC-2048</div><h1 id="pageTitle">Morgan’s pieces,<br><em>all together.</em></h1></div>
+      <p class="hero-copy">A look at every piece in this ThomKat Fashion consignment. Share this page with family and friends so they can browse the edit in one place.</p>
+    </section>
+    <section class="summary" aria-label="Consignment summary">
+      <div class="summary-cell"><div class="mono">Morgan Ellis · consignment edit</div><span class="summary-value">10 pieces</span><p class="summary-detail">Photos, details, and current listing status</p></div>
+      <div class="summary-cell"><div class="mono">Listed</div><span class="summary-value">7</span><p class="summary-detail">Currently available</p></div>
+      <div class="summary-cell"><div class="mono">Consign Bros</div><span class="summary-value">3</span><p class="summary-detail">Sale records shown</p></div>
+      <div class="summary-cell"><div class="mono">Updated</div><span class="summary-value">Now</span><p class="summary-detail">Live prototype view</p></div>
+    </section>
+    <div class="toolbar">
+      <div class="filters" aria-label="Filter shared consignment items">
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">All pieces</button>
+        <button class="filter" type="button" data-filter="available" aria-pressed="false">Available</button>
+        <button class="filter" type="button" data-filter="sold" aria-pressed="false">Consign Bros</button>
+      </div>
+      <p class="count" id="count">Showing 10 of 10 pieces</p>
+    </div>
+    <section class="grid" aria-label="All consignment listings">
+      <article class="card" data-status="sold"><div class="photo"><img src="consignment-emerald-satin-dress-ai.png" alt="AI-generated sample image of an emerald satin dress" loading="eager"><span class="status sold">Consign Bros</span></div><div class="meta"><p class="name">Emerald satin dress</p><p class="detail">Excellent · Size M · Dresses</p><p class="price">Sold for $240 · Aug 28</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-tailored-black-blazer-ai.png" alt="AI-generated sample image of a tailored black blazer" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Tailored black blazer</p><p class="detail">Very good · Size 8 · Jackets</p><p class="price">Listed at $185</p></div></article>
+      <article class="card" data-status="sold"><div class="photo"><img src="consignment-rose-silk-slip-ai.png" alt="AI-generated sample image of a rose silk slip" loading="lazy"><span class="status sold">Consign Bros</span></div><div class="meta"><p class="name">Rose silk slip</p><p class="detail">Very good · Size M · Dresses</p><p class="price">Sold for $165 · Aug 22</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-vintage-printed-jacket-ai.png" alt="AI-generated sample image of a vintage printed jacket" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Vintage printed jacket</p><p class="detail">Vintage character · Size L · Outerwear</p><p class="price">Listed at $220</p></div></article>
+      <article class="card" data-status="sold"><div class="photo"><img src="consignment-leather-moto-jacket-ai.png" alt="AI-generated sample image of a leather moto jacket" loading="lazy"><span class="status sold">Consign Bros</span></div><div class="meta"><p class="name">Leather moto jacket</p><p class="detail">Good · Size L · Outerwear</p><p class="price">Sold for $280 · Aug 15</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-cream-knit-set-ai.png" alt="AI-generated sample image of a cream knit set" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Cream knit set</p><p class="detail">Excellent · Size S · Two-piece set</p><p class="price">Listed at $195</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-pink-statement-heels-ai.png" alt="AI-generated sample image of pink statement heels" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Pink statement heels</p><p class="detail">Very good · Size 8 · Shoes</p><p class="price">Listed at $150</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-quilted-shoulder-bag-ai.png" alt="AI-generated sample image of a quilted shoulder bag" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Quilted shoulder bag</p><p class="detail">Excellent · One size · Handbags</p><p class="price">Listed at $260</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-gold-tone-necklace-ai.png" alt="AI-generated sample image of a gold-tone necklace" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Gold tone necklace</p><p class="detail">Excellent · One size · Jewelry</p><p class="price">Listed at $125</p></div></article>
+      <article class="card" data-status="available"><div class="photo"><img src="consignment-leopard-silk-scarf-ai.png" alt="AI-generated sample image of a leopard silk scarf" loading="lazy"><span class="status">Available</span></div><div class="meta"><p class="name">Leopard silk scarf</p><p class="detail">New with tags · One size · Accessories</p><p class="price">Listed at $160</p></div></article>
+    </section>
+    <p class="note">Shared listing preview for the prototype · Statuses and prices are sample data until consignment storage is connected.</p>
+  </main>
+  <script>
+    const buttons = [...document.querySelectorAll('[data-filter]')];
+    const cards = [...document.querySelectorAll('.card')];
+    const count = document.getElementById('count');
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      let visible = 0;
+      buttons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      cards.forEach((card) => {
+        const show = filter === 'all' || card.dataset.status === filter;
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      count.textContent = `Showing ${visible} of ${cards.length} pieces`;
+    }));
+  </script>
+</body>
+</html>

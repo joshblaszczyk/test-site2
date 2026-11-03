@@ -145,7 +145,7 @@
     if (!bag().includes(sku)) setBag([...bag(), sku]);
     location.href = 'checkout.html';
   };
-  document.querySelectorAll('button[aria-label="Shopping bag"]').forEach(button => {
+  document.querySelectorAll('button[aria-label="Shopping bag"], button[aria-label="Shopping cart"]').forEach(button => {
     button.onclick = event => { event.preventDefault(); open(); };
   });
 

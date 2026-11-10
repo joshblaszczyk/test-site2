@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Weekly uploads preview · ThomKat</title>
+<link rel="stylesheet" href="admin.css">
+<style>
+body{font-family:'DM Sans',Arial,sans-serif;background:#f6f1f2}.preview{background:#fff2d8;text-align:center;padding:10px 16px;font-weight:700;border-bottom:1px solid #e8d1a1}.preview small{font-weight:400}.top{position:static}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px;align-items:start}.intro{display:flex;justify-content:space-between;gap:18px;align-items:end;margin:34px 0 24px}.intro h1{margin:4px 0;font-size:38px}.intro p{margin:0}.eyebrow{color:#a02d59;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.weekhead{display:flex;justify-content:space-between;align-items:center;margin:25px 0 12px}.weekhead h2{margin:0}.batch{padding:22px;margin-bottom:12px}.batch-top{display:flex;justify-content:space-between;gap:12px;align-items:start}.batch h3{font-size:22px;margin:3px 0}.batch p{margin:4px 0}.facts{display:flex;gap:25px;flex-wrap:wrap;margin:18px 0;color:#625a60}.fact strong{display:block;color:#171217;font-size:14px}.batch-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #eee4e7;padding-top:15px}.badge{font-family:Arial,sans-serif;font-weight:700;letter-spacing:.02em}.side{margin-top:25px}.side h2{font-size:21px}.step{display:flex;gap:12px;margin:18px 0}.num{background:#f9d9e5;border-radius:50%;width:28px;height:28px;display:grid;place-items:center;flex:none;font-weight:700}.step strong{display:block}.step p{margin:3px 0;color:#766c72}.note{background:#fdf4f7;border-radius:12px;padding:14px;color:#6f4a59}.review h2{font-size:28px}.review-line{padding:12px 0;border-bottom:1px solid #eee4e7}.review-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.review-result{padding:12px;border-radius:10px;background:#e3f3ea;color:#23704a;margin-top:16px}.back{margin-bottom:20px}.muted{color:#766c72}.demo-box{background:#f9f3f5;border-radius:12px;padding:14px;margin:15px 0}.demo-box p{margin:4px 0}@media(max-width:760px){.layout{grid-template-columns:1fr}.intro{align-items:start;flex-direction:column;margin-top:24px}.intro h1{font-size:32px}.side{margin-top:0}.batch-bottom{align-items:start;flex-direction:column}.facts{gap:15px}.top-inner{gap:10px}.tabs{width:100%;overflow:auto;flex-wrap:nowrap}.tabs button{white-space:nowrap}}
+ .tag-list{display:grid;gap:10px;margin-top:14px}.product-tag{background:white;border:1px dashed #bd9ca9;border-radius:10px;padding:14px;overflow-wrap:anywhere}.product-tag strong{display:block;font-size:18px}.product-tag dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0 0}.product-tag dt{color:#766c72}.product-tag dd{margin:0}.tag-error{color:#a1223b}.sample-product-photo{display:block;width:160px;max-width:100%;height:160px;object-fit:cover;border-radius:8px;margin-top:10px}.tag-item-button{border:0;background:none;padding:0;color:#a02d59;text-decoration:underline;font:inherit;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="preview">Layout preview <small>· Examples only. No files are uploaded and nothing is published.</small></div>
+<header class="top"><div class="top-inner"><div><p class="mono">ThomKat</p><strong class="title">Shop admin</strong></div><nav class="tabs" aria-label="Example admin sections"><button type="button">Orders</button><button type="button">Pieces &amp; eBay</button><button type="button" aria-current="page" style="background:#171217;color:white">Weekly uploads</button><button type="button">Commission</button><button type="button">Setup</button></nav></div></header>
+<main class="wrap">
+<style>#uploadTabs[hidden]{display:none}</style><nav class="tabs" id="uploadTabs" aria-label="Weekly uploads sections" style="margin-top:24px"><button type="button" id="tabBatches" aria-selected="true">Batches</button><button type="button" id="newBatch" aria-selected="false">Create a batch</button><button type="button" id="openItemSearch" aria-selected="false">Item search</button></nav>
+<div id="overview">
+<div class="intro"><div><span class="eyebrow">Products / Weekly uploads</span><h1>Weekly uploads</h1><p class="muted">Keep each day's photos and CSV together, ready for your approval.</p></div><div class="review-actions"><button class="btn ghost" id="openSalesLog">Weekly sales spreadsheet</button><button class="btn ghost" id="openReturns">Returned items &amp; relisting</button></div></div>
+<div class="layout"><div>
+<div class="weekhead"><h2>Week 35</h2><span class="muted">2 batches</span></div>
+<article class="card batch"><div class="batch-top"><div><span class="eyebrow">Week 35</span><h3>Monday upload</h3><p class="muted">Photos and product information</p></div><span class="badge pink">Ready to review</span></div><div class="facts"><div class="fact"><strong>120 photos</strong>Uploaded</div><div class="fact"><strong>monday-products.csv</strong>CSV file</div><div class="fact"><strong>40 products</strong>Matched for review</div></div><div class="batch-bottom"><span class="muted">Waiting for your approval</span><button class="btn small review-btn" data-batch="Monday" data-week="35">Review batch →</button></div></article>
+<article class="card batch"><div class="batch-top"><div><span class="eyebrow">Week 35</span><h3>Thursday upload</h3><p class="muted">Photos and product information</p></div><span class="badge dim">Draft</span></div><div class="facts"><div class="fact"><strong>80 photos</strong>Uploaded</div><div class="fact"><strong>thursday-products.csv</strong>CSV file</div><div class="fact"><strong>25 products</strong>Matched for review</div></div><div class="batch-bottom"><span class="muted">Ready for you to check</span><button class="btn ghost small review-btn" data-batch="Thursday" data-week="35">Review batch →</button></div></article>
+<div class="weekhead"><h2>Week 34</h2><span class="muted">Previous batches</span></div>
+<article class="card batch"><div class="batch-top"><div><span class="eyebrow">Week 34</span><h3>Monday upload</h3><p class="muted">Photos and product information</p></div><span class="badge ok">Approved</span></div><div class="facts"><div class="fact"><strong>90 photos</strong>Uploaded</div><div class="fact"><strong>monday-products.csv</strong>CSV file</div><div class="fact"><strong>30 products</strong>Approved</div></div><div class="batch-bottom"><span class="muted">Available to look back at</span><button class="btn ghost small review-btn" data-batch="Monday" data-week="34">View batch →</button></div></article>
+</div><aside class="card side"><span class="eyebrow">A simple routine</span><h2>From photos to shop</h2><div class="step"><span class="num">1</span><div><strong>Create a batch</strong><p>The week and date are filled in automatically.</p></div></div><div class="step"><span class="num">2</span><div><strong>Add your files</strong><p>Upload that day's photos and CSV file together.</p></div></div><div class="step"><span class="num">3</span><div><strong>Review and approve</strong><p>Check the matches and product details before publishing.</p></div></div><div class="note">Each day has its own batch, so you can approve Monday and Thursday separately.</div></aside></div></div>
+<section id="review" class="card review" hidden><button class="link back" id="back">← Back to weekly uploads</button><p class="eyebrow" id="reviewWeek"></p><h2 id="reviewTitle"></h2><p class="muted">Example review screen: check products and photos before you approve a batch.</p><div class="demo-box"><strong>Example product match</strong><p>Photo: dress-001.jpg &nbsp; · &nbsp; CSV product: Vintage evening gown &nbsp; · &nbsp; $89.99</p></div><div class="review-line">✓ Product details and photos matched <span class="muted">(example)</span></div><div class="review-line">✓ No missing photos <span class="muted">(example)</span></div><div class="review-line">✓ Price and category ready to check <span class="muted">(example)</span></div><div class="review-actions" id="reviewActions"><button class="btn" id="approve">Approve &amp; publish</button><button class="btn ghost" id="returnBatch">Return to batches</button></div><p class="review-result" id="result" hidden>Preview only: this shows where approval would happen. Nothing has been published.</p></section>
+<section id="create" class="card review" hidden><button class="link back" id="createBack">← Back to weekly uploads</button><p class="eyebrow">New upload</p><h2>Create a batch</h2><p class="muted">This example shows the information you would add for each upload.</p><div class="note" style="max-width:440px;margin:16px 0"><strong>Example files are ready to view</strong><p>Sample photos and matching CSV data are shown below. You can also choose your own files.</p></div><div style="max-width:440px"><label>Week number<input id="batchWeek" type="number" readonly></label><label>Upload day<input id="batchDay" type="text" readonly></label><label>Date<input id="batchDate" type="date"></label><div class="demo-box"><strong>Product photos</strong><p class="muted" id="photoStatus" aria-live="polite">3 sample photos shown</p><input id="photoFiles" type="file" accept="image/*" multiple hidden><button type="button" class="btn ghost" id="choosePhotos">Upload photos</button><div id="photoPreview" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><figure style="margin:0;width:100px"><img src="weekly-upload-samples/sample-dress.jpg" alt="Sample dress, example sold product" style="width:100px;height:100px;object-fit:cover;border-radius:8px;opacity:1;filter:none"><figcaption style="font-size:12px;overflow-wrap:anywhere"><strong style="display:block;color:#a02d59">Sold · example</strong>sample-dress.jpg</figcaption></figure><figure style="margin:0;width:100px"><img src="weekly-upload-samples/sample-skirt.jpg" alt="Sample skirt" style="width:100px;height:100px;object-fit:cover;border-radius:8px"><figcaption style="font-size:12px;overflow-wrap:anywhere">sample-skirt.jpg</figcaption></figure><figure style="margin:0;width:100px"><img src="weekly-upload-samples/sample-coat.jpg" alt="Sample coat" style="width:100px;height:100px;object-fit:cover;border-radius:8px"><figcaption style="font-size:12px;overflow-wrap:anywhere">sample-coat.jpg</figcaption></figure></div></div><div class="demo-box"><strong>Product CSV file</strong><p class="muted" id="csvStatus" aria-live="polite">sample-products.csv (example)</p><input id="csvFile" type="file" accept=".csv,text/csv" hidden><button type="button" class="btn ghost" id="chooseCsv">Upload CSV file</button><pre id="csvPreview" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow:auto">product_id,title,price,category,image_filename
+DEMO-001,Sample vintage dress,89.99,Dresses,sample-dress.jpg
+DEMO-002,Sample vintage skirt,34.99,Skirts,sample-skirt.jpg
+DEMO-003,Sample vintage coat,59.99,Coats,sample-coat.jpg</pre></div></div></section>
+<section id="itemSearch" class="card review" hidden><button type="button" class="link back" id="itemSearchBack">← Back to weekly uploads</button><p class="eyebrow">Weekly uploads / Products</p><h2>Item search</h2><div style="max-width:440px"><div class="demo-box"><strong>Find an item</strong><p class="muted">Add a location, date and item number for each tag.</p><label>Location<select id="tagLocation"><option value="">Select a location</option><option value="Warehouse">Warehouse</option><option value="Tomcat">Tomcat</option></select></label><label>Tag date<input id="tagDate" type="date"></label><label>Choose a sample product<select id="sampleProduct"><option value="">Select an example number</option><option value="DEMO-001">DEMO-001 · Vintage dress</option><option value="DEMO-002">DEMO-002 · Vintage skirt</option><option value="DEMO-003">DEMO-003 · Vintage coat</option></select></label><div id="sampleProductPreview" aria-live="polite"></div><div class="review-actions"><button type="button" class="btn ghost" id="markSold">Mark selected item sold</button><button type="button" class="btn ghost" id="openShippingLabel">Shipping label</button></div><p id="soldMessage" role="status"></p><label>Item number<input id="tagItem" type="text" placeholder="e.g. DEMO-001" maxlength="100"></label><button type="button" class="btn ghost" id="createTag">Search</button><p id="tagMessage" class="tag-error" role="status"></p><div id="tagList" class="tag-list" aria-live="polite"></div></div><div class="demo-box"><strong>Sold items &amp; shipment tracking</strong><p class="muted">Record when each product was mailed, its tracking number, and when it was delivered. Update these details manually.</p><p class="muted">Items stay here for 14 days after being marked sold, then move to the archive for 30 days.</p><button type="button" class="btn ghost" id="openReturnsFromBatch">Return or relist an item</button><div id="soldList" class="tag-list" aria-live="polite"></div></div><div class="demo-box"><strong>Archive</strong><p class="muted">Items are removed from this preview 30 days after entering the archive.</p><div id="archiveList" class="tag-list" aria-live="polite"></div></div><p class="note">Preview only: sample sold items are saved in this browser and updated when this page is opened. Files and tags are not uploaded or saved; this is not connected to actual sales or carrier tracking. Shipment status and dates are entered manually.</p></div></section>
+<section id="salesLog" class="card review" hidden><button type="button" class="link back" id="salesLogBack">← Back to weekly uploads</button><p class="eyebrow">Weekly uploads / Sales</p><h2>Weekly sales spreadsheet</h2><p class="muted">Review products sold during a Monday–Sunday week, amounts and order progress.</p><div class="note">Preview only: examples are separate from the sample sales saved in this browser. This is not connected to shop orders or payments. Sold records disappear from this view when relisted or removed from the archive.</div><div class="review-actions"><label>Week containing date<input type="date" id="salesWeekDate"></label><label>Show<select id="salesSource"><option value="example">Example spreadsheet</option><option value="saved">Sales saved in this browser</option></select></label></div><div id="salesSummary" class="facts" aria-live="polite"></div><p class="muted" id="salesNote"></p><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:850px;text-align:left"><thead><tr><th scope="col">Order status</th><th scope="col">Sold date</th><th scope="col">Transaction</th><th scope="col">Item / product</th><th scope="col">Location</th><th scope="col">Amount sold</th><th scope="col">Items in transaction</th></tr></thead><tbody id="salesRows"></tbody></table></div><p class="muted">Enter an amount and an optional transaction number in a sold item's shipment details. Items with the same transaction number are counted as one order; items without one are counted separately. A transaction is complete only when all its items are marked complete.</p></section>
+<section id="shippingPage" class="card review" hidden><button type="button" class="link back" id="shippingBack">← Back to item search</button><p class="eyebrow">Sold item / Fulfillment</p><h2>Shipping label &amp; pickup</h2><p id="labelItem"></p><div id="labelPhoto"></div><div class="note">Preview only: USPS label purchasing and printing are not connected. Details are saved in this browser.</div><form id="labelForm" style="max-width:440px"><fieldset><legend>How will the customer receive the item?</legend><label><input type="radio" name="fulfillment" value="usps" checked> USPS shipping</label><label><input type="radio" name="fulfillment" value="pickup"> Store pickup</label></fieldset><div id="uspsFields"><label>Package size<select id="labelSize"><option value="">Select a size</option><option>Small</option><option>Medium</option><option>Large</option></select></label><label>Recipient name<input id="labelRecipient" type="text" maxlength="120"></label><label>Shipping address<textarea id="labelAddress" rows="3" maxlength="500"></textarea></label><label>Shipper name<input id="labelShipper" type="text" maxlength="120" placeholder="Name of person shipping the item"></label><label>USPS tracking number<input id="labelTracking" type="text" maxlength="150"></label><label>Date mailed<input id="labelMailed" type="date"></label><p class="muted">Package size is a planning choice; USPS rates and label requirements depend on package dimensions and weight.</p><button type="submit" class="btn" id="labelSubmit">Create USPS shipping label</button></div><div id="pickupFields" hidden><p class="muted">The customer will collect this item at the store; no shipping label is needed.</p><button type="submit" class="btn">Save store pickup</button></div><fieldset><legend>Delivery and completion</legend><label>Date delivered / picked up<input id="labelDelivered" type="date"></label><label><input id="labelComplete" type="checkbox"> Mark order complete</label><p class="muted">Save the delivery or pickup date before marking the order complete.</p><button type="submit" class="btn ghost">Save delivery and completion</button></fieldset><p id="labelMessage" role="status"></p></form></section>
+<section id="returns" class="card review" hidden><button class="link back" id="returnsBack">← Back to weekly uploads</button><p class="eyebrow">Products / Returns</p><h2>Returned items &amp; relisting</h2><p class="muted">Choose a sold or archived sample item that has come back. Relisting returns it to the available examples.</p><div class="note">Preview only: this changes sample records in this browser. It does not update inventory or publish a product to the shop.</div><h3>Example returned item</h3><article class="product-tag"><strong>Item number: DEMO-001 · Sample vintage dress</strong><p>Tomcat · Sold example</p><img class="sample-product-photo" src="weekly-upload-samples/sample-dress.jpg" alt="Sample vintage dress, item DEMO-001"><button type="button" class="btn ghost" id="relistExample">Relist example</button><p id="relistExampleMessage" role="status"></p></article><h3>Sold and archived items</h3><div id="returnList" class="tag-list" aria-live="polite"></div><p id="returnMessage" role="status"></p><h3>Relisted examples</h3><div id="relistedList" class="tag-list" aria-live="polite"></div></section>
+</main>
+<script>
+const overview=document.getElementById('overview'),review=document.getElementById('review'),create=document.getElementById('create'),returns=document.getElementById('returns'),shippingPage=document.getElementById('shippingPage'),salesLog=document.getElementById('salesLog'),itemSearch=document.getElementById('itemSearch');
+function show(el){[overview,review,create,returns,shippingPage,salesLog,itemSearch].forEach(x=>x.hidden=x!==el);const t=document.getElementById('uploadTabs');t.hidden=![overview,create,itemSearch].includes(el);[['tabBatches',overview],['newBatch',create],['openItemSearch',itemSearch]].forEach(([id,v])=>document.getElementById(id).setAttribute('aria-selected',String(v===el)));window.scrollTo(0,0)}
+document.getElementById('tabBatches').onclick=()=>show(overview);
+document.querySelectorAll('.review-btn').forEach(b=>b.addEventListener('click',()=>{document.getElementById('reviewWeek').textContent='Week '+b.dataset.week;document.getElementById('reviewTitle').textContent=b.dataset.batch+' upload';document.getElementById('result').hidden=true;document.getElementById('approve').hidden=b.dataset.week==='34';show(review)}));
+document.getElementById('approve').onclick=()=>document.getElementById('result').hidden=false;
+document.getElementById('back').onclick=document.getElementById('returnBatch').onclick=document.getElementById('createBack').onclick=()=>show(overview);
+const batchDate=document.getElementById('batchDate'),batchWeek=document.getElementById('batchWeek'),batchDay=document.getElementById('batchDay');
+function updateBatchDate(){
+  if(!batchDate.value){batchWeek.value='';batchDay.value='';return}
+  const [year,month,day]=batchDate.value.split('-').map(Number);
+  const date=new Date(year,month-1,day);
+  batchDay.value=date.toLocaleDateString(undefined,{weekday:'long'});
+  const iso=new Date(Date.UTC(year,month-1,day));
+  iso.setUTCDate(iso.getUTCDate()+4-(iso.getUTCDay()||7));
+  batchWeek.value=Math.ceil((((iso-new Date(Date.UTC(iso.getUTCFullYear(),0,1)))/86400000)+1)/7);
+}
+batchDate.addEventListener('change',updateBatchDate);
+document.getElementById('newBatch').onclick=()=>{
+  const today=new Date();
+  batchDate.value=[today.getFullYear(),String(today.getMonth()+1).padStart(2,'0'),String(today.getDate()).padStart(2,'0')].join('-');
+  updateBatchDate();show(create);
+};
+document.getElementById('openItemSearch').onclick=()=>{if(!document.getElementById('tagDate').value)document.getElementById('tagDate').value=localDateValue(new Date());renderSold();show(itemSearch)};
+document.getElementById('itemSearchBack').onclick=()=>show(overview);
+const sampleProducts={
+  'DEMO-001':{name:'Sample vintage dress',image:'sample-dress.jpg'},
+  'DEMO-002':{name:'Sample vintage skirt',image:'sample-skirt.jpg'},
+  'DEMO-003':{name:'Sample vintage coat',image:'sample-coat.jpg'}
+};
+const sampleProduct=document.getElementById('sampleProduct'),tagItem=document.getElementById('tagItem');
+function showSamplePhoto(container,item){
+  container.replaceChildren();
+  const product=sampleProducts[item];
+  if(!product)return;
+  const img=document.createElement('img');img.className='sample-product-photo';img.src='weekly-upload-samples/'+product.image;img.alt=product.name;
+  const caption=document.createElement('p');caption.textContent=product.name+' · example photo';
+  container.append(img,caption);
+}
+sampleProduct.addEventListener('change',()=>{tagItem.value=sampleProduct.value;showSamplePhoto(document.getElementById('sampleProductPreview'),sampleProduct.value)});
+tagItem.addEventListener('input',()=>{const item=tagItem.value.trim().toUpperCase();sampleProduct.value=sampleProducts[item]?item:'';showSamplePhoto(document.getElementById('sampleProductPreview'),item)});
+document.getElementById('createTag').onclick=()=>{
+  const location=document.getElementById('tagLocation').value.trim(), date=document.getElementById('tagDate').value, item=document.getElementById('tagItem').value.trim(), message=document.getElementById('tagMessage');
+  if(!location||!date||!item){message.textContent='Please enter a location, date and item number.';return}
+  message.textContent='';
+  const tag=document.createElement('article');tag.className='product-tag';
+  const title=document.createElement('strong');
+  const product=sampleProducts[item.toUpperCase()];
+  if(product){const button=document.createElement('button');button.type='button';button.className='tag-item-button';button.textContent='Item '+item;button.setAttribute('aria-expanded','false');title.append(button);
+    const photo=document.createElement('div');photo.hidden=true;showSamplePhoto(photo,item.toUpperCase());
+    button.onclick=()=>{photo.hidden=!photo.hidden;button.setAttribute('aria-expanded',String(!photo.hidden))};tag.append(title,photo);
+  }else{title.textContent='Item '+item;tag.append(title)}
+  const details=document.createElement('dl');
+  for(const [label,value] of [['Location',location],['Date',date],['Item number',item]]){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;details.append(dt,dd)}
+  tag.append(details);document.getElementById('tagList').append(tag);
+  tagItem.value='';sampleProduct.value='';document.getElementById('sampleProductPreview').replaceChildren();tagItem.focus();
+};
+// This sample keeps its own records on this browser; it does not change shop inventory.
+const soldKey='weekly-upload-sample-sold-v1', dayMs=24*60*60*1000;
+let soldRecords=[], relistedRecords=[];
+const relistedKey='weekly-upload-sample-relisted-v1';
+try { const stored=JSON.parse(localStorage.getItem(relistedKey)||'[]'); if(Array.isArray(stored)) relistedRecords=stored.filter(r=>r && sampleProducts[r.item] && typeof r.location==='string'); } catch(e) {}
+try { const stored=JSON.parse(localStorage.getItem(soldKey)||'[]'); if(Array.isArray(stored)) soldRecords=stored.filter(r=>r && sampleProducts[r.item] && typeof r.location==='string' && Number.isFinite(r.soldAt)); } catch(e) {}
+function saveSold(){
+  try { localStorage.setItem(soldKey,JSON.stringify(soldRecords)); return true; }
+  catch(e) { document.getElementById('soldMessage').textContent='This browser could not save the sample. It will only remain until you leave the page.'; return false; }
+}
+function displayDate(time){return new Date(time).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}
+function shipmentStatus(record){return record.completed?'Complete':record.fulfillment==='pickup'?(record.deliveredDate?'Picked up':'Store pickup'):record.deliveredDate?'Delivered':record.mailedDate?'Mailed':'Awaiting shipment'}
+function shipmentForm(record){
+  const form=document.createElement('form');
+  const heading=document.createElement('h3');heading.textContent='Shipment details';form.append(heading);
+  const status=document.createElement('p');status.textContent='Status: '+shipmentStatus(record);form.append(status);
+  const inputs={};
+  for(const [key,label,type,max] of [['saleAmount','Amount sold ($)','number',0],['transactionNumber','Transaction number (optional)','text',100],['mailedDate','Date mailed','date',0],['carrier','Carrier','text',100],['shipperName','Shipper name','text',120],['trackingNumber','Tracking number','text',150],['deliveredDate','Date delivered','date',0]]){
+    const wrap=document.createElement('label');wrap.textContent=label;
+    const input=document.createElement('input');input.type=type;input.value=typeof record[key]==='string'?record[key]:'';if(type==='number'){input.min='0';input.step='0.01'}if(max)input.maxLength=max;
+    wrap.append(input);form.append(wrap);inputs[key]=input;
+  }
+  const completeLabel=document.createElement('label'),complete=document.createElement('input');complete.type='checkbox';complete.checked=!!record.completed;completeLabel.append(complete,document.createTextNode(' Mark order complete'));form.append(completeLabel);
+  const button=document.createElement('button');button.type='submit';button.className='btn ghost';button.textContent='Save shipment details';
+  const message=document.createElement('p');message.setAttribute('role','status');form.append(button,message);
+  form.onsubmit=(event)=>{
+    event.preventDefault();
+    const mailed=inputs.mailedDate.value,delivered=inputs.deliveredDate.value;
+    if(record.fulfillment!=='pickup'&&delivered&&!mailed){message.textContent='Enter the date mailed before the date delivered.';return}
+    if(complete.checked&&!delivered){message.textContent='Enter the delivery or pickup date before marking the order complete.';return}
+    if(delivered&&delivered<mailed){message.textContent='The delivery date cannot be before the mailing date.';return}
+    for(const key of Object.keys(inputs))record[key]=inputs[key].value.trim();record.completed=complete.checked;
+    const saved=saveSold();status.textContent='Status: '+shipmentStatus(record);
+    message.textContent=saved?'Shipment details saved in this browser.':'Could not save shipment details in this browser.';
+  };
+  return form;
+}
+function renderSold(){
+  const now=Date.now();
+  soldRecords=soldRecords.filter(r=>now<r.soldAt+44*dayMs);
+  saveSold();
+  const sold=document.getElementById('soldList'),archive=document.getElementById('archiveList');
+  sold.replaceChildren();archive.replaceChildren();
+  for(const r of soldRecords){
+    const archived=now>=r.soldAt+14*dayMs, card=document.createElement('article');card.className='product-tag';
+    const title=document.createElement('strong');title.textContent=r.item+' · '+sampleProducts[r.item].name;
+    const info=document.createElement('p');info.textContent=(archived?'Archived':'Sold')+' · '+r.location+' · Sold '+displayDate(r.soldAt);
+    const deadline=document.createElement('p');deadline.className='muted';deadline.textContent=archived?'Removed from archive on '+displayDate(r.soldAt+44*dayMs):'Moves to archive on '+displayDate(r.soldAt+14*dayMs);
+    const photo=document.createElement('div');showSamplePhoto(photo,r.item);
+    card.append(title,info,deadline,photo,shipmentForm(r));(archived?archive:sold).append(card);
+  }
+  if(!sold.children.length)sold.textContent='No sold items yet.';
+  if(!archive.children.length)archive.textContent='The archive is empty.';
+  renderReturns();
+}
+function renderReturns(){
+  const list=document.getElementById('returnList'), available=document.getElementById('relistedList');
+  list.replaceChildren();available.replaceChildren();
+  for(const r of soldRecords){
+    const card=document.createElement('article');card.className='product-tag';
+    const title=document.createElement('strong');title.textContent='Item number: '+r.item+' · '+sampleProducts[r.item].name;
+    const info=document.createElement('p');info.textContent=(Date.now()>=r.soldAt+14*dayMs?'Archived':'Sold')+' · '+r.location+' · Sold '+displayDate(r.soldAt);
+    const photo=document.createElement('div');showSamplePhoto(photo,r.item);
+    const button=document.createElement('button');button.type='button';button.className='btn ghost';button.textContent='Relist this item';
+    button.onclick=()=>{
+      soldRecords=soldRecords.filter(x=>x!==r);
+      relistedRecords=relistedRecords.filter(x=>x.item!==r.item);
+      relistedRecords.push({item:r.item,location:r.location});
+      let saved=saveSold();try{localStorage.setItem(relistedKey,JSON.stringify(relistedRecords))}catch(e){saved=false}
+      renderSold();document.getElementById('returnMessage').textContent=saved?r.item+' is now available in this preview.':r.item+' is available for this page session, but this browser could not save the change.';
+    };
+    card.append(title,info,photo,button);list.append(card);
+  }
+  if(!list.children.length)list.textContent='No sold or archived items. To try this, open Item search and mark a sample product sold.';
+  for(const r of relistedRecords){
+    const card=document.createElement('article');card.className='product-tag';
+    const title=document.createElement('strong');title.textContent='Item number: '+r.item+' · '+sampleProducts[r.item].name;
+    const info=document.createElement('p');info.textContent='Available · '+r.location;
+    const photo=document.createElement('div');showSamplePhoto(photo,r.item);card.append(title,info,photo);available.append(card);
+  }
+  if(!available.children.length)available.textContent='No items relisted yet.';
+}
+function localDateValue(date){return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-')}
+function renderSalesLog(){
+  const chosen=document.getElementById('salesWeekDate').value;if(!chosen)return;
+  const parts=chosen.split('-').map(Number), start=new Date(parts[0],parts[1]-1,parts[2]);start.setDate(start.getDate()-((start.getDay()+6)%7));start.setHours(0,0,0,0);
+  const end=new Date(start);end.setDate(end.getDate()+7);
+  const example=document.getElementById('salesSource').value==='example';
+  const records=example?[
+    {item:'DEMO-001',location:'Tomcat',soldAt:new Date(start.getFullYear(),start.getMonth(),start.getDate(),12).getTime(),transactionNumber:'EX-1001',saleAmount:'89.99',completed:true},
+    {item:'DEMO-002',location:'Tomcat',soldAt:new Date(start.getFullYear(),start.getMonth(),start.getDate(),12).getTime(),transactionNumber:'EX-1001',saleAmount:'34.99',completed:true},
+    {item:'DEMO-003',location:'Warehouse',soldAt:new Date(start.getFullYear(),start.getMonth(),start.getDate()+2,12).getTime(),transactionNumber:'EX-1002',saleAmount:'59.99',completed:false}
+  ]:soldRecords.filter(r=>r.soldAt>=start.getTime()&&r.soldAt<end.getTime());
+  const groups=new Map();records.forEach((r,i)=>{const key=r.transactionNumber?.trim()||'__item_'+i;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(r)});
+  const completed=[...groups.values()].filter(items=>items.every(r=>r.completed)).length;
+  let cents=0,unknown=0;for(const r of records){if(r.saleAmount==null||r.saleAmount===''||!Number.isFinite(Number(r.saleAmount))||Number(r.saleAmount)<0)unknown++;else cents+=Math.round(Number(r.saleAmount)*100)}
+  const summary=document.getElementById('salesSummary');summary.replaceChildren();
+  for(const [value,label] of [[groups.size,'Sales / transactions'],[records.length,'Items sold'],['$'+(cents/100).toFixed(2),'Known amount sold'],[completed,'Orders complete'],[groups.size-completed,'Orders in progress']]){const div=document.createElement('div');div.className='fact';const strong=document.createElement('strong');strong.textContent=value;div.append(strong,document.createTextNode(label));summary.append(div)}
+  document.getElementById('salesNote').textContent=(example?'Example data only. ':'Browser-saved sample sales. ')+ 'Week of '+displayDate(start)+' through '+displayDate(new Date(end.getFullYear(),end.getMonth(),end.getDate()-1))+'. '+(unknown?unknown+' item(s) have no sale amount; the total is incomplete.':'Amounts are item prices before any taxes, shipping or fees.');
+  const body=document.getElementById('salesRows');body.replaceChildren();
+  records.map((r,i)=>({r,key:r.transactionNumber?.trim()||'__item_'+i})).sort((a,b)=>Number(groups.get(a.key).every(x=>x.completed))-Number(groups.get(b.key).every(x=>x.completed))).forEach(({r,key})=>{const row=document.createElement('tr'), complete=groups.get(key).every(x=>x.completed);for(const value of [complete?'Complete':'In progress',displayDate(r.soldAt),r.transactionNumber?.trim()||'Not entered',r.item+' · '+sampleProducts[r.item].name,r.location,r.saleAmount==null||r.saleAmount===''?'Not entered':'$'+Number(r.saleAmount).toFixed(2),groups.get(key).length]){const cell=document.createElement('td');cell.style.cssText='padding:12px 10px;border-top:1px solid #eee4e7';cell.textContent=value;if(!complete)cell.style.color='#b42318';if(value==='In progress')cell.style.fontWeight='700';row.append(cell)}body.append(row)});
+  if(!records.length){const row=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=7;cell.textContent='No saved sales for this week.';cell.style.padding='16px 10px';row.append(cell);body.append(row)}
+}
+document.getElementById('openSalesLog').onclick=()=>{document.getElementById('salesWeekDate').value=localDateValue(new Date());renderSalesLog();show(salesLog)};
+document.getElementById('salesLogBack').onclick=()=>show(overview);
+document.getElementById('salesWeekDate').onchange=renderSalesLog;document.getElementById('salesSource').onchange=renderSalesLog;
+document.getElementById('openReturns').onclick=document.getElementById('openReturnsFromBatch').onclick=()=>{renderSold();show(returns)};
+document.getElementById('returnsBack').onclick=()=>show(overview);
+document.getElementById('relistExample').onclick=()=>{document.getElementById('relistExampleMessage').textContent='Example relisted. This demonstration does not change inventory.'};
+document.getElementById('markSold').onclick=()=>{
+  const item=sampleProduct.value,location=document.getElementById('tagLocation').value,message=document.getElementById('soldMessage');
+  if(!location||!item){message.textContent='Select a location and a sample product first.';return}
+  if(soldRecords.some(r=>r.item===item)){message.textContent='This sample item is already in sold items or the archive.';return}
+  relistedRecords=relistedRecords.filter(r=>r.item!==item);try{localStorage.setItem(relistedKey,JSON.stringify(relistedRecords))}catch(e){}
+  soldRecords.push({item,location,soldAt:Date.now()});message.textContent='Sample item marked sold.';renderSold();
+};
+const labelButton=document.getElementById('openShippingLabel');
+let labelRecord=null;
+const fulfillmentFields=document.querySelectorAll('input[name="fulfillment"]');
+function updateFulfillment(){
+  const usps=document.querySelector('input[name="fulfillment"]:checked').value==='usps';
+  document.getElementById('uspsFields').hidden=!usps;document.getElementById('pickupFields').hidden=usps;
+  for(const id of ['labelSize','labelRecipient','labelAddress'])document.getElementById(id).required=usps;
+  document.getElementById('labelMessage').textContent='';
+}
+fulfillmentFields.forEach(input=>input.addEventListener('change',updateFulfillment));
+document.getElementById('shippingBack').onclick=()=>{renderSold();show(itemSearch)};
+labelButton.onclick=()=>{
+  const item=sampleProduct.value,location=document.getElementById('tagLocation').value,message=document.getElementById('soldMessage');
+  if(!item||!location){message.textContent='Select a location and a sample product first.';return}
+  const record=soldRecords.find(r=>r.item===item && r.location===location);
+  if(!record){message.textContent='Mark this item sold at the selected location before opening shipping and pickup.';return}
+  labelRecord=record;message.textContent='';
+  document.getElementById('labelItem').textContent=record.item+' · '+sampleProducts[record.item].name+' · '+record.location;
+  showSamplePhoto(document.getElementById('labelPhoto'),record.item);
+  for(const [id,key] of [['labelSize','packageSize'],['labelRecipient','recipient'],['labelAddress','address'],['labelTracking','trackingNumber'],['labelMailed','mailedDate'],['labelShipper','shipperName']]) document.getElementById(id).value=record[key]||'';
+  document.getElementById('labelDelivered').value=record.deliveredDate||'';document.getElementById('labelComplete').checked=!!record.completed;
+  document.querySelector('input[name="fulfillment"][value="'+(record.fulfillment==='pickup'?'pickup':'usps')+'"]').checked=true;
+  updateFulfillment();show(shippingPage);
+};
+document.getElementById('labelForm').onsubmit=(event)=>{
+  event.preventDefault();const message=document.getElementById('labelMessage');
+  if(!labelRecord||!soldRecords.includes(labelRecord)){message.textContent='This item is no longer in sold items or the archive. Select it again.';return}
+  const method=document.querySelector('input[name="fulfillment"]:checked').value,mailed=document.getElementById('labelMailed').value;
+  const delivered=document.getElementById('labelDelivered').value,complete=document.getElementById('labelComplete').checked;
+  if(method==='usps'&&delivered&&(!mailed||mailed>delivered)){message.textContent='The mailing date must be on or before the delivery date.';return}
+  if(complete&&!delivered){message.textContent='Enter the delivery or pickup date before marking the order complete.';return}
+  labelRecord.deliveredDate=delivered;labelRecord.completed=complete;
+  labelRecord.fulfillment=method;
+  if(method==='usps'){
+    for(const [id,key] of [['labelSize','packageSize'],['labelRecipient','recipient'],['labelAddress','address'],['labelTracking','trackingNumber'],['labelMailed','mailedDate'],['labelShipper','shipperName']]) labelRecord[key]=document.getElementById(id).value.trim();
+    labelRecord.carrier='USPS';
+  }
+  const saved=saveSold();
+  message.textContent=saved?(method==='usps'?'USPS shipping details saved in this browser. No label has been purchased or printed.':'Store pickup saved in this browser.'): 'Could not save details in this browser.';
+};
+renderSold();
+const photoFiles=document.getElementById('photoFiles'),csvFile=document.getElementById('csvFile');
+document.getElementById('choosePhotos').onclick=()=>photoFiles.click();
+document.getElementById('chooseCsv').onclick=()=>csvFile.click();
+let photoUrls=[];
+photoFiles.onchange=()=>{
+  const preview=document.getElementById('photoPreview');
+  photoUrls.forEach(URL.revokeObjectURL);photoUrls=[];preview.replaceChildren();
+  document.getElementById('photoStatus').textContent=photoFiles.files.length?`${photoFiles.files.length} photo${photoFiles.files.length===1?'':'s'} selected`:'No photos selected';
+  for(const file of photoFiles.files){
+    const figure=document.createElement('figure');figure.style.cssText='margin:0;width:100px';
+    const img=document.createElement('img');const url=URL.createObjectURL(file);photoUrls.push(url);
+    img.src=url;img.alt=file.name;img.style.cssText='width:100px;height:100px;object-fit:cover;border-radius:8px';
+    const caption=document.createElement('figcaption');caption.style.cssText='font-size:12px;overflow-wrap:anywhere';caption.textContent=file.name;
+    figure.append(img,caption);preview.append(figure);
+  }
+};
+csvFile.onchange=async()=>{
+  const preview=document.getElementById('csvPreview'),file=csvFile.files[0];
+  document.getElementById('csvStatus').textContent=file?file.name:'No CSV file selected';
+  preview.hidden=!file;preview.textContent=file?await file.slice(0,16384).text():'';
+};
+</script>
+</body></html>

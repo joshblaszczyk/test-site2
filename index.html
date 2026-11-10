@@ -124,15 +124,12 @@
     .pm-gallery { display:flex; gap:10px; margin:16px 0 16px 16px; padding:14px; border-radius:14px; background:var(--pink-pale); }
     .pm-main { flex:none; width:var(--pm-w); aspect-ratio:.78; display:block; object-fit:contain; background:var(--pink-pale); border:1px solid var(--ink); border-radius:11px; }
     .pm-photo { position:relative; flex:none; }
-    .pm-zoom-open { position:absolute; right:8px; bottom:8px; padding:6px 8px; border:1px solid var(--ink); border-radius:6px; background:var(--white); color:var(--ink); font:700 12px "DM Sans",sans-serif; cursor:pointer; }
+    .pm-main { cursor:zoom-in; touch-action:pan-y; }
     .photo-zoom { position:absolute; inset:0; overflow:hidden; border:1px solid var(--ink); border-radius:11px; background:var(--pink-pale); }
     .photo-zoom[hidden] { display:none; }
-    .photo-zoom-bar { position:absolute; z-index:1; bottom:26px; left:6px; right:6px; display:flex; align-items:center; justify-content:center; gap:4px; }
-    .photo-zoom-bar button { min-width:34px; min-height:34px; border:1px solid var(--ink); border-radius:6px; background:var(--white); color:var(--ink); font:700 14px "DM Sans",sans-serif; cursor:pointer; }
-    .photo-zoom-bar button:disabled { opacity:.6; cursor:default; }
-    .photo-zoom-bar span { padding:4px; border-radius:4px; background:var(--white); font-size:12px; }
-    .photo-zoom-bar .photo-zoom-close { margin-left:auto; padding:0 8px; font-size:13px; }
-    .photo-zoom-view { width:100%; height:100%; overflow:auto; overscroll-behavior:contain; }
+    .photo-zoom-view { width:100%; height:100%; overflow:auto; overscroll-behavior:contain; touch-action:none; cursor:grab; scrollbar-width:none; }
+    .photo-zoom-view::-webkit-scrollbar { display:none; }
+    .photo-zoom-view.dragging { cursor:grabbing; }
     .photo-zoom-view img { display:block; width:var(--zoom-size, 200%); height:var(--zoom-size, 200%); max-width:none; object-fit:contain; }
     .pm-side { flex:0 1 auto; width:var(--pm-sw); min-width:0; height:var(--pm-h); display:flex; flex-direction:column; gap:var(--pm-gap); }
     .pm-thumbs { flex:1 1 0; min-height:0; display:grid; grid-template-columns:repeat(var(--pm-cols), var(--pm-tw)); grid-auto-rows:var(--pm-th); gap:var(--pm-gap); align-content:start; overflow:hidden auto; overscroll-behavior:contain; }
@@ -597,7 +594,7 @@
 
   <dialog class="product-modal" id="productModal" aria-labelledby="pmName">
     <div class="pm">
-      <div class="pm-gallery"><div class="pm-photo"><img class="pm-main" id="pmMain" alt=""><button class="pm-zoom-open" id="pmZoomOpen" type="button">Zoom in +</button><div class="photo-zoom" id="photoZoom" hidden aria-label="Zoomed product photo"><div class="photo-zoom-view" id="zoomView" tabindex="0" aria-label="Zoomed image; scroll to see more"><img id="zoomImage" alt=""></div><div class="photo-zoom-bar"><button id="zoomOut" type="button" aria-label="Zoom out">−</button><span id="zoomLevel" aria-live="polite"></span><button id="zoomIn" type="button" aria-label="Zoom in">+</button><button class="photo-zoom-close" id="zoomClose" type="button">Close</button></div></div></div><div class="pm-side"><div class="pm-thumbs" id="pmThumbs"></div><div class="pm-buy"><p class="pm-buy-price" id="pmBuyPrice"></p><button class="button" type="button" id="pmBuy">Add to cart</button></div></div></div>
+      <div class="pm-gallery"><div class="pm-photo"><img class="pm-main" id="pmMain" alt="" role="button" tabindex="0"><div class="photo-zoom" id="photoZoom" hidden aria-label="Zoomed product photo"><div class="photo-zoom-view" id="zoomView" tabindex="0" aria-label="Product image"><img id="zoomImage" alt=""></div></div></div><div class="pm-side"><div class="pm-thumbs" id="pmThumbs"></div><div class="pm-buy"><p class="pm-buy-price" id="pmBuyPrice"></p><button class="button" type="button" id="pmBuy">Add to cart</button></div></div></div>
       <div class="pm-info">
         <button class="pm-close" type="button" id="pmClose" aria-label="Close" autofocus>×</button>
         <div class="kicker mono" id="pmSub"></div>
@@ -1120,30 +1117,112 @@
       zoomView.scrollLeft = (zoomView.scrollWidth - zoomView.clientWidth) / 2;
       zoomView.scrollTop = (zoomView.scrollHeight - zoomView.clientHeight) / 2;
     }
-    function setZoom(value) {
+    function setZoom(value, point) {
+      const oldZoom = zoom;
+      const rect = zoomView.getBoundingClientRect();
+      const x = point ? point.x - rect.left : zoomView.clientWidth / 2;
+      const y = point ? point.y - rect.top : zoomView.clientHeight / 2;
+      const imageX = (zoomView.scrollLeft + x) / oldZoom;
+      const imageY = (zoomView.scrollTop + y) / oldZoom;
       zoom = Math.max(1, Math.min(4, value));
       zoomImage.style.setProperty('--zoom-size', (zoom * 100) + '%');
-      document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
-      document.getElementById('zoomOut').disabled = zoom === 1;
-      document.getElementById('zoomIn').disabled = zoom === 4;
-      if (!photoZoom.hidden) centerZoom();
+      if (!photoZoom.hidden) {
+        zoomView.scrollLeft = imageX * zoom - x;
+        zoomView.scrollTop = imageY * zoom - y;
+      }
     }
-    function openPhotoZoom(event) {
+    function openPhotoZoom() {
       const main = document.getElementById('pmMain');
       zoomImage.src = main.src;
       zoomImage.alt = main.alt;
       setZoom(2);
       photoZoom.hidden = false;
       centerZoom();
-      document.getElementById('zoomClose').focus();
+      zoomView.focus({ preventScroll: true });
     }
-    document.getElementById('pmZoomOpen').addEventListener('click', openPhotoZoom);
-    document.getElementById('pmMain').addEventListener('dblclick', openPhotoZoom);
-    zoomView.addEventListener('dblclick', () => { photoZoom.hidden = true; document.getElementById('pmZoomOpen').focus(); });
-    document.getElementById('zoomIn').addEventListener('click', () => setZoom(zoom + .5));
-    document.getElementById('zoomOut').addEventListener('click', () => setZoom(zoom - .5));
-    document.getElementById('zoomClose').addEventListener('click', () => { photoZoom.hidden = true; document.getElementById('pmZoomOpen').focus(); });
+    const mainPhoto = document.getElementById('pmMain');
+    let mainPress = null;
+    mainPhoto.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      mainPress = { x: event.clientX, y: event.clientY, time: Date.now(), id: event.pointerId };
+    });
+    mainPhoto.addEventListener('pointerup', event => {
+      if (mainPress && mainPress.id === event.pointerId && Date.now() - mainPress.time < 350 &&
+          Math.hypot(event.clientX - mainPress.x, event.clientY - mainPress.y) <= 5) openPhotoZoom();
+      mainPress = null;
+    });
+    mainPhoto.addEventListener('pointercancel', () => { mainPress = null; });
+    mainPhoto.addEventListener('dragstart', event => event.preventDefault());
+    mainPhoto.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openPhotoZoom(); }
+    });
+    zoomView.addEventListener('keydown', event => {
+      if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); photoZoom.hidden = true; mainPhoto.focus(); }
+      else if (event.key === '+' || event.key === '=') { event.preventDefault(); setZoom(zoom + .5); }
+      else if (event.key === '-') { event.preventDefault(); setZoom(zoom - .5); }
+    });
     modal.addEventListener('close', () => { photoZoom.hidden = true; });
+
+    // A short mouse click changes magnification; movement or a held press pans only.
+    const pointers = new Map();
+    let mouseDrag = null;
+    let pinch = null;
+    function pinchState() {
+      const [a, b] = Array.from(pointers.values());
+      return { distance: Math.hypot(a.x - b.x, a.y - b.y),
+        midpoint: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } };
+    }
+    zoomView.addEventListener('dragstart', event => event.preventDefault());
+    zoomView.addEventListener('contextmenu', event => event.preventDefault());
+    zoomView.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse' && event.button !== 0 && event.button !== 2) return;
+      event.preventDefault();
+      zoomView.setPointerCapture(event.pointerId);
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (event.pointerType === 'mouse') {
+        mouseDrag = { x: event.clientX, y: event.clientY, left: zoomView.scrollLeft,
+          top: zoomView.scrollTop, time: Date.now(), button: event.button, moved: false };
+        if (event.button === 0) zoomView.classList.add('dragging');
+      } else if (pointers.size === 2) {
+        pinch = pinchState();
+      }
+    });
+    zoomView.addEventListener('pointermove', event => {
+      if (!pointers.has(event.pointerId)) return;
+      const previous = pointers.get(event.pointerId);
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (event.pointerType === 'mouse' && mouseDrag) {
+        const dx = event.clientX - mouseDrag.x, dy = event.clientY - mouseDrag.y;
+        if (Math.hypot(dx, dy) > 5) mouseDrag.moved = true;
+        if (mouseDrag.button === 0 && mouseDrag.moved) {
+          zoomView.scrollLeft = mouseDrag.left - dx;
+          zoomView.scrollTop = mouseDrag.top - dy;
+        }
+      } else if (pointers.size === 2 && pinch) {
+        const next = pinchState();
+        if (pinch.distance > 0) setZoom(zoom * next.distance / pinch.distance, pinch.midpoint);
+        zoomView.scrollLeft -= next.midpoint.x - pinch.midpoint.x;
+        zoomView.scrollTop -= next.midpoint.y - pinch.midpoint.y;
+        pinch = next;
+      } else if (pointers.size === 1) {
+        zoomView.scrollLeft -= event.clientX - previous.x;
+        zoomView.scrollTop -= event.clientY - previous.y;
+      }
+    });
+    function endZoomPointer(event) {
+      if (!pointers.has(event.pointerId)) return;
+      pointers.delete(event.pointerId);
+      pinch = null;
+      if (event.pointerType === 'mouse' && mouseDrag) {
+        if (event.type === 'pointerup' && !mouseDrag.moved && Date.now() - mouseDrag.time < 350)
+          setZoom(zoom + (mouseDrag.button === 0 ? .5 : -.5));
+        mouseDrag = null;
+        zoomView.classList.remove('dragging');
+      }
+    }
+    zoomView.addEventListener('pointerup', endZoomPointer);
+    zoomView.addEventListener('pointercancel', endZoomPointer);
+    zoomView.addEventListener('lostpointercapture', endZoomPointer);
 
     // Past six photos the thumbnail block scrolls; widen it by the scrollbar so the photos keep their size.
     const fitThumbScrollbar = () => {

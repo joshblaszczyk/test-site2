@@ -19,3 +19,35 @@
   .division b { font-size: 8px; }
 }
 @media (max-width: 360px) { .division { font-size: 8.5px; letter-spacing: .02em; } .division b { display: none; } }
+
+/* One header look on every page: the ThomKat mark, the name in DM Sans, the warm bar with a thin line, the same
+   link style — exactly like the boutique pages (home, alterations, consign, gallery, policies, rent, suits).
+   Pages that build their own header add class="tk-head" to it; each page keeps its own links. */
+header.tk-head { background: rgba(255, 253, 251, .94); border-bottom: 1px solid #d9ced1; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+header.tk-head .nav, header.tk-head > .wrap { width: min(1180px, calc(100% - 48px)); max-width: none; margin: 0 auto; padding: 0; min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+header.tk-head .brand { display: flex; align-items: center; gap: 11px; color: #171217; text-decoration: none; font: inherit; }
+header.tk-head .brand svg { width: 42px; height: 42px; flex: none; }
+header.tk-head .brand-name { max-width: none; font: 700 15px/1.03 "DM Sans", sans-serif; letter-spacing: .075em; color: #171217; }
+header.tk-head .nav-links { gap: 22px; color: #564c51; font: 600 13px "DM Sans", sans-serif; }
+header.tk-head .xp-btn { font: 600 13px "DM Sans", sans-serif; color: #564c51; }
+header.tk-head .back, header.tk-head .back-link { padding: 0; color: #564c51; font: 600 13px/1.2 "DM Sans", sans-serif; letter-spacing: 0; text-transform: none; text-decoration: none; }
+header.tk-head .back:hover, header.tk-head .back:focus-visible, header.tk-head .back-link:hover, header.tk-head .back-link:focus-visible { color: #b52f62; }
+@media (max-width: 760px) { header.tk-head .nav-links .hide-mobile { display: none; } }
+@media (max-width: 680px) { header.tk-head .nav, header.tk-head > .wrap { width: calc(100% - 34px); min-height: 72px; gap: 14px; } }
+@media (max-width: 520px) {
+  header.tk-head .brand-name { font-size: 14px; letter-spacing: .05em; white-space: nowrap; }
+  header.tk-head .back, header.tk-head .back-link { font-size: 12px; white-space: nowrap; }
+  header.tk-head .nav-links .xp-dd ~ .back-link { display: none; }   /* phones: the Explore menu already lists every page */
+}
+/* The black strip above some headers (shop, divisions, consignor pages): one style everywhere. */
+.announcement, .tk-strip { padding: 10px 17px; color: #fffdfb; background: #171217; text-align: center; font: 10px/1.4 "DM Mono", monospace; letter-spacing: .05em; text-transform: none; }
+
+/* One footer look on every page (the home page's): logo + name like the header, a pink "Explore" label,
+   the links in rows. */
+footer .brand svg { width: 42px; height: 42px; flex: none; }
+footer .brand .brand-name { max-width: none; font: 700 15px/1.03 "DM Sans", sans-serif; letter-spacing: .075em; color: #171217; }
+footer .footer-nav { max-width: 560px; }
+footer .footer-nav .mono { margin: 0 0 14px; color: #b52f62; font: 400 11px "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+footer .footer-links { display: flex; flex-wrap: wrap; gap: 11px 26px; font-size: 12px; }
+footer .footer-links a { color: #564c51; }
+footer .footer-links a:hover, footer .footer-links a:focus-visible { color: #b52f62; }

@@ -394,12 +394,16 @@
     try {
       const { result } = await api('admin/consignors/import', { method: 'POST', body: { ...pending, apply } });
       const rows = result.consignors.map(c => el('tr', {}, el('td', {}, c.number), el('td', {}, c.name), el('td', {}, c.new ? 'new' : 'update'),
-        el('td', {}, `${c.items_new} new, ${c.items_known} known`), el('td', {}, String(c.sales)), el('td', {}, c.contract_expires ? day(c.contract_expires) : '—')));
+        el('td', {}, `${c.items_new} new, ${c.items_known} known`), el('td', {}, String(c.sales)),
+        // From her "Ladies Room" column: =SUM(H6*0.6) keeps 60% for the store, so the consignor gets 40%.
+        el('td', { title: c.split_pct != null ? `Her “Ladies Room” column keeps ${100 - c.split_pct}% for the store` : 'No “Ladies Room” formula found: the consignor’s current split stays' },
+          c.split_pct != null ? `${c.split_pct}% / ${100 - c.split_pct}%` : 'unchanged'),
+        el('td', {}, c.contract_expires ? day(c.contract_expires) : '—')));
       box.replaceChildren(...[   // (replaceChildren would print a null as the word "null")
         el('div', { class: 'bar' }, el('h2', {}, apply ? 'Imported' : `Import “${pending.name}”?`), el('button', { class: 'link', type: 'button', onclick: () => { box.hidden = true; } }, 'Close')),
         el('p', { class: 'muted' }, apply ? 'Done. Consignors and pieces are saved; you can change anything here from now on.'
           : 'This is what the website found. Nothing is saved until you press Import. Running it again later only adds what is new.'),
-        el('div', { class: 'scroll-x' }, el('table', { class: 'table' }, el('thead', {}, el('tr', {}, ['Number', 'Name', '', 'Pieces', 'Sold', 'Contract ends'].map(h => el('th', {}, h)))), el('tbody', {}, rows))),
+        el('div', { class: 'scroll-x' }, el('table', { class: 'table' }, el('thead', {}, el('tr', {}, ['Number', 'Name', '', 'Pieces', 'Sold', 'Split (them / store)', 'Contract ends'].map(h => el('th', {}, h)))), el('tbody', {}, rows))),
         result.warnings.length ? el('details', { open: true }, el('summary', {}, `${result.warnings.length} note(s)`), el('ul', {}, result.warnings.map(w => el('li', {}, w)))) : null,
         apply ? null : el('div', { class: 'row' }, el('button', { class: 'btn small', type: 'button', onclick: () => runImport(true) }, `Import ${result.consignors.length} consignor(s)`)),
         // Next step after an import: review their pieces and put them on the website (Weekly uploads → Put on website).

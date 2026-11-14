@@ -75,6 +75,19 @@
     csrf = null;
     showLogin();
   });
+  // Forgot password: the shop emails a one-time reset link to the boutique's own address.
+  $('forgot').addEventListener('click', async () => {
+    flash('loginError', '');
+    $('forgot').disabled = true;
+    try {
+      const data = await api('admin/forgot', { method: 'POST', body: {} });
+      flash('forgotMsg', `We emailed a reset link to ${data.sent_to}. It works once, for 30 minutes.`, 'info');
+    } catch (error) {
+      flash('forgotMsg', error.message, 'error');
+    } finally {
+      $('forgot').disabled = false;
+    }
+  });
 
   async function showApp() {
     $('login').hidden = true;

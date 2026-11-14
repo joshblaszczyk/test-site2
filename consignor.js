@@ -400,7 +400,7 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
       el('label', { for: 'cemail' }, 'Your email'), email,
       el('label', { style: 'display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;margin-top:14px' }, rem, 'Keep me signed in on this device'),
       err, btn,
-      el('p', { class: 'hint' }, 'Your contract number is on your 2026 Consignment Contract. Can’t find it? Call the boutique and we’ll help.'));
+      el('p', { class: 'hint' }, 'Your contract number is on your 2026 Consignment Contract. Can’t find it? We can email you a sign-in link instead (below).'));
     form.addEventListener('submit', ev => {
       ev.preventDefault(); err.textContent = '';
       if (!name.value.trim() && !email.value.trim()) { err.textContent = 'Please enter your name or your email.'; return; } btn.disabled = true; btn.textContent = 'Checking…';
@@ -410,9 +410,26 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
         .then(({ ok, d }) => { if (ok && d.ok) render(d); else { err.textContent = d.error || 'We couldn’t find that account.'; btn.disabled = false; btn.textContent = 'View my account'; } })
         .catch(() => { if (location.port !== '8446' && /ts\.net$/.test(location.hostname)) { location.replace('https://' + location.hostname + ':8446/consignor.html'); return; } err.textContent = 'We couldn’t reach the shop. Please try again.'; btn.disabled = false; btn.textContent = 'View my account'; });
     });
+    // No contract number handy: a one-time sign-in link to the email on the agreement.
+    const linkEmail = el('input', { id: 'lemail', name: 'email', type: 'email', autocomplete: 'email', required: true, placeholder: 'you@example.com' });
+    const linkMsg = el('p', { class: 'linkmsg', role: 'status', 'aria-live': 'polite' });
+    const linkBtn = el('button', { type: 'submit' }, 'Email me a sign-in link');
+    const linkForm = el('form', { class: 'loginbox linkbox' },
+      el('label', { for: 'lemail' }, 'Sign in by email'),
+      el('p', { class: 'hint' }, 'Enter the email on your consignment agreement and we’ll send you a link that signs you in.'),
+      linkEmail, linkMsg, linkBtn);
+    linkForm.addEventListener('submit', ev => {
+      ev.preventDefault(); linkMsg.textContent = ''; linkMsg.className = 'linkmsg'; linkBtn.disabled = true; linkBtn.textContent = 'Sending…';
+      fetch('shop/api/consignor/email-link', { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, cache: 'no-store', credentials: 'same-origin',
+        body: JSON.stringify({ email: linkEmail.value }) })
+        .then(r => r.json().then(d => ({ ok: r.ok, d })))
+        .then(({ ok, d }) => { const good = ok && d.ok; linkMsg.className = good ? 'linkmsg' : 'linkmsg err'; linkMsg.textContent = good ? d.message : (d.error || 'We couldn’t send the link. Please call the boutique.'); })
+        .catch(() => { linkMsg.className = 'linkmsg err'; linkMsg.textContent = 'We couldn’t reach the shop. Please try again.'; })
+        .finally(() => { linkBtn.disabled = false; linkBtn.textContent = 'Email me a sign-in link'; });
+    });
     main.replaceChildren(el('div', { class: 'intro' }, el('div', {}, el('div', { class: 'eyebrow' }, 'Consignor login'),
       el('h1', {}, 'Your consignment ', el('em', {}, 'at a glance.')),
-      el('p', {}, 'Enter your contract number and your name or email to see your pieces, what has sold, your cut of each sale, and the checks we’ve sent.'))), form);
+      el('p', {}, 'Enter your contract number and your name or email to see your pieces, what has sold, your cut of each sale, and the checks we’ve sent.'))), form, linkForm);
     name.focus();
   }
 
@@ -421,6 +438,17 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
     ev.preventDefault();
     fetch('shop/api/consignor/logout', { method: 'POST', credentials: 'same-origin' }).finally(() => { history.replaceState(null, '', location.pathname); loginForm(); });
   });
+  // The emailed sign-in link (consignor.html#login=…): works once, then this device stays signed in.
+  const loginKey = (new URLSearchParams(location.hash.slice(1))).get('login') || '';
+  if (loginKey) {
+    history.replaceState(null, '', location.pathname);
+    fetch('shop/api/consignor/link-login', { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, cache: 'no-store', credentials: 'same-origin',
+      body: JSON.stringify({ key: loginKey }) })
+      .then(r => r.json().then(d => ({ ok: r.ok, d })))
+      .then(({ ok, d }) => { if (ok && d.ok) render(d); else loginForm(d.error || 'This sign-in link no longer works. You can ask for a new one below.'); })
+      .catch(() => loginForm('We couldn’t reach the shop. Please try again.'));
+    return;
+  }
   if (!key) {
     fetch('shop/api/consignor/session', { headers: { Accept: 'application/json' }, cache: 'no-store', credentials: 'same-origin' })
       .then(r => r.json().then(d => ({ ok: r.ok, d })))

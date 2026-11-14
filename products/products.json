@@ -1,6 +1,85 @@
 {
-  "updated": "2026-11-14T01:23:02+00:00",
+  "updated": "2026-11-14T07:17:56+00:00",
   "products": [
+    {
+      "sku": "BO240879",
+      "name": "Jones New York Women Genuine Black-brown Leather Collarless Zipper-Front Jacket Size S",
+      "regular_price": 79.99,
+      "sale_price": null,
+      "price": 79.99,
+      "price_text": "$79.99",
+      "regular_text": "",
+      "color": "Brown",
+      "color_filter": "brown",
+      "color_filter_label": "Brown",
+      "size": "",
+      "sub": "Brown",
+      "badge": "",
+      "item_number": "BO240879",
+      "specs": [
+        [
+          "Condition",
+          "In Great condition from non smoking home - New w original tags"
+        ],
+        [
+          "Color",
+          "Brown"
+        ]
+      ],
+      "details": [
+        "Collarless",
+        "Zipper Front",
+        "Long Sleeve",
+        "Lining",
+        "Peplum Waist line",
+        "Shoulder: 16\"",
+        "Sleeve: 30\"",
+        "Bust: 38\"",
+        "Length: 22\"",
+        "Your satisfaction is our #1 Concern. All our clothing is in good condition, but as most of our clothing is pre-owned, they show normal signs of wear or are in l"
+      ],
+      "categories": [
+        [
+          "Coats and Jackets",
+          "Jackets"
+        ]
+      ],
+      "tags": [],
+      "stock": 1,
+      "shipping_class": "USPS",
+      "weight_lb": 2.0,
+      "length_in": 15.0,
+      "width_in": 11.0,
+      "height_in": 3.0,
+      "images": [
+        {
+          "source": "added in the admin",
+          "lg": "products/img/bo240879a-lg.jpg",
+          "lg_w": 1600,
+          "lg_h": 1600,
+          "card": "products/img/bo240879a-card.jpg",
+          "card_w": 800,
+          "card_h": 800,
+          "thumb": "products/img/bo240879a-thumb.jpg",
+          "thumb_w": 240,
+          "thumb_h": 240,
+          "w": 1600,
+          "h": 1600
+        }
+      ],
+      "source": "admin",
+      "added_at": "2026-11-14T02:54:58Z",
+      "main_category": "Coats and Jackets",
+      "sub_category": "Jackets",
+      "her_category": [
+        "Coats and Jackets",
+        "Jackets"
+      ],
+      "category_source": "owner",
+      "location": "",
+      "search": "jones new york women genuine black-brown leather collarless zipper-front jacket size s bo240879 brown in great condition from non smoking home - w original tags zipper front long sleeve lining peplum waist line shoulder: 16\" sleeve: 30\" bust: 38\" length: 22\" your satisfaction is our #1 concern. all clothing good condition, but as most of pre-owned, they show normal signs wear or are l coats and jackets jone tag sign coat",
+      "vintage": false
+    },
     {
       "sku": "eb287728140192",
       "name": "Boyne Valley Weavers Handcrafted Women's Plaid Wool Shawl Wrap w/ Fringe Unisize",
@@ -78572,6 +78651,163 @@
       "vintage": true
     },
     {
+      "sku": "eb287559379965",
+      "name": "Gloria Vanderbilt Vintage Woman's Faded Charcoal Gray Denim Jeans Size 16",
+      "regular_price": 19.0,
+      "sale_price": null,
+      "price": 19.0,
+      "price_text": "$19.00",
+      "regular_text": "",
+      "color": "Gray",
+      "color_filter": "gray",
+      "color_filter_label": "Gray",
+      "size": "16",
+      "sub": "Gray cotton blend · Size 16",
+      "badge": "Size 16",
+      "item_number": "OE21811",
+      "specs": [
+        [
+          "Brand",
+          "Gloria Vanderbilt"
+        ],
+        [
+          "Type",
+          "Pants"
+        ],
+        [
+          "Style",
+          "Chino"
+        ],
+        [
+          "Color",
+          "Gray"
+        ],
+        [
+          "Material",
+          "Cotton Blend"
+        ],
+        [
+          "Size",
+          "16"
+        ],
+        [
+          "Size Type",
+          "Regular"
+        ],
+        [
+          "Waist Size",
+          "36 in"
+        ],
+        [
+          "Inseam",
+          "30 in"
+        ],
+        [
+          "Rise",
+          "High (Greater than 10.5 in)"
+        ],
+        [
+          "Condition",
+          "Pre-owned - Excellent"
+        ]
+      ],
+      "details": [
+        "This product is a pair of Gloria Vanderbilt Vintage Woman's Faded Charcoal Gray Denim Jeans in size 16. These jeans feature a high rise with a 30-inch inseam and a regular fit. They are made from a cotton blend denim fabric with stretch for added comfort and flexibility. The pants also have pockets and a flat front design with a zip and button closure. These versatile jeans are suitable for various occasions throughout the seasons of winter, summer, fall, and spring. Perfect for casual wear, these vintage jeans from Gloria Vanderbilt offer both style and comfort for the modern woman.",
+        "Ware Aug 26 -",
+        "In great condition from nonsmoking home",
+        "Button & Zipper Closure",
+        "Belt loops",
+        "5 Standard Pockets",
+        "#80sfashion #90sfashion",
+        "\"Your satisfaction is our #1 Concern. All our clothing is in good condition, but as most of our clothing is pre-owned, they show normal signs of wear or are in like new condition. We do look over each piece but may inevitably overlook things. If you have received your item(s) and find that there is missing information such as a defect, please contact us as soon as possible.”"
+      ],
+      "categories": [
+        [
+          "Clothing",
+          "Pants & Skirts"
+        ]
+      ],
+      "tags": [
+        "Pants & Skirts",
+        "Gloria Vanderbilt",
+        "vintage"
+      ],
+      "stock": 1,
+      "shipping_class": "USPS",
+      "images": [
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/3RkAAeSwuTdqhNT6/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/3RkAAeSwuTdqhNT6/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/3RkAAeSwuTdqhNT6/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        },
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/6GgAAeSwFh9qhNT-/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/6GgAAeSwFh9qhNT-/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/6GgAAeSwFh9qhNT-/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        },
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/oNgAAeSw6xpqhNT-/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/oNgAAeSw6xpqhNT-/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/oNgAAeSw6xpqhNT-/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        },
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/9GIAAeSwaONqhNT-/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/9GIAAeSwaONqhNT-/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/9GIAAeSwaONqhNT-/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        }
+      ],
+      "weight_lb": 1.5,
+      "length_in": 13,
+      "width_in": 10,
+      "height_in": 2,
+      "source": "ebay",
+      "ebay_item_id": "287559379965",
+      "ebay_url": "https://www.ebay.com/itm/287559379965",
+      "ebay_listed_at": "2026-09-02T00:07:15.000Z",
+      "ebay_category": "Clothing, Shoes & Accessories|Women|Women's Clothing|Pants",
+      "search": "gloria vanderbilt vintage woman's faded charcoal gray denim jeans size 16 eb287559379965 oe21811 cotton blend · pants chino regular 36 in 30 high (greater than 10.5 in) pre-owned - excellent this product is a pair of 16. these feature rise with 30-inch inseam and fit. they are made from fabric stretch for added comfort flexibility. the also have pockets flat front design zip button closure. versatile suitable various occasions throughout seasons winter, summer, fall, spring. perfect casual wear, offer both style modern woman. ware aug 26 great condition nonsmoking home & zipper closure belt loops 5 standard #80sfashion #90sfashion \"your satisfaction our #1 concern. all clothing good condition, but as most pre-owned, show normal signs wear or like new condition. we do look over each piece may inevitably overlook things. if you received your item(s) find that there missing information such defect, please contact us soon possible.” skirts woman' jean pant thi pocket variou occasion season loop sign skirt",
+      "ebay_seller": "shopattheladiesroom2",
+      "main_category": "Bottoms",
+      "sub_category": "Jeans",
+      "vintage": true
+    },
+    {
       "sku": "eb287559379963",
       "name": "Josephine Chaus Vintage Brown Long Sleeve Blazer Size 14",
       "regular_price": 26.0,
@@ -78746,163 +78982,6 @@
       "ebay_seller": "shopattheladiesroom2",
       "main_category": "Suits",
       "sub_category": "Blazer Only",
-      "vintage": true
-    },
-    {
-      "sku": "eb287559379965",
-      "name": "Gloria Vanderbilt Vintage Woman's Faded Charcoal Gray Denim Jeans Size 16",
-      "regular_price": 19.0,
-      "sale_price": null,
-      "price": 19.0,
-      "price_text": "$19.00",
-      "regular_text": "",
-      "color": "Gray",
-      "color_filter": "gray",
-      "color_filter_label": "Gray",
-      "size": "16",
-      "sub": "Gray cotton blend · Size 16",
-      "badge": "Size 16",
-      "item_number": "OE21811",
-      "specs": [
-        [
-          "Brand",
-          "Gloria Vanderbilt"
-        ],
-        [
-          "Type",
-          "Pants"
-        ],
-        [
-          "Style",
-          "Chino"
-        ],
-        [
-          "Color",
-          "Gray"
-        ],
-        [
-          "Material",
-          "Cotton Blend"
-        ],
-        [
-          "Size",
-          "16"
-        ],
-        [
-          "Size Type",
-          "Regular"
-        ],
-        [
-          "Waist Size",
-          "36 in"
-        ],
-        [
-          "Inseam",
-          "30 in"
-        ],
-        [
-          "Rise",
-          "High (Greater than 10.5 in)"
-        ],
-        [
-          "Condition",
-          "Pre-owned - Excellent"
-        ]
-      ],
-      "details": [
-        "This product is a pair of Gloria Vanderbilt Vintage Woman's Faded Charcoal Gray Denim Jeans in size 16. These jeans feature a high rise with a 30-inch inseam and a regular fit. They are made from a cotton blend denim fabric with stretch for added comfort and flexibility. The pants also have pockets and a flat front design with a zip and button closure. These versatile jeans are suitable for various occasions throughout the seasons of winter, summer, fall, and spring. Perfect for casual wear, these vintage jeans from Gloria Vanderbilt offer both style and comfort for the modern woman.",
-        "Ware Aug 26 -",
-        "In great condition from nonsmoking home",
-        "Button & Zipper Closure",
-        "Belt loops",
-        "5 Standard Pockets",
-        "#80sfashion #90sfashion",
-        "\"Your satisfaction is our #1 Concern. All our clothing is in good condition, but as most of our clothing is pre-owned, they show normal signs of wear or are in like new condition. We do look over each piece but may inevitably overlook things. If you have received your item(s) and find that there is missing information such as a defect, please contact us as soon as possible.”"
-      ],
-      "categories": [
-        [
-          "Clothing",
-          "Pants & Skirts"
-        ]
-      ],
-      "tags": [
-        "Pants & Skirts",
-        "Gloria Vanderbilt",
-        "vintage"
-      ],
-      "stock": 1,
-      "shipping_class": "USPS",
-      "images": [
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/3RkAAeSwuTdqhNT6/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/3RkAAeSwuTdqhNT6/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/3RkAAeSwuTdqhNT6/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        },
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/6GgAAeSwFh9qhNT-/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/6GgAAeSwFh9qhNT-/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/6GgAAeSwFh9qhNT-/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        },
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/oNgAAeSw6xpqhNT-/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/oNgAAeSw6xpqhNT-/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/oNgAAeSw6xpqhNT-/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        },
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/9GIAAeSwaONqhNT-/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/9GIAAeSwaONqhNT-/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/9GIAAeSwaONqhNT-/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        }
-      ],
-      "weight_lb": 1.5,
-      "length_in": 13,
-      "width_in": 10,
-      "height_in": 2,
-      "source": "ebay",
-      "ebay_item_id": "287559379965",
-      "ebay_url": "https://www.ebay.com/itm/287559379965",
-      "ebay_listed_at": "2026-09-02T00:07:15.000Z",
-      "ebay_category": "Clothing, Shoes & Accessories|Women|Women's Clothing|Pants",
-      "search": "gloria vanderbilt vintage woman's faded charcoal gray denim jeans size 16 eb287559379965 oe21811 cotton blend · pants chino regular 36 in 30 high (greater than 10.5 in) pre-owned - excellent this product is a pair of 16. these feature rise with 30-inch inseam and fit. they are made from fabric stretch for added comfort flexibility. the also have pockets flat front design zip button closure. versatile suitable various occasions throughout seasons winter, summer, fall, spring. perfect casual wear, offer both style modern woman. ware aug 26 great condition nonsmoking home & zipper closure belt loops 5 standard #80sfashion #90sfashion \"your satisfaction our #1 concern. all clothing good condition, but as most pre-owned, show normal signs wear or like new condition. we do look over each piece may inevitably overlook things. if you received your item(s) find that there missing information such defect, please contact us soon possible.” skirts woman' jean pant thi pocket variou occasion season loop sign skirt",
-      "ebay_seller": "shopattheladiesroom2",
-      "main_category": "Bottoms",
-      "sub_category": "Jeans",
       "vintage": true
     },
     {
@@ -83806,6 +83885,157 @@
       "vintage": true
     },
     {
+      "sku": "eb287559376143",
+      "name": "Dunia Blue And Purple Tie-Dye Vintage Womens Long Sleeve Top Size XL",
+      "regular_price": 19.0,
+      "sale_price": null,
+      "price": 19.0,
+      "price_text": "$19.00",
+      "regular_text": "",
+      "color": "Multicolor",
+      "color_filter": "multicolor",
+      "color_filter_label": "Multicolor",
+      "size": "XL",
+      "sub": "Multicolor 100% cotton · Size XL",
+      "badge": "Size XL",
+      "item_number": "GMW241498",
+      "specs": [
+        [
+          "Brand",
+          "Dunia"
+        ],
+        [
+          "Type",
+          "Top"
+        ],
+        [
+          "Style",
+          "Basic"
+        ],
+        [
+          "Color",
+          "Multicolor"
+        ],
+        [
+          "Material",
+          "100% Cotton"
+        ],
+        [
+          "Size",
+          "XL"
+        ],
+        [
+          "Size Type",
+          "Regular"
+        ],
+        [
+          "Sleeve Length",
+          "Long Sleeve"
+        ],
+        [
+          "Condition",
+          "Pre-owned - Excellent"
+        ]
+      ],
+      "details": [
+        "The Dunia Blue and Purple Tie-Dye Vintage Women's Long Sleeve Top in size XL is a stylish and comfortable addition to any wardrobe. Made from 100% cotton, this top features a solid pattern with a multicolor tie-dye design. The pullover style and round neckline make it easy to throw on for casual occasions during the winter, fall, or spring seasons. With its regular fit and long sleeves, this basic top from the Dunia brand is perfect for women looking for a trendy yet versatile piece to wear.",
+        "Ware July 26 -",
+        "Pre-Owned from non-smoking home",
+        "Tie-Dye Round Collar Top",
+        "Long Sleeve",
+        "Bust: 44\"",
+        "Length: 24\"",
+        "Sleeves: 26\"",
+        "#80sfashion #90sfashion",
+        "Please email us to inquire about prices for:",
+        "Your satisfaction is our #1 Concern. All our clothing is in good condition, but as most of our clothing is pre-owned, they show normal signs of wear or are in like new condition. We do look over each piece but may inevitably overlook things. If you have received your item(s) and find that there is missing information such as a defect, please contact us as soon as possible."
+      ],
+      "categories": [
+        [
+          "Clothing",
+          "Tops & Sweaters"
+        ]
+      ],
+      "tags": [
+        "Tops & Sweaters",
+        "Dunia"
+      ],
+      "stock": 1,
+      "shipping_class": "USPS",
+      "images": [
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/10cAAeSw0ZZqaoIi/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/10cAAeSw0ZZqaoIi/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/10cAAeSw0ZZqaoIi/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        },
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/mg0AAeSwZlJqaoIm/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/mg0AAeSwZlJqaoIm/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/mg0AAeSwZlJqaoIm/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        },
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/kRsAAeSwNRxqaoIq/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/kRsAAeSwNRxqaoIq/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/kRsAAeSwNRxqaoIq/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        },
+        {
+          "source": "ebay",
+          "w": 1200,
+          "h": 1600,
+          "lg": "https://i.ebayimg.com/images/g/u2YAAeSwPpdqaoIt/s-l1600.jpg",
+          "lg_w": 1200,
+          "lg_h": 1600,
+          "card": "https://i.ebayimg.com/images/g/u2YAAeSwPpdqaoIt/s-l800.jpg",
+          "card_w": 600,
+          "card_h": 800,
+          "thumb": "https://i.ebayimg.com/images/g/u2YAAeSwPpdqaoIt/s-l225.jpg",
+          "thumb_w": 169,
+          "thumb_h": 225
+        }
+      ],
+      "weight_lb": 1.0,
+      "length_in": 12,
+      "width_in": 10,
+      "height_in": 2,
+      "source": "ebay",
+      "ebay_item_id": "287559376143",
+      "ebay_url": "https://www.ebay.com/itm/287559376143",
+      "ebay_listed_at": "2026-09-02T00:04:23.000Z",
+      "ebay_category": "Clothing, Shoes & Accessories|Women|Women's Clothing|Tops",
+      "search": "dunia blue and purple tie-dye vintage womens long sleeve top size xl eb287559376143 gmw241498 multicolor 100% cotton · basic regular pre-owned - excellent the women's in is a stylish comfortable addition to any wardrobe. made from cotton, this features solid pattern with design. pullover style round neckline make it easy throw on for casual occasions during winter, fall, or spring seasons. its fit sleeves, brand perfect women looking trendy yet versatile piece wear. ware july 26 non-smoking home collar bust: 44\" length: 24\" sleeves: 26\" #80sfashion #90sfashion please email us inquire about prices for: your satisfaction our #1 concern. all clothing good condition, but as most of pre-owned, they show normal signs wear are like new condition. we do look over each may inevitably overlook things. if you have received item(s) find that there missing information such defect, contact soon possible. tops & sweaters women' thi feature occasion price sign sweater",
+      "ebay_seller": "shopattheladiesroom2",
+      "main_category": "Tops",
+      "sub_category": "Long Sleeves",
+      "vintage": true
+    },
+    {
       "sku": "eb287559376144",
       "name": "Conditions Apply Vintage Silk Blend Retro Peasant Blouse V Neck w/ Choker Size S",
       "regular_price": 50.0,
@@ -83965,157 +84195,6 @@
       "ebay_listed_at": "2026-09-02T00:04:23.000Z",
       "ebay_category": "Clothing, Shoes & Accessories|Women|Women's Clothing|Tops",
       "search": "conditions apply vintage silk blend retro peasant blouse v neck w/ choker size s eb287559376144 mbw26000 multicolor viscose · basic regular long sleeve pre-owned - excellent this features a v-neck with detail, making it perfect for both party/cocktail and casual occasions. the houndstooth pattern, sleeves, design add touch of sophistication to lightweight blouse, which is ideal summer spring seasons. made from satin fabric, brand offers fit style, versatile addition any woman's wardrobe. ware july 26 non-smoking home multi color vertical pattern purple, red, & green stripes blue patterned background pull over bust: 48\" length: 25\" sleeve: 24\" #80sfashion #90sfashion please email us inquire about prices for: your satisfaction our #1 concern. all clothing in good condition, but as most pre-owned, they show normal signs wear or are like new condition. we do look each piece may inevitably overlook things. if you have received item(s) find that there missing information such defect, contact soon possible. tops sweaters condition thi feature offer woman' stripe price sign top sweater",
-      "ebay_seller": "shopattheladiesroom2",
-      "main_category": "Tops",
-      "sub_category": "Long Sleeves",
-      "vintage": true
-    },
-    {
-      "sku": "eb287559376143",
-      "name": "Dunia Blue And Purple Tie-Dye Vintage Womens Long Sleeve Top Size XL",
-      "regular_price": 19.0,
-      "sale_price": null,
-      "price": 19.0,
-      "price_text": "$19.00",
-      "regular_text": "",
-      "color": "Multicolor",
-      "color_filter": "multicolor",
-      "color_filter_label": "Multicolor",
-      "size": "XL",
-      "sub": "Multicolor 100% cotton · Size XL",
-      "badge": "Size XL",
-      "item_number": "GMW241498",
-      "specs": [
-        [
-          "Brand",
-          "Dunia"
-        ],
-        [
-          "Type",
-          "Top"
-        ],
-        [
-          "Style",
-          "Basic"
-        ],
-        [
-          "Color",
-          "Multicolor"
-        ],
-        [
-          "Material",
-          "100% Cotton"
-        ],
-        [
-          "Size",
-          "XL"
-        ],
-        [
-          "Size Type",
-          "Regular"
-        ],
-        [
-          "Sleeve Length",
-          "Long Sleeve"
-        ],
-        [
-          "Condition",
-          "Pre-owned - Excellent"
-        ]
-      ],
-      "details": [
-        "The Dunia Blue and Purple Tie-Dye Vintage Women's Long Sleeve Top in size XL is a stylish and comfortable addition to any wardrobe. Made from 100% cotton, this top features a solid pattern with a multicolor tie-dye design. The pullover style and round neckline make it easy to throw on for casual occasions during the winter, fall, or spring seasons. With its regular fit and long sleeves, this basic top from the Dunia brand is perfect for women looking for a trendy yet versatile piece to wear.",
-        "Ware July 26 -",
-        "Pre-Owned from non-smoking home",
-        "Tie-Dye Round Collar Top",
-        "Long Sleeve",
-        "Bust: 44\"",
-        "Length: 24\"",
-        "Sleeves: 26\"",
-        "#80sfashion #90sfashion",
-        "Please email us to inquire about prices for:",
-        "Your satisfaction is our #1 Concern. All our clothing is in good condition, but as most of our clothing is pre-owned, they show normal signs of wear or are in like new condition. We do look over each piece but may inevitably overlook things. If you have received your item(s) and find that there is missing information such as a defect, please contact us as soon as possible."
-      ],
-      "categories": [
-        [
-          "Clothing",
-          "Tops & Sweaters"
-        ]
-      ],
-      "tags": [
-        "Tops & Sweaters",
-        "Dunia"
-      ],
-      "stock": 1,
-      "shipping_class": "USPS",
-      "images": [
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/10cAAeSw0ZZqaoIi/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/10cAAeSw0ZZqaoIi/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/10cAAeSw0ZZqaoIi/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        },
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/mg0AAeSwZlJqaoIm/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/mg0AAeSwZlJqaoIm/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/mg0AAeSwZlJqaoIm/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        },
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/kRsAAeSwNRxqaoIq/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/kRsAAeSwNRxqaoIq/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/kRsAAeSwNRxqaoIq/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        },
-        {
-          "source": "ebay",
-          "w": 1200,
-          "h": 1600,
-          "lg": "https://i.ebayimg.com/images/g/u2YAAeSwPpdqaoIt/s-l1600.jpg",
-          "lg_w": 1200,
-          "lg_h": 1600,
-          "card": "https://i.ebayimg.com/images/g/u2YAAeSwPpdqaoIt/s-l800.jpg",
-          "card_w": 600,
-          "card_h": 800,
-          "thumb": "https://i.ebayimg.com/images/g/u2YAAeSwPpdqaoIt/s-l225.jpg",
-          "thumb_w": 169,
-          "thumb_h": 225
-        }
-      ],
-      "weight_lb": 1.0,
-      "length_in": 12,
-      "width_in": 10,
-      "height_in": 2,
-      "source": "ebay",
-      "ebay_item_id": "287559376143",
-      "ebay_url": "https://www.ebay.com/itm/287559376143",
-      "ebay_listed_at": "2026-09-02T00:04:23.000Z",
-      "ebay_category": "Clothing, Shoes & Accessories|Women|Women's Clothing|Tops",
-      "search": "dunia blue and purple tie-dye vintage womens long sleeve top size xl eb287559376143 gmw241498 multicolor 100% cotton · basic regular pre-owned - excellent the women's in is a stylish comfortable addition to any wardrobe. made from cotton, this features solid pattern with design. pullover style round neckline make it easy throw on for casual occasions during winter, fall, or spring seasons. its fit sleeves, brand perfect women looking trendy yet versatile piece wear. ware july 26 non-smoking home collar bust: 44\" length: 24\" sleeves: 26\" #80sfashion #90sfashion please email us inquire about prices for: your satisfaction our #1 concern. all clothing good condition, but as most of pre-owned, they show normal signs wear are like new condition. we do look over each may inevitably overlook things. if you have received item(s) find that there missing information such defect, contact soon possible. tops & sweaters women' thi feature occasion price sign sweater",
       "ebay_seller": "shopattheladiesroom2",
       "main_category": "Tops",
       "sub_category": "Long Sleeves",
@@ -228545,37 +228624,9 @@
           "thumb": "products/img/jf21733c-thumb.jpg",
           "thumb_w": 180,
           "thumb_h": 240
-        },
-        {
-          "source": "je21889d.JPG",
-          "w": 1641,
-          "h": 2244,
-          "lg": "products/img/jf21733-je21889d-lg.jpg",
-          "lg_w": 1170,
-          "lg_h": 1600,
-          "card": "products/img/jf21733-je21889d-card.jpg",
-          "card_w": 585,
-          "card_h": 800,
-          "thumb": "products/img/jf21733-je21889d-thumb.jpg",
-          "thumb_w": 176,
-          "thumb_h": 240
-        },
-        {
-          "source": "je21889e.JPG",
-          "w": 2281,
-          "h": 1775,
-          "lg": "products/img/jf21733-je21889e-lg.jpg",
-          "lg_w": 1600,
-          "lg_h": 1245,
-          "card": "products/img/jf21733-je21889e-card.jpg",
-          "card_w": 800,
-          "card_h": 623,
-          "thumb": "products/img/jf21733-je21889e-thumb.jpg",
-          "thumb_w": 240,
-          "thumb_h": 187
         }
       ],
-      "search": "style midnight velvet womens vintage 90's suit top 2pc black, multi-color accents size 1x jf21733 ware mar 24_jf21733 black made in america 70% rayon 14% polyester cotton 2% spandex · great condition from nonsmoking home top: over coat no closure long sleeve 1 front pocket shoulder pads 2: tank elastic back flowy clothing suits corner women skirt 90' accent pad multi-colors pant suit",
+      "search": "style midnight velvet womens vintage 90's suit top 2pc black, multi-color accents size 1x jf21733 ware mar 24_jf21733 black made in america 70% rayon 14% polyester cotton 2% spandex · great condition from nonsmoking home top: over coat no closure long sleeve 1 front pocket shoulder pads 2: tank elastic back flowy clothing suits corner women skirt multi-colors 90' accent pad",
       "source": "woo",
       "source_sheet": "05_SUITS_02/02-24-2024/wc-product-Suits_3_13.csv",
       "main_category": "Suits",

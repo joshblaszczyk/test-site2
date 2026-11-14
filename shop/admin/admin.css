@@ -206,3 +206,7 @@ fieldset.keys legend { font-weight: 700; padding: 0 6px; }
 /* keys.html#card-…: the card the Start here page sent her to */
 .key-card.flash { outline: 3px solid var(--pink); outline-offset: 3px; }
 #orderDetail { scroll-margin-top: 110px; }
+
+/* Forgot password (sign-in card) and the reset page. */
+.forgot-row { margin: 14px 0 0; text-align: center; font-size: 14px; }
+.reset-page .login-card .hint { margin: 0 0 14px; color: var(--muted, #766c72); font-size: 14px; line-height: 1.5; }

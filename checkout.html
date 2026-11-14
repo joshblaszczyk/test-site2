@@ -82,7 +82,8 @@
       aside.summary { position: static; order: -1; margin-bottom: 22px; }
       .grid { grid-template-columns: 1fr; }
     }
-  </style>
+  .policy-links{flex-wrap:wrap;gap:4px}.policy-links a{color:inherit;text-underline-offset:2px}
+</style>
   <link rel="stylesheet" href="divisions.css">
 </head>
 <body>
@@ -166,6 +167,7 @@
           <p class="msg error" id="payError" role="alert" hidden></p>
           <p class="msg info" id="payStatus" role="status" hidden></p>
           <p class="secure"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout · Questions? Call 630.615.0640</p>
+          <p class="secure policy-links">All sales are final. <a href="policies.html#returns">Purchase policy</a> · <a href="policies.html#shipping">Shipping</a> · <a href="policies.html#privacy">Privacy</a></p>
         </section>
       </div>
 
@@ -182,6 +184,7 @@
     </div>
   </main>
   <script src="shop/demo-api.js"></script>
+  <script src="shop/demo-admin-api.js"></script>
   <script src="shop/checkout.js"></script>
 </body>
 </html>

@@ -347,6 +347,10 @@
       show('offline', true);
       return;
     }
+    if (config.checkout_open === false) {   // the site is live, online payments are not switched on yet
+      message('offline', `Online checkout opens soon. To buy these pieces now, call the boutique at ${config.phone || '630.615.0640'} and we’ll hold them for you.`);
+      return;
+    }
     if (config.test_mode) {
       $('testBanner').textContent = `Test mode — payments: ${config.square.mode}, shipping: ${config.shipping.provider}. No real charges.`;
       show('testBanner', true);

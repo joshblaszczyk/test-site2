@@ -302,5 +302,30 @@ csvFile.onchange=async()=>{
   document.getElementById('csvStatus').textContent=file?file.name:'No CSV file selected';
   preview.hidden=!file;preview.textContent=file?await file.slice(0,16384).text():'';
 };
+/* drag & drop onto the photo and CSV boxes */
+(function(){
+  const st=document.createElement('style');
+  st.textContent='.dz{border:2px dashed #cfa3b6;transition:background .15s,border-color .15s}.dz.over{background:#fde8f1;border-color:#f04e8a}.dz-hint{font-size:13px;color:#a02d59;margin:6px 0 0}';
+  document.head.appendChild(st);
+  function wire(input,btnId,accept,hint){
+    const box=document.getElementById(btnId).closest('.demo-box');
+    box.classList.add('dz');
+    const p=document.createElement('p');p.className='dz-hint';p.textContent=hint;
+    document.getElementById(btnId).after(p);
+    ['dragenter','dragover'].forEach(e=>box.addEventListener(e,ev=>{ev.preventDefault();box.classList.add('over');}));
+    ['dragleave','dragend'].forEach(e=>box.addEventListener(e,()=>box.classList.remove('over')));
+    box.addEventListener('drop',ev=>{
+      ev.preventDefault();box.classList.remove('over');
+      const files=[...ev.dataTransfer.files].filter(accept);
+      if(!files.length){p.textContent='That file type isn’t accepted here.';return;}
+      const dt=new DataTransfer();(input.multiple?files:[files[0]]).forEach(f=>dt.items.add(f));
+      input.files=dt.files;input.dispatchEvent(new Event('change'));p.textContent=hint;
+    });
+  }
+  wire(document.getElementById('photoFiles'),'choosePhotos',f=>f.type.startsWith('image/'),'or drag and drop photos here');
+  wire(document.getElementById('csvFile'),'chooseCsv',f=>/\.csv$/i.test(f.name)||f.type==='text/csv','or drag and drop your CSV file here');
+  window.addEventListener('dragover',e=>e.preventDefault());
+  window.addEventListener('drop',e=>e.preventDefault());
+})();
 </script>
 </body></html>

@@ -1,0 +1,5 @@
+/* Demo-only furniture on the real admin pages and the consignor page (added by shop/demo-admin-api.js). */
+.tkdemo-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 14px; padding: 6px 12px; background: #df4b83; color: #fff; font: 600 13px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; text-align: center; }
+.tkdemo-bar .tkdemo-reset { font: inherit; font-weight: 700; color: #df4b83; background: #fff; border: 0; border-radius: 999px; padding: 3px 12px; cursor: pointer; }
+.tkdemo-bar .tkdemo-reset:hover { background: #fde8f1; }
+.tkdemo-hint { margin: 0 0 10px; padding: 8px 10px; border-radius: 8px; background: #fde8f1; color: #8a2a52; font-size: 14px; }

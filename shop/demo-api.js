@@ -7,7 +7,7 @@
   const SCRIPT = document.currentScript.src;
   const SHOP_DIR = new URL('./', SCRIPT).href;            // .../shop/
   const SITE = new URL('../', SCRIPT).href;               // site root
-  const KEY = 'thomkat.demo.v1';
+  const KEY = 'thomkat.demo.v2';          // v2: the real-admin demo (consignors, sales, checks) lives in state.adm
   const realFetch = window.fetch.bind(window);
   const PICKUP = { address: '1 N. Main St., Lombard, IL 60148', phone: '630.615.0640' };
   const RATES = [
@@ -15,8 +15,11 @@
     { id: 'demo_priority', provider: 'USPS', service: 'Priority Mail', amount_cents: 985, days: 2 },
   ];
 
+  const exts = [];      // extra route handlers (demo-admin-api.js)
+  const hooks = {};     // orderPaid(order), ...
+
   // ---- state -------------------------------------------------------------------------------------
-  const blank = () => ({ custom: [], hidden: [], orders: [], seq: 1000, tokens: {}, idem: {}, seeded: false });
+  const blank = () => ({ custom: [], hidden: [], orders: [], seq: 1000, tokens: {}, idem: {}, seeded: false, adm: {} });
   let state;
   function load() {
     try { state = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY) || '{}')); } catch { state = blank(); }
@@ -39,53 +42,52 @@
       const r = await realFetch(SITE + 'products/products.json');
       baseProducts = (await r.json()).products;
     }
-    return state.custom.concat(baseProducts);
+    return ovApply(state.custom.concat(baseProducts));
+  }
+  // Edits made in the demo admin (Find & edit) to the shop's own sample pieces: stored as per-SKU overrides.
+  function ovApply(list) {
+    const ov = state.adm && state.adm.ov;
+    if (!ov || !Object.keys(ov).length) return list;
+    return list.map(p => (ov[String(p.sku)] ? Object.assign({}, p, ov[String(p.sku)]) : p));
   }
   const priceOf = p => Math.round((p.sale_price ?? p.price ?? p.regular_price ?? 0) * 100);
   const thumbOf = p => p.images?.[0]?.thumb || p.images?.[0]?.card || '';
+  const pstateOf = sku => ((state.adm && state.adm.pstate) || {})[String(sku)];
   function soldSkus() {
     const s = new Set();
-    state.orders.forEach(o => o.items.forEach(i => { if (!i.refunded) s.add(String(i.sku)); }));
+    state.orders.forEach(o => { if (o.status !== 'failed') o.items.forEach(i => { if (!i.refunded) s.add(String(i.sku)); }); });
+    Object.entries((state.adm && state.adm.pstate) || {}).forEach(([k, v]) => { if (v.status === 'sold') s.add(k); });
     return s;
   }
+  // A piece's state: what the admin set by hand wins over what the orders say (like the real shop's product_state).
   function statusOf(sku, sold) {
-    if (sold.has(String(sku))) return 'sold';
-    if (state.hidden.includes(String(sku))) return 'hidden';
+    sku = String(sku);
+    const p = pstateOf(sku);
+    if (p && p.status === 'sold') return 'sold';
+    if (p && p.status === 'hidden') return 'hidden';
+    if (p && p.status === 'available') return 'available';
+    if (sold.has(sku)) return 'sold';
+    if (state.hidden.includes(sku)) return 'hidden';
     return 'available';
   }
 
-  // Three sample orders so the admin is not empty on first open.
+  // Sample data (orders, consignors, ...) comes from demo-admin-api.js, which registers a seeder here.
+  const seeders = [];
+  let seeding = null;
   async function ensureSeed() {
     if (state.seeded) return;
-    const all = await products();
-    const pick = all.filter(p => p.source !== 'ebay' && priceOf(p) > 0 && p.images?.length).slice(3, 9);
-    const people = [
-      ['Jordan Ellis', 'jordan.ellis@example.com', 'ship', 'Naperville', 'IL', 'delivered'],
-      ['Priya Raman', 'priya.raman@example.com', 'pickup', '', '', 'new'],
-      ['Casey Morgan', 'casey.morgan@example.com', 'ship', 'Chicago', 'IL', 'new'],
-    ];
-    people.forEach(([name, email, ful, city, st, fstatus], i) => {
-      const items = pick.slice(i * 2, i * 2 + 2).map(p => ({ sku: String(p.sku), name: p.name, price_cents: priceOf(p), image: thumbOf(p), refunded: false }));
-      const items_cents = items.reduce((s, x) => s + x.price_cents, 0);
-      const shipping_cents = ful === 'pickup' ? 0 : 650;
-      state.orders.push({
-        id: ++state.seq, token: hex(16), number: 'TK-' + state.seq, status: 'paid', created_at: new Date(Date.now() - (3 - i) * 86400000).toISOString(),
-        name, email, phone: '', fulfillment: ful, ship_to: ful === 'ship' ? { name, street1: '100 Sample St', city, state: st, zip: '60148' } : null,
-        items, items_cents, shipping_cents, tax_cents: 0, refunded_cents: 0, total_cents: items_cents + shipping_cents,
-        fulfillment_status: fstatus, tracking: fstatus === 'delivered' ? { carrier: 'USPS', number: '940011122233344455' + (500 + i) } : null,
-        card: { brand: 'VISA', last4: '1111' }, test_payment: true, notes: '',
-      });
-    });
-    state.seeded = true;
-    save();
+    if (!seeding) {   // several requests can arrive together: seed once
+      seeding = (async () => { for (const fn of seeders) await fn(state); state.seeded = true; save(); })().finally(() => { seeding = null; });
+    }
+    await seeding;
   }
 
   // ---- orders ------------------------------------------------------------------------------------
   function orderPublic(o) {
     return {
-      number: o.number, token: o.token, status: o.status, fulfillment: o.fulfillment, email: o.email, email_sent: false,
-      ship_to: o.ship_to, pickup: o.fulfillment === 'pickup' ? PICKUP : null,
-      shipping: o.tracking ? { carrier: o.tracking.carrier, tracking_number: o.tracking.number } : null,
+      number: o.number, token: o.token, status: o.status, fulfillment: o.fulfillment, fulfillment_status: o.fulfillment_status, email: o.email, email_sent: false,
+      ship_to: o.ship_to ? { name: o.ship_to.name, city: o.ship_to.city, state: o.ship_to.state, zip: o.ship_to.zip } : null, pickup: o.fulfillment === 'pickup' ? PICKUP : null,
+      shipping: o.fulfillment === 'ship' ? { carrier: o.carrier || (o.tracking && o.tracking.carrier) || 'USPS', service: o.service || '', tracking_number: (o.tracking && o.tracking.number) || '', tracking_url: (o.tracking && o.tracking.url) || '' } : null,
       items: o.items, items_cents: o.items_cents, shipping_cents: o.shipping_cents, tax_cents: o.tax_cents,
       refunded_cents: o.refunded_cents, total_cents: o.total_cents, test_payment: true, receipt_url: '', payment_error: '',
     };
@@ -94,8 +96,9 @@
   const ok = body => ({ status: 200, body: Object.assign({ ok: true }, body) });
 
   // ---- routes (the same shapes the real PHP API returns) -----------------------------------------
-  async function handle(route, method, body) {
+  async function handle(route, method, body, ctx) {
     await ensureSeed();
+    for (const ext of exts) { const r = await ext(route, method, body, ctx || { query: new URLSearchParams(), headers: {} }); if (r) return r; }
     const all = await products();
     const byKey = new Map(all.map(p => [String(p.sku), p]));
     if (route === 'config') {
@@ -145,12 +148,13 @@
         id: ++state.seq, token: hex(16), number: 'TK-' + state.seq, status: 'paid', created_at: nowIso(),
         name: c.name, email: c.email, phone: c.phone || '', fulfillment: quote.fulfillment, ship_to: null,
         items: its, items_cents, shipping_cents, tax_cents: 0, refunded_cents: 0, total_cents: items_cents + shipping_cents,
-        fulfillment_status: 'new', tracking: null, card: tok.card, test_payment: true, notes: '',
+        fulfillment_status: 'unfulfilled', tracking: null, card: tok.card, test_payment: true, notes: '', phone: c.phone || '', paid_at: nowIso(), label: { status: 'none' }, refunds: [], commission_refunded_cents: 0,
         payment_ref: 'demo_pay_' + rand62(12), shipping_rate: rate ? rate.service : '',
       };
       if (quote.fulfillment === 'ship') { const a = quote.address || {}; order.ship_to = { name: c.name, street1: a.street1 || '', street2: a.street2 || '', city: a.city || '', state: a.state || '', zip: a.zip || '' }; }
       state.orders.unshift(order);
       state.idem[body.idempotency_key] = order.id;
+      try { if (hooks.orderPaid) hooks.orderPaid(order); } catch (e) { console.warn('demo hook', e); }
       save();
       return ok({ order: orderPublic(order) });
     }
@@ -164,20 +168,26 @@
 
   // ---- fetch interception ------------------------------------------------------------------------
   window.fetch = async function (input, init) {
-    const url = typeof input === 'string' ? input : input.url;
+    let url = typeof input === 'string' ? input : input.url;
+    try { url = new URL(url, location.href).href; } catch { /* keep as is */ }   // 'shop/api/…' (relative, as consignor.js calls it) must match too
     const at = url.indexOf('/shop/api/');
     if (at !== -1) {
-      const route = url.slice(at + 10).split('?')[0].replace(/\/$/, '');
-      const method = (init && init.method) || 'GET';
+      const [path, qs] = url.slice(at + 10).split('?');
+      const route = path.replace(/\/$/, '');
+      const method = (init && init.method) || (typeof input !== 'string' && input.method) || 'GET';
       let body = {};
       try { body = init && init.body ? JSON.parse(init.body) : {}; } catch { /* ignore */ }
-      const { status, body: out } = await handle(route, method.toUpperCase(), body);
+      const hdr = {};
+      const rawH = (init && init.headers) || (typeof input !== 'string' && input.headers) || {};
+      if (typeof rawH.forEach === 'function' && !Array.isArray(rawH)) rawH.forEach((v, k) => { hdr[String(k).toLowerCase()] = v; });
+      else Object.entries(rawH).forEach(([k, v]) => { hdr[k.toLowerCase()] = v; });
+      const { status, body: out } = await handle(route, method.toUpperCase(), body, { query: new URLSearchParams(qs || ''), headers: hdr });
       return new Response(JSON.stringify(out), { status, headers: { 'Content-Type': 'application/json' } });
     }
-    if (/products\/products\.json(\?|$)/.test(url) && state.custom.length) {
+    if (/products\/products\.json(\?|$)/.test(url) && (state.custom.length || (state.adm && state.adm.ov))) {
       const r = await realFetch(input, init);
       const data = await r.json();
-      data.products = state.custom.concat(data.products);
+      data.products = ovApply(state.custom.concat(data.products));
       return new Response(JSON.stringify(data), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
     return realFetch(input, init);
@@ -185,14 +195,15 @@
 
   // Pieces added in the admin appear on the storefront: patch the embedded product list before shop.html reads it.
   const embedded = document.getElementById('productData');
-  if (embedded && state.custom.length) {
-    try { embedded.textContent = JSON.stringify(state.custom.concat(JSON.parse(embedded.textContent))); } catch { /* leave as is */ }
+  if (embedded && (state.custom.length || (state.adm && state.adm.ov))) {
+    try { embedded.textContent = JSON.stringify(ovApply(state.custom.concat(JSON.parse(embedded.textContent)))); } catch { /* leave as is */ }
   }
 
   // ---- API for the admin page and the fake card form ---------------------------------------------
   window.ThomKatDemo = {
     PICKUP, RATES,
-    state: () => state,
+    state: () => state, exts, hooks, seeders, ovApply, pstateOf, handle, SITE, SHOP_DIR,
+    extend(fn) { exts.push(fn); }, onSeed(fn) { seeders.push(fn); },
     save, products, soldSkus, statusOf, priceOf, thumbOf, ensureSeed, orderPublic,
     issueToken(card, decline) {
       const token = 'cnon:' + rand62(28);
@@ -205,7 +216,7 @@
     addPiece(p) { state.custom.unshift(p); return save(); },
     removePiece(sku) { state.custom = state.custom.filter(p => String(p.sku) !== String(sku)); state.hidden = state.hidden.filter(s => s !== String(sku)); save(); },
     toggleHidden(sku) { sku = String(sku); state.hidden = state.hidden.includes(sku) ? state.hidden.filter(s => s !== sku) : state.hidden.concat(sku); save(); },
-    reset() { localStorage.removeItem(KEY); load(); },
+    reset() { localStorage.removeItem(KEY); load(); baseProducts = null; },
     tokenHex: hex,
   };
 })();

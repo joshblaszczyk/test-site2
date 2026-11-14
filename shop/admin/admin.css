@@ -95,6 +95,40 @@ label input[type=checkbox], label input[type=radio] { width: auto; min-height: 0
   .piece .ebay { grid-column: 1 / -1; }
   .top-actions { margin-left: 0; }
 }
+/* ---- consignors (consignors.js) ---- */
+.search { max-width: 420px; margin-top: 0; }
+.file-btn { margin: 0; }
+.store-card .bar { margin-bottom: 4px; }
+.store-card ul { margin: 6px 0 0; padding-left: 18px; }
+.cs-row .top-line .money.owed { color: var(--pink-dark); }
+.cs-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin: 10px 0 4px; }
+.cs-stats > div { background: #faf6f7; border: 1px solid var(--line); border-radius: 12px; padding: 9px 10px; }
+.cs-stats .big { font: 500 18px "DM Mono", monospace; margin-top: 2px; }
+.cs-stats .owed { background: var(--pink-pale); border-color: var(--ink); }
+.cs-stats .neg { background: var(--bad-pale); border-color: var(--bad); }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+.form-grid .wide { grid-column: 1 / -1; }
+.seg { display: inline-flex; gap: 4px; margin-top: 4px; }
+.seg button { border: 1px solid var(--ink); background: #fff; border-radius: 99px; padding: 5px 12px; font-weight: 700; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.split-field { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.split-field input { width: 90px; margin-top: 4px; }
+.scroll-x { overflow-x: auto; }
+.cs-items td { font-size: 13px; }
+.cs-items .tag { font: 500 12px "DM Mono", monospace; white-space: nowrap; }
+.cs-items tr.done td { color: var(--muted); }
+.cs-items .acts { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.cs-items .acts .link { font-size: 12px; }
+.inline-form { background: #fdf7f8; border: 1px solid #efc9d3; border-radius: 12px; padding: 8px 12px; margin: 6px 0; }
+.inline-form .form-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.portal-link { background: var(--ok-pale); border: 1px solid var(--ok); border-radius: 12px; padding: 10px 12px; margin-top: 8px; }
+.events { margin: 0; padding-left: 18px; font-size: 12px; color: var(--muted); }
+.events li { margin: 3px 0; }
+@media (max-width: 640px) {
+  .cs-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form-grid, .inline-form .form-grid { grid-template-columns: 1fr; }
+  .search { max-width: none; }
+}
 fieldset.keys { border: 1px solid var(--line); border-radius: 14px; margin: 0 0 12px; padding: 8px 14px 12px; }
 fieldset.keys legend { font-weight: 700; padding: 0 6px; }
 /* ---- keys page (keys.html) ---- */
@@ -132,3 +166,43 @@ fieldset.keys legend { font-weight: 700; padding: 0 6px; }
   .copy { flex-direction: column; }
   .top-inner .badge { order: 3; }
 }
+
+/* ---- Add a piece / List on eBay windows (ebay-sell.js) ---- */
+.dlg { width: min(760px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0; border: 1px solid var(--ink); border-radius: 18px; background: var(--paper); color: var(--ink); }
+.dlg::backdrop { background: rgba(23, 18, 23, .45); }
+.dlg-head { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; background: var(--paper); border-bottom: 1px solid var(--line); }
+.dlg-head h2 { margin: 0; }
+.dlg-body { padding: 14px 18px 20px; }
+.dlg-body h3 { margin: 18px 0 6px; }
+.dlg-x { border: 1px solid var(--line); background: #fff; border-radius: 99px; width: 34px; height: 34px; font-size: 20px; line-height: 1; cursor: pointer; }
+.dlg-x.small { width: 24px; height: 24px; font-size: 15px; }
+.dlg label { display: block; margin-top: 10px; font-weight: 600; font-size: 13px; }
+.dlg label .sub { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 3px; }
+.dlg input, .dlg select, .dlg textarea { width: 100%; box-sizing: border-box; }
+.list-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+.list-head img { width: 64px; height: 86px; object-fit: cover; border-radius: 9px; flex: none; }
+.cat-list { display: grid; gap: 6px; }
+.dlg label.cat { display: flex; gap: 10px; align-items: flex-start; margin: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-weight: 400; cursor: pointer; }
+.dlg label.cat input { width: auto; margin-top: 3px; }
+.box3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.photo-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.photo-row figure { position: relative; margin: 0; width: 88px; text-align: center; font-size: 11px; color: var(--muted); }
+.photo-row img { width: 88px; height: 118px; object-fit: cover; border-radius: 9px; border: 1px solid var(--line); display: block; }
+.photo-row .dlg-x { position: absolute; top: 4px; right: 4px; }
+@media (max-width: 640px) {
+  .dlg .form-grid { grid-template-columns: 1fr; }
+  .dlg-body { padding: 12px 14px 18px; }
+}
+
+/* ---- drop zones (Add a piece, Add from a spreadsheet, Consignors import) ---- */
+.dropzone { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 22px 14px; margin-top: 8px; border: 2px dashed #b9adb1; border-radius: 16px; background: #fff; cursor: pointer; }
+.dropzone.over, [data-panel="consignors"].dropping { border-color: var(--pink-dark); background: var(--pink-pale); }
+[data-panel="consignors"].dropping { outline: 2px dashed var(--pink-dark); outline-offset: 6px; border-radius: 16px; }
+.table.bulk td { vertical-align: top; font-size: 13px; }
+.table.bulk img { width: 44px; height: 58px; object-fit: cover; border-radius: 6px; display: block; }
+.table.bulk tr.dim td { opacity: .6; }
+.bad-text { color: var(--bad); }
+
+/* keys.html#card-…: the card the Start here page sent her to */
+.key-card.flash { outline: 3px solid var(--pink); outline-offset: 3px; }
+#orderDetail { scroll-margin-top: 110px; }

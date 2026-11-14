@@ -145,16 +145,17 @@
     if (!bag().includes(sku)) setBag([...bag(), sku]);
     location.href = 'checkout.html';
   };
-  document.querySelectorAll('button[aria-label="Shopping bag"], button[aria-label="Shopping cart"]').forEach(button => {
+  // The header icon is labelled "Shopping cart" (the site says cart everywhere); only the shop page, which has the pieces, takes it over.
+  if (products.length) document.querySelectorAll('button[aria-label="Shopping bag"], button[aria-label="Shopping cart"]').forEach(button => {
     button.onclick = event => { event.preventDefault(); open(); };
   });
 
   // Product details modal: grey out "add to bag" and "add to cart" for pieces that are gone.
+  let repaintOpenPiece = () => {};
   const pmButtons = ['pmAdd', 'pmBuy'].map(id => document.getElementById(id)).filter(Boolean).map(button => [button, button.textContent]);
   if (pmButtons.length && typeof window.openProduct === 'function') {
     const original = window.openProduct;
-    window.openProduct = function (sku) {
-      original(sku);
+    const paintButtons = sku => {
       const state = live.get(String(sku));
       const gone = state === 'sold' || state === 'hidden';
       pmButtons.forEach(([button, label]) => {
@@ -162,6 +163,29 @@
         button.textContent = gone ? 'Sold' : state === 'on_hold' ? 'On hold' : label;
       });
     };
+    window.openProduct = function (sku) {
+      original(sku);
+      paintButtons(sku);
+    };
+    repaintOpenPiece = () => { const open = document.getElementById('productModal'); if (open && open.open && open.dataset.sku) paintButtons(open.dataset.sku); };
+  }
+
+  // The phone's Back button closes an open piece instead of leaving the shop: opening pushes one history entry.
+  const pieceModal = document.getElementById('productModal');
+  if (pieceModal && typeof window.openProduct === 'function') {
+    let pushed = false;
+    const opener = window.openProduct;
+    window.openProduct = function (sku) {
+      opener(sku);
+      if (pieceModal.open && !pushed) { pushed = true; history.pushState({ tkPiece: true }, '', location.href); }
+    };
+    pieceModal.addEventListener('close', () => {
+      if (pushed) { pushed = false; if (history.state && history.state.tkPiece) history.back(); }
+    });
+    window.addEventListener('popstate', () => {
+      if (pieceModal.open) { pushed = false; pieceModal.close(); }
+      else if (new URLSearchParams(location.search).has('item')) withItem(null);   // back to the entry a ?item= link was opened on
+    });
   }
 
   // ---- one address per piece: shop.html?item=SKU ---------------------------------------------
@@ -272,6 +296,7 @@
       live.clear();
       data.products.forEach(p => live.set(String(p.sku), p.status));
       applyLive();
+      repaintOpenPiece();   // a piece opened before the answer came (a ?item= link) greys out if it sold
       if (linked && document.getElementById('tkProductData')) describeLinked();   // a sold piece says so
     } catch {
       // Static preview without the shop API: the bag still works; checkout explains it is offline.

@@ -1,0 +1,42 @@
+/* "Start here" page: big, plain, one step at a time. Builds on admin.css (colours, buttons, badges, header). */
+.start-wrap { max-width: 760px; margin: 0 auto; padding: 22px 16px 60px; }
+.start-title { font: 600 30px/1.15 "Playfair Display", serif; margin: 6px 0 14px; }
+.start-progress p { margin: 0 0 8px; font-size: 16px; }
+.start-bar { height: 12px; border: 1px solid var(--ink); border-radius: 99px; background: #fff; overflow: hidden; margin-bottom: 20px; }
+.start-fill { display: block; height: 100%; width: 0; background: var(--pink); transition: width .4s ease; }
+
+.start-next { border: 2px solid var(--ink); padding: 22px; }
+.start-next h2 { font: 600 24px/1.2 "Playfair Display", serif; margin: 4px 0 10px; }
+.start-next .start-body { font-size: 16px; }
+.start-next.done { background: var(--ok-pale); }
+.start-next.waiting { background: var(--warn-pale); }
+
+.start-body p { margin: 0 0 10px; }
+.start-how { margin: 4px 0 16px; padding-left: 22px; }
+.start-how li { margin-bottom: 8px; line-height: 1.5; }
+.start-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 12px; }
+.start-buttons .btn { text-decoration: none; }
+.btn.big { min-height: 52px; padding: 0 26px; font-size: 14px; }
+.start-detail { font: 500 12px/1.5 "DM Mono", monospace; color: var(--muted); }
+.start-detail.ok { color: var(--ok); }
+
+.start-again { display: flex; align-items: center; gap: 12px; margin: 4px 0 26px; }
+.start-phase h3 { font: 500 11px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 22px 0 8px; }
+.start-step { background: #fff; border: 1px solid var(--line); border-radius: 14px; margin-bottom: 8px; }
+.start-step summary { display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; list-style: none; font-size: 15px; }
+.start-step summary::-webkit-details-marker { display: none; }
+.start-step .start-body { padding: 0 14px 14px 54px; }
+.start-name { flex: 1; min-width: 0; }
+.start-tick { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid var(--ink); font: 500 12px "DM Mono", monospace; background: #fff; }
+.start-step.done .start-tick { background: var(--ok); border-color: var(--ok); color: #fff; }
+.start-step.done .start-name { color: var(--muted); }
+.start-step.current { border: 2px solid var(--pink-dark); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 560px) {
+  .start-title { font-size: 25px; }
+  .start-next { padding: 16px; }
+  .start-step .start-body { padding-left: 14px; }
+  .start-buttons .btn { flex: 1 1 100%; }
+}

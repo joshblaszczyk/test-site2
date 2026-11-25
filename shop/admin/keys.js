@@ -54,7 +54,7 @@
     { key: `SQUARE_${env}_ACCESS_TOKEN`, label: 'Access token', where: 'Credentials page', placeholder: 'EAAA…' },
     { key: `SQUARE_${env}_LOCATION_ID`, label: 'Location ID', where: 'Locations page', placeholder: 'L…', note: 'Leave it empty if the account has one location; the test fills it in.' },
     { key: `SQUARE_${env}_APPLICATION_SECRET`, label: 'Application secret', where: 'OAuth page', placeholder: env === 'SANDBOX' ? 'sandbox-sq0csb-…' : 'sq0csp-…',
-      note: `For the automatic 10% commission (${name}).` },
+      note: `Lets her Square account connect (${name}).` },
   ];
 
   function cards() {
@@ -72,10 +72,10 @@
           { key: 'SHIPPING_FROM_EMAIL', label: 'Sender email for labels', placeholder: 'the boutique’s email', type: 'email', note: 'Shippo won’t make a label without it. The carrier can use it to reach the boutique about a package.' },
         ],
         advanced: [{ key: 'SHIPPING_PROVIDER', label: 'Checkout shipping', options: { mock: 'Pretend rates (no Shippo)', shippo: 'Shippo rates + labels', flat: 'One flat price, no labels' } }] },
-      { id: 'square', title: 'Card payments + your 10% commission', provider: 'Square',
-        what: 'Customers pay by card through Square. Once the boutique connects her Square account, Square sends your 10% to your Square account on every sale and takes it back on refunds.',
+      { id: 'square', title: 'Card payments', provider: 'Square',
+        what: 'Customers pay by card through Square. Once the boutique connects her Square account, website sales go straight into it.',
         steps: [
-          ['Open the ', link('Square Developer Console', 'https://developer.squareup.com/apps'), ' and sign in with ', b('your own'), ' Square account. The commission is paid to it.'],
+          ['Open the ', link('Square Developer Console', 'https://developer.squareup.com/apps'), ' and sign in with ', b('your own'), ' Square account (the app that connects to hers).'],
           ['Create an app called “ThomKat Shop”. Don’t use the MWD app.'],
           ['Square has ', b('Sandbox'), ' (test) and ', b('Production'), ' (real money) keys; switch at the top of the Square page. Paste each set in its own box below.'],
           ['On Square’s OAuth page, set the Redirect URL to this on both the Sandbox and the Production tab:', copyField(s.square_redirect_url)],
@@ -107,6 +107,11 @@
           { key: 'EBAY_RUNAME', label: 'RuName (lets her stores sign in: eBay orders, posting and ending listings)', placeholder: 'from eBay → User Tokens' },
           { text: ['Set the RuName’s “auth accepted URL” to:', copyField(s.ebay_accept_url)] },
           { text: ['Then admin → Setup → eBay → “Make a sign-in link for her”, once per store.'] },
+          { text: ['Sandbox keys (test accounts on eBay’s practice site): developer portal → Application Keys → the ', b('Sandbox'), ' keyset, and a RuName made under its User Tokens with the same auth accepted URL as above.'] },
+          { key: 'EBAY_SANDBOX_CLIENT_ID', label: 'Sandbox App ID (Client ID)', placeholder: 'Name-AppName-SBX-…' },
+          { key: 'EBAY_SANDBOX_CLIENT_SECRET', label: 'Sandbox Cert ID (Client Secret)', placeholder: 'SBX-…' },
+          { key: 'EBAY_SANDBOX_RUNAME', label: 'Sandbox RuName', placeholder: 'from eBay → Sandbox keyset → User Tokens' },
+          { key: 'EBAY_TEST_STORES', label: 'Test eBay accounts (optional, for trying listing, ending and shipping before her stores sign in)', placeholder: 'placeholder eBay user IDs, or * for any account', note: 'Their listings never come onto the website. * lets any account except her stores connect as a test account. Remove them after testing.' },
         ] },
       { id: 'email', test: 'email', title: 'Order emails', provider: 'Her Outlook mailbox or Resend', optional: true,
         what: 'Order confirmations for customers and a new-order alert for the boutique.',
@@ -154,8 +159,8 @@
       row(s.shipping_provider === 'shippo' && data.tests.shippo?.ok, 'Shipping', `Checkout uses ${ship}. Test token ${isSet('SHIPPO_TEST_TOKEN') ? '✓' : '✗'} · live token ${isSet('SHIPPO_LIVE_TOKEN') ? '✓' : '✗'}`),
       row(s.square_mode !== 'mock' && !!data.tests.square_sandbox?.ok, 'Card payments', `Checkout uses ${pay}.`),
       row(!!data.tests.square_live?.ok, 'Square production keys', 'Needed before real sales.'),
-      row(s.square_live_connected, 'Her real Square account connected (automatic commission)', s.square_live_connected
-        ? `Real sales go to ${s.square_live_location || 'her account'}${s.square_mode === 'live' ? '' : ' once checkout is switched to production'}. Square pays the 10% automatically.`
+      row(s.square_live_connected, 'Her real Square account connected', s.square_live_connected
+        ? `Real sales go to ${s.square_live_location || 'her account'}${s.square_mode === 'live' ? '' : ' once checkout is switched to production'}.`
         : 'After the Production keys: Admin → Setup → “Connect her real Square account”, then sign in with her Square login.'),
       row(isSet('EBAY_SELLER_USERNAME') && !!data.tests.ebay?.ok, 'eBay', isSet('EBAY_SELLER_USERNAME') ? `Watching ${keyInfo('EBAY_SELLER_USERNAME').value}` : 'Needs the boutique’s eBay user ID.'),
       row((s.notify_mode === 'resend' || s.notify_mode === 'smtp') && !!data.tests.email?.ok, 'Order emails',

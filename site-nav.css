@@ -1,0 +1,122 @@
+/* ThomKat shared site header (2026-11-14): the home page's menu on every page.
+   Used by EVERY page, home.html included (2026-11-15). Own class names (sn-*) so older page styles can't reach it.
+   Markup is written into each page by tools/site_nav.py between SITE-NAV markers; behavior in site-nav.js. */
+header.tk-site { --sn-ink: #171217; --sn-muted: #564c51; --sn-pink: #f04e8a; --sn-pink-dark: #b52f62; --sn-pink-pale: #f9d9e5; --sn-line: #d9ced1; --sn-panel: #eeeeee;
+  position: sticky; top: 0; z-index: 60; display: block; margin: 0; padding: 0; background: rgba(255, 253, 251, .94); border: 0; border-bottom: 1px solid var(--sn-line);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--sn-ink); font-family: "DM Sans", system-ui, sans-serif; font-size: 16px; line-height: normal; text-align: left; box-shadow: none; }
+/* Same width on every page: the scrollbar's space is always kept, so a short page (no scrollbar) or a page still loading
+   never moves the header sideways. */
+html { scrollbar-gutter: stable; }
+header.tk-site *, header.tk-site *::before, header.tk-site *::after { box-sizing: border-box; }
+header.tk-site a { color: inherit; text-decoration: none; }
+header.tk-site button { font: inherit; color: inherit; cursor: pointer; margin: 0; text-transform: none; letter-spacing: normal; box-shadow: none; }
+header.tk-site .sn-bar { position: relative; width: min(1180px, calc(100% - 48px)); height: 84px; margin: 0 auto; padding: 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+header.tk-site .sn-brand { display: flex; align-items: center; gap: 11px; min-width: 205px; flex: none; }
+header.tk-site .sn-brand svg { width: 42px; height: 42px; flex: none; display: block; }
+header.tk-site .sn-brand-name { font-size: 15px; line-height: 1.03; font-weight: 700; letter-spacing: .075em; white-space: nowrap; }
+header.tk-site .sn-links { display: flex; align-items: center; gap: 14px; margin: 0; padding: 0; list-style: none; color: var(--sn-muted); font-size: 12px; font-weight: 600; letter-spacing: normal; text-transform: none; background: none; }
+header.tk-site .sn-links > a { white-space: nowrap; transition: color .2s ease; }
+header.tk-site .sn-links a:hover, header.tk-site .sn-links a:focus-visible, header.tk-site .sn-toggle:hover { color: var(--sn-pink-dark); }
+header.tk-site .sn-links a[aria-current="page"] { color: var(--sn-pink-dark); }
+header.tk-site .sn-dd { position: relative; }
+header.tk-site .sn-toggle { display: inline-flex; align-items: center; gap: 5px; border: 0; padding: 0; background: transparent; font-size: 12px; font-weight: 600; white-space: nowrap; }
+header.tk-site .sn-toggle span { color: var(--sn-pink-dark); font-size: 13px; line-height: 1; transition: transform .2s ease; }
+header.tk-site .sn-dd.open > .sn-toggle span { transform: rotate(180deg); }
+header.tk-site .sn-toggle.sn-pink { color: var(--sn-pink-dark); }
+header.tk-site .sn-dd--explore > .sn-toggle span { color: inherit; font-size: 12px; }   /* like home's Explore */
+/* Shop Online (2026-11-17): the label is a plain link straight to Shop All; the small chevron beside it (its own button) opens the category pull-down. */
+header.tk-site .sn-split { display: flex; align-items: center; gap: 5px; }
+header.tk-site .sn-top { flex: none; white-space: nowrap; transition: color .2s ease; }
+header.tk-site .sn-split:hover .sn-top { color: var(--sn-pink-dark); }
+header.tk-site .sn-split > .sn-toggle { position: relative; flex: none; }
+header.tk-site .sn-split > .sn-toggle::after { content: ""; position: absolute; inset: -15px -6px -15px -3px; }   /* a bigger click/tap target than the bare chevron */
+header.tk-site .sn-dd.open > .sn-split > .sn-toggle span { transform: rotate(180deg); }
+header.tk-site .sn-panel { position: absolute; top: calc(100% + 6px); left: -15px; z-index: 70; display: none; width: min(420px, calc(100vw - 34px)); padding: 18px; gap: 13px; border: 1px solid var(--sn-line); border-radius: 0 0 14px 14px; background: var(--sn-panel); box-shadow: 0 22px 55px rgba(31, 15, 25, .11); }
+header.tk-site .sn-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -8px; height: 8px; }   /* hover bridge to the toggle */
+header.tk-site .sn-dd.open > .sn-panel { display: grid; }
+header.tk-site .sn-dd--right > .sn-panel { left: auto; right: -12px; }
+header.tk-site .sn-panel--list { width: auto; min-width: 230px; padding: 10px; gap: 0; border: 1px solid rgba(23, 18, 23, .12); border-radius: 12px; box-shadow: 0 14px 34px rgba(23, 18, 23, .14); }
+header.tk-site .sn-panel--list a { display: block; padding: 9px 12px; border-radius: 8px; color: var(--sn-ink); font-size: 13px; font-weight: 600; white-space: nowrap; }
+header.tk-site .sn-panel--list a:hover, header.tk-site .sn-panel--list a:focus-visible { background: var(--sn-pink-pale); color: var(--sn-ink); }
+header.tk-site .sn-lede { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; padding-bottom: 12px; border-bottom: 1px solid var(--sn-line); }
+header.tk-site .sn-lede strong { font-family: "Playfair Display", Georgia, serif; font-size: 21px; font-weight: 500; color: var(--sn-ink); }
+header.tk-site .sn-lede a { color: var(--sn-pink-dark); font: 10px "DM Mono", ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+header.tk-site .sn-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px 18px; }
+header.tk-site .sn-grid a { display: block; padding: 8px 0; white-space: nowrap; font-size: 11px; }
+header.tk-site .sn-grid a:hover, header.tk-site .sn-grid a:focus-visible { background: var(--sn-pink-pale); color: var(--sn-pink-dark); }
+/* Policy panel */
+header.tk-site .sn-policy { width: min(440px, calc(100vw - 34px)); gap: 0; background: var(--sn-pink-pale); }
+header.tk-site .sn-policy-kicker { color: var(--sn-pink-dark); font: 10px "DM Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+header.tk-site .sn-policy-title { margin: 7px 0 0; color: var(--sn-ink); font-family: "Playfair Display", Georgia, serif; font-size: 22px; font-weight: 500; line-height: 1.2; }
+header.tk-site .sn-policy-title em { color: var(--sn-pink-dark); font-style: italic; }
+header.tk-site .sn-policy-intro { margin: 9px 0 0; padding-bottom: 12px; border-bottom: 1px solid #dcbcc9; color: #766c72; font-size: 12px; font-weight: 500; line-height: 1.6; }
+header.tk-site .sn-policy-list { margin: 0; padding: 0; list-style: none; }
+header.tk-site .sn-policy-list li { margin: 0; padding: 11px 0; border-bottom: 1px solid #dcbcc9; color: var(--sn-ink); font-size: 12px; font-weight: 500; line-height: 1.6; }
+header.tk-site .sn-policy-list strong { font-weight: 700; }
+header.tk-site .sn-policy-cta { justify-self: start; margin-top: 15px; padding: 9px 15px; border: 1px solid var(--sn-ink); border-radius: 100px; background: var(--sn-panel); color: var(--sn-ink); font-size: 11px; font-weight: 600; }
+header.tk-site .sn-policy-cta:hover, header.tk-site .sn-policy-cta:focus-visible { border-color: var(--sn-pink-dark); color: var(--sn-pink-dark); }
+/* Search, bag, menu button */
+header.tk-site .sn-actions { display: flex; align-items: center; gap: 15px; flex: none; }
+header.tk-site .sn-icon { position: relative; display: grid; place-items: center; width: auto; height: auto; min-width: 0; padding: 7px; border: 0; border-radius: 0; background: none; color: var(--sn-ink); }
+header.tk-site .sn-icon svg { width: 19px; height: 19px; display: block; }
+header.tk-site .sn-count { position: absolute; right: -2px; top: -2px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 50%; background: var(--sn-pink); color: var(--sn-ink); font-size: 10px; font-weight: 600; line-height: 1; display: grid; place-items: center; }
+header.tk-site .sn-menu { display: none; }
+@media (max-width: 1100px) { header.tk-site .sn-links { gap: 11px; } }
+/* Tablets and phones: the nine items don't fit in one row, so they fold into the menu button (same as home) */
+@media (max-width: 960px) {
+  header.tk-site .sn-bar { height: 72px; width: min(1180px, calc(100% - 34px)); }
+  header.tk-site .sn-brand { min-width: 0; }
+  header.tk-site .sn-links { display: none; position: absolute; top: 72px; left: -17px; right: -17px; padding: 20px 17px 25px; background: var(--sn-panel); border-bottom: 1px solid var(--sn-line);
+    flex-direction: column; align-items: stretch; gap: 20px; max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain; font-size: 13px; }
+  header.tk-site .sn-links.open { display: flex; }
+  header.tk-site .sn-dd { width: 100%; }
+  header.tk-site .sn-toggle { width: 100%; justify-content: space-between; font-size: 13px; }
+  header.tk-site .sn-split { width: 100%; justify-content: space-between; gap: 10px; }
+  header.tk-site .sn-top { padding: 6px 0; margin: -6px 0; }   /* a taller tap area; the row keeps the same height as the others */
+  header.tk-site .sn-split > .sn-toggle { flex: 1; width: auto; justify-content: flex-end; padding: 6px 0; margin: -6px 0; }   /* the rest of the row opens the categories */
+  header.tk-site .sn-split > .sn-toggle::after { display: none; }
+  header.tk-site .sn-panel, header.tk-site .sn-panel--list, header.tk-site .sn-policy { position: static; width: auto; min-width: 0; margin-top: 13px; padding: 0 0 0 15px; border: 0; border-left: 1px solid var(--sn-pink); border-radius: 0; background: transparent; box-shadow: none; gap: 7px; }
+  header.tk-site .sn-panel::before { display: none; }
+  header.tk-site .sn-panel--list a { padding: 5px 0; font-size: 13px; white-space: normal; }
+  header.tk-site .sn-lede { display: block; padding-bottom: 6px; border-bottom: 0; }
+  header.tk-site .sn-lede strong { display: none; }
+  header.tk-site .sn-lede a { font-size: 9px; }
+  header.tk-site .sn-grid { gap: 3px 15px; }
+  header.tk-site .sn-grid a { padding: 5px 0; white-space: normal; font-size: 12px; }
+  header.tk-site .sn-policy-title { font-size: 18px; }
+  header.tk-site .sn-policy-intro, header.tk-site .sn-policy-list li { font-size: 12.5px; }
+  header.tk-site .sn-menu { display: grid; }
+  header.tk-site .sn-actions { gap: 4px; }
+}
+@media (max-width: 380px) { header.tk-site .sn-brand-name { font-size: 13px; letter-spacing: .05em; } }
+@media print { header.tk-site { position: static; } header.tk-site .sn-actions, header.tk-site .sn-links { display: none; } }
+/* Centered (2026-11-14): the menu sits in the middle of the header, and each pull-down opens centered under its item
+   (site-nav.js nudges it back inside the screen near the edges). Phones keep the folded menu. */
+@media (min-width: 961px) {
+  header.tk-site .sn-bar { display: grid; grid-template-columns: 1fr auto 1fr; }
+  header.tk-site .sn-brand { grid-column: 1; justify-self: start; }
+  header.tk-site .sn-links { grid-column: 2; justify-self: center; }
+  header.tk-site .sn-actions { grid-column: 3; justify-self: end; }
+  header.tk-site .sn-dd > .sn-panel, header.tk-site .sn-dd--right > .sn-panel { left: 50%; right: auto; transform: translateX(calc(-50% + var(--sn-shift, 0px))); }
+}
+/* Narrow desktops/tablets in landscape (961-1180 px): tighter spacing so the menu can stay truly centered. The nine menu items (the longest is
+   "Consign with us") need about 725 px, so up to 1180 px only the logo mark shows; the "ThomKat Fashion" name is back from 1181 px. From 961 to
+   1010 px the menu type and the icon spacing shrink a little more so the row still clears the logo and the icons. */
+@media (min-width: 961px) and (max-width: 1180px) { header.tk-site .sn-bar { column-gap: 12px; } header.tk-site .sn-brand { min-width: 0; } header.tk-site .sn-brand-name { display: none; } }
+@media (min-width: 961px) and (max-width: 1100px) { header.tk-site .sn-links { gap: 10px; } }
+@media (min-width: 961px) and (max-width: 1010px) { header.tk-site .sn-links { gap: 8px; font-size: 11px; } header.tk-site .sn-toggle { font-size: 11px; } header.tk-site .sn-actions { gap: 8px; } }
+
+/* Favorites heart (pink once something is saved) and account icon (green dot when signed in): shop/account-client.js */
+header.tk-site .sn-fav.has svg path { fill: var(--sn-pink); }
+header.tk-site .sn-acct.signed-in::after { content: ""; position: absolute; right: 3px; bottom: 4px; width: 7px; height: 7px; border-radius: 50%; background: #23704a; box-shadow: 0 0 0 2px rgba(255, 253, 251, .94); }
+/* "Your account" sits in the menu on phones/tablets (the person icon is hidden on small phones; the heart also leads there) */
+header.tk-site .sn-links .sn-menu-only { display: none; }
+@media (max-width: 960px) { header.tk-site .sn-links .sn-menu-only { display: block; } }
+@media (max-width: 480px) { header.tk-site .sn-acct { display: none; } }
+@media (max-width: 400px) { header.tk-site .sn-actions { gap: 0; } header.tk-site .sn-icon { padding: 6px; } }
+
+
+/* 2026-11-17: new ThomKat logo image (media/thomkat-logo.png) replaces the SVG mark; it already carries the name. */
+header.tk-site .sn-brand .sn-logo { height: 64px; width: auto; display: block; flex: none; }
+header.tk-site .sn-brand .sn-brand-name { display: none; }
+@media (max-width: 960px) { header.tk-site .sn-brand .sn-logo { height: 54px; } }

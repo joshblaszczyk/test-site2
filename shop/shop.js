@@ -124,7 +124,7 @@
     const state = live.get(sku);
     if (state === 'sold' || state === 'hidden') { say('Sorry — this piece was just sold.'); return null; }
     if (state === 'on_hold') { say('Someone is checking out with this piece right now. Try again in a few minutes.'); return null; }
-    if (state === 'unpriced') { say('Please call 630.615.0640 for this piece’s price.'); return null; }
+    if (state === 'unpriced') { say('Please call 224.474.4625 for this piece’s price.'); return null; }
     return sku;
   }
   window.addToCart = function (arg) {
@@ -149,6 +149,8 @@
   if (products.length) document.querySelectorAll('button[aria-label="Shopping bag"], button[aria-label="Shopping cart"]').forEach(button => {
     button.onclick = event => { event.preventDefault(); open(); };
   });
+  // The shared header's bag icon on other pages opens the shop with #bag.
+  if (products.length && location.hash === '#bag') window.addEventListener('load', () => open());
 
   // Product details modal: grey out "add to bag" and "add to cart" for pieces that are gone.
   let repaintOpenPiece = () => {};
@@ -296,6 +298,7 @@
       live.clear();
       data.products.forEach(p => live.set(String(p.sku), p.status));
       applyLive();
+      document.dispatchEvent(new CustomEvent('thomkat:live'));   // pages recount without sold pieces
       repaintOpenPiece();   // a piece opened before the answer came (a ?item= link) greys out if it sold
       if (linked && document.getElementById('tkProductData')) describeLinked();   // a sold piece says so
     } catch {
@@ -303,7 +306,8 @@
     }
   }
 
-  window.ThomKatShop = { open, close, bag, refresh, applyLive };
+  const isGone = sku => { const state = live.get(String(sku)); return state === 'sold' || state === 'hidden'; };
+  window.ThomKatShop = { open, close, bag, refresh, applyLive, isGone };
   window.addEventListener('storage', event => { if (event.key === BAG_KEY) render(); });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); });
   render();

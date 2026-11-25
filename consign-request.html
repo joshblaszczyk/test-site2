@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Consign with ThomKat Fashion in downtown Lombard, IL: send a few photos and a short description of your pieces, and the boutique will get back to you." />
+  <title>Consign with us: Send Photos of Your Pieces | ThomKat</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Ladies Room">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Consign with us: Send Photos of Your Pieces | ThomKat">
+  <meta property="og:description" content="Consign with ThomKat Fashion in downtown Lombard, IL: send a few photos and a short description of your pieces, and the boutique will get back to you.">
+  <meta property="og:url" content="https://www.thelroom.com/consign-request.html">
+  <meta property="og:image" content="https://www.thelroom.com/media/thomkat-share.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='14' fill='%23171217'/%3E%3Ccircle cx='24' cy='24' r='11' fill='%23f04e8a'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&amp;display=swap" rel="stylesheet" />
+  <style>
+    /* The site's base look (same tokens, type, buttons and footer as consign.html); the form's own styles are in shop/consign-request.css. */
+    :root {
+      --ink: #171217;
+      --muted: #766c72;
+      --paper: #ffffff;
+      --white: #ffffff;
+      --pink: #f04e8a;
+      --pink-dark: #b52f62;
+      --pink-pale: #f9d9e5;
+      --line: #d9ced1;
+      --radius: 20px;
+      --shadow: 0 22px 55px rgba(31, 15, 25, .11);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "DM Sans", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    input, select, textarea { font: inherit; }
+    h1, h2, h3, p { margin-top: 0; }
+    .container { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+    .mono { font-family: "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; font-size: 11px; }
+    .brand { display: flex; align-items: center; gap: 11px; min-width: 205px; }
+    .brand-mark { width: 42px; height: 42px; flex: none; }
+    .brand-name { font-size: 15px; line-height: 1.03; font-weight: 700; letter-spacing: .075em; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--pink-dark); margin-bottom: 22px; }
+    .eyebrow::before { content: ""; display: block; width: 32px; height: 1px; background: var(--pink); }
+    h1 { max-width: 560px; margin-bottom: 22px; font-family: "Playfair Display", serif; font-weight: 500; font-size: clamp(48px, 6vw, 82px); line-height: .95; letter-spacing: -.055em; }
+    h1 em, h2 em { color: var(--pink); font-style: italic; }
+    h2 { font-family: "Playfair Display", serif; font-size: clamp(34px, 4.4vw, 52px); line-height: 1; letter-spacing: -.04em; font-weight: 500; margin-bottom: 0; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 46px; padding: 0 21px; border: 1px solid var(--pink); border-radius: 100px; background: var(--pink); color: #171217; font-size: 12px; font-weight: 700; letter-spacing: .04em; transition: transform .2s, background .2s, color .2s; }
+    .button:hover { transform: translateY(-2px); background: var(--pink-dark); border-color: var(--pink-dark); }
+    .button.alt { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .button.alt:hover { background: var(--ink); color: #fff; }
+
+    footer { padding: 58px 0 28px; border-top: 1px solid var(--line); }
+    .footer-top { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 45px; }
+    .footer-top p { max-width: 290px; margin-top: 17px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .footer-links { display: grid; grid-template-columns: repeat(2, auto); align-content: start; gap: 11px 40px; font-size: 12px; color: #564c51; }
+    .footer-links a:hover { color: var(--pink-dark); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 23px; border-top: 1px solid var(--line); color: #85777d; font-size: 10px; }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 34px, 500px); }
+      .brand { min-width: auto; }
+      .footer-top, .footer-bottom { display: grid; gap: 25px; }
+    }
+  </style>
+  <link rel="stylesheet" href="divisions.css">
+  <link rel="stylesheet" href="shop/consign-request.css?v=20261118a">
+  <link rel="stylesheet" href="shop/ebay-reviews.css?v=20261118rv2">
+  <link rel="stylesheet" href="site-nav.css?v=20261124m">
+</head>
+<body>
+  <!-- SITE-NAV:START (tools/site_nav.py writes this block; edit the menu there) -->
+<header class="tk-site" id="siteNav">
+  <div class="sn-bar">
+    <a class="sn-brand" href="home.html" aria-label="ThomKat Fashion home"><img class="sn-logo" src="media/thomkat-logo.png?v=20261117d" width="261" height="200" alt=""><span class="sn-brand-name">ThomKat Fashion</span></a>
+    <nav class="sn-links" id="navLinks" aria-label="Main menu">
+      <div class="sn-dd sn-dd--explore"><button class="sn-toggle" type="button" aria-expanded="false" aria-controls="snExplore">Explore <span aria-hidden="true">⌄</span></button><div class="sn-panel sn-panel--list" id="snExplore"><a href="ladies-room.html">The Ladies' Room Inc.</a><a href="index.html">ThomKat Fashion</a><a href="tlr-foundation.html">TLR Gives Back</a><a href="consign.html">Consign with us</a><a href="alterations.html">Alterations</a><a href="rent.html#story">Our story</a><a href="policies.html#returns">Purchase policy</a><a href="home.html#visit">Visit the boutique</a></div></div>
+      <div class="sn-dd sn-dd--shop"><div class="sn-split"><a class="sn-top" href="index.html">Shop Online</a><button class="sn-toggle" type="button" aria-expanded="false" aria-controls="snShop" aria-label="Shop categories"><span aria-hidden="true">⌄</span></button></div><div class="sn-panel" id="snShop" aria-label="Shop online by category"><div class="sn-lede"><strong>Shop online</strong><a href="index.html">Shop all</a></div><div class="sn-grid"><a href="index.html?cat=bridal">Bridal gowns</a><a href="index.html?cat=black-tie-formal">Black tie &amp; formal</a><a href="index.html?cat=prom-homecoming">Prom &amp; homecoming</a><a href="suits.html">Suits &amp; blazers</a><a href="index.html?cat=dresses">Dresses</a><a href="index.html?cat=tops">Tops</a><a href="index.html?cat=sweaters">Sweaters</a><a href="index.html?cat=vintage">Vintage</a><a href="index.html?cat=shoes">Shoes</a><a href="index.html?cat=purses">Purses</a><a href="index.html">Themed parties &amp; events</a><a href="gallery.html">Real occasions</a></div></div></div>
+      <a href="alterations.html">Alterations</a>
+      <a href="consign-request.html" aria-current="page">Consign with us</a>
+      <div class="sn-dd sn-dd--right"><button class="sn-toggle sn-pink" type="button" aria-expanded="false" aria-controls="snTlr">TLR Gives Back <span aria-hidden="true">⌄</span></button><div class="sn-panel" id="snTlr" aria-label="TLR Gives Back"><div class="sn-lede"><strong>TLR Gives Back</strong><a href="tlr-foundation.html">Foundation page</a></div><div class="sn-grid"><a href="tlr-foundation.html">About the Foundation</a><a href="tlr-foundation.html#auction">Fundraiser Auction</a><a href="tlr-foundation.html#get-involved">Get Involved</a><a href="home.html#visit">Contact the boutique</a></div></div></div>
+      <div class="sn-dd sn-dd--right"><button class="sn-toggle" type="button" aria-expanded="false" aria-controls="snAbout">About Us <span aria-hidden="true">⌄</span></button><div class="sn-panel" id="snAbout" aria-label="About ThomKat Fashion"><div class="sn-lede"><strong>About ThomKat</strong><a href="rent.html#story">Our story</a></div><div class="sn-grid"><a href="rent.html#story">About Us</a><a href="gallery.html">Real occasions</a><a href="alterations.html">Alterations</a><a href="home.html#visit">Hours &amp; location</a><a href="tlr-foundation.html">TLR Gives Back</a><a href="tel:+12244744625">Call 224.474.4625</a></div></div></div>
+      <div class="sn-dd sn-dd--right"><button class="sn-toggle" type="button" aria-expanded="false" aria-controls="snPolicy">Policy <span aria-hidden="true">⌄</span></button><div class="sn-panel sn-policy" id="snPolicy" role="region" aria-labelledby="snPolicyTitle"><div class="sn-policy-kicker">Before you buy</div><p class="sn-policy-title" id="snPolicyTitle">Our purchase &amp; <em>re-consignment policy.</em></p><p class="sn-policy-intro">At ThomKat, we want you to love your find! Please review our policy before completing your purchase.</p><ul class="sn-policy-list"><li><strong>All sales are final.</strong> Refunds are not available.</li><li><strong>Once purchased,</strong> a gown becomes the property of the buyer.</li><li><strong>If you decide to part with your gown,</strong> you may be eligible to re-consign it with ThomKat. Under our re-consignment policy, you receive 50% of the final selling price when the item sells, subject to our acceptance and consignment terms.</li></ul><a class="sn-policy-cta" href="home.html#sell">Ask about re-consigning ↗</a></div></div>
+      <a href="home.html#visit">Visit</a>
+      <a href="consignor.html">Client Page</a>
+      <a class="sn-menu-only" href="account.html">Your account</a>
+    </nav>
+    <div class="sn-actions">
+      <a class="sn-icon sn-search" href="index.html#search" aria-label="Search the collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 5 5"/></svg></a>
+      <a class="sn-icon sn-fav" href="account.html#favorites" aria-label="Your favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20.3 10.7 19.1C6 14.9 3 12.1 3 8.6 3 5.8 5.2 3.7 7.9 3.7c1.6 0 3.1.7 4.1 1.9 1-1.2 2.5-1.9 4.1-1.9 2.7 0 4.9 2.1 4.9 4.9 0 3.5-3 6.3-7.7 10.5L12 20.3Z"/></svg><span class="sn-count sn-fav-count" hidden>0</span></a>
+      <a class="sn-icon sn-acct" href="account.html" aria-label="Your account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.4" r="4"/><path d="M4.5 20.5c1.4-3.9 4.2-5.8 7.5-5.8s6.1 1.9 7.5 5.8"/></svg></a>
+      <button class="sn-icon sn-bag" type="button" aria-label="Shopping cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 8.5h14l-1 12H6l-1-12Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span class="sn-count" id="cartCount">0</span></button>
+      <button class="sn-icon sn-menu menu-button" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<!-- SITE-NAV:END -->
+
+  <main>
+    <section class="cr-page" aria-labelledby="pageHeading">
+      <div class="container cr-grid-page">
+        <div class="cr-intro">
+          <div class="eyebrow mono">Consign with us</div>
+          <h1 id="pageHeading">Show us your <em>pieces.</em></h1>
+          <p class="cr-lede">Thinking of consigning with ThomKat? Send a few photos and tell us what you have. The boutique will look at your pieces and get back to you.</p>
+          <div data-ebay-reviews="badge"></div>
+          <div class="cr-tips">
+            <p class="mono">Photos that help most</p>
+            <ul>
+              <li>The whole piece, front and back</li>
+              <li>The brand label and the size tag</li>
+              <li>Any marks, pulls or alterations</li>
+            </ul>
+          </div>
+          <p class="cr-call">Prefer to talk? Call <a href="tel:+12244744625">224.474.4625</a>, or read <a href="consign.html">how consigning works</a>.</p>
+        </div>
+
+        <div class="cr-card">
+          <form class="cr-form" id="consignForm" novalidate>
+            <div class="cr-field">
+              <label for="crName">Your name</label>
+              <input id="crName" name="name" type="text" autocomplete="name" maxlength="80" required />
+            </div>
+            <div class="cr-field">
+              <label for="crEmail">Email</label>
+              <input id="crEmail" name="email" type="email" autocomplete="email" inputmode="email" maxlength="160" required />
+            </div>
+            <div class="cr-field">
+              <label for="crPhone">Phone <span>(optional)</span></label>
+              <input id="crPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" />
+            </div>
+            <div class="cr-field">
+              <label for="crPieces">About how many pieces?</label>
+              <input id="crPieces" name="pieces" type="number" inputmode="numeric" min="1" max="500" step="1" placeholder="e.g. 6" required />
+            </div>
+            <div class="cr-field cr-full">
+              <label for="crDesc">What do you have?</label>
+              <textarea id="crDesc" name="description" rows="5" maxlength="3000" required placeholder="Types, brands, sizes. For example: 3 evening gowns (sizes 6–8, Sherri Hill, Jovani), 2 blazers, a Coach bag."></textarea>
+            </div>
+            <fieldset class="cr-photos cr-full">
+              <legend>Photos <span>(up to 8)</span></legend>
+              <div class="cr-tiles" id="crTiles"></div>
+              <div class="cr-photo-buttons">
+                <label class="button alt cr-pick">Add photos<input id="crFiles" type="file" accept="image/*,.heic,.heif" multiple /></label>
+                <label class="button alt cr-pick cr-camera">Take a photo<input id="crCamera" type="file" accept="image/*" capture="environment" /></label>
+              </div>
+              <p class="cr-count" id="crCount" aria-live="polite">No photos yet. You can also send the request without photos.</p>
+            </fieldset>
+            <div class="cr-trap" aria-hidden="true"><label for="crWebsite">Leave this empty</label><input id="crWebsite" type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+            <p class="cr-error" id="crError" role="alert" hidden></p>
+            <button class="button cr-send" id="crSend" type="submit">Send my request <span aria-hidden="true">↗</span></button>
+            <p class="cr-fine">We use your details only to answer this request.</p>
+          </form>
+
+          <div class="cr-done" id="crDone" tabindex="-1" hidden>
+            <div class="eyebrow mono">Request sent</div>
+            <h2>Thank <em>you!</em></h2>
+            <p class="cr-done-text">Thank you! The boutique will look at your pieces and get back to you.</p>
+            <div class="button-row">
+              <a class="button" href="consign.html">Back to consigning <span aria-hidden="true">↗</span></a>
+              <button class="button alt" id="crAgain" type="button">Send another request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-top">
+      <div>
+        <a class="brand" href="index.html#top"><img class="footer-logo" src="media/thomkat-logo.png?v=20261117d" width="261" height="200" alt="ThomKat Fashion and Art Boutique" loading="lazy" style="display:block;width:auto;height:92px;max-width:100%"></a>
+        <p>Come for the fashion. Stay for the creativity. Leave feeling fabulous!</p>
+      </div>
+      <nav class="footer-nav" aria-label="Explore"><div class="mono">Explore</div><div class="footer-links"><a href="ladies-room.html">The Ladies' Room Inc.</a><a href="index.html">ThomKat Fashion</a><a href="tlr-foundation.html">TLR Gives Back</a><a href="consign.html">Consign with us</a><a href="alterations.html">Alterations</a><a href="rent.html#story">Our story</a><a href="policies.html#returns">Purchase policy</a><a href="policies.html#shipping">Shipping &amp; pickup</a><a href="policies.html#privacy">Privacy</a><a href="home.html#visit">Visit the boutique</a></div></nav>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 ThomKat Fashion · 1 N. Main Street, Lombard, IL 60148</span><span>ThomKat — Where every stitch tells a story!</span></div>
+  </footer>
+
+  <script src="shop/consign-request.js?v=20261118a" defer></script>
+<script src="shop/ebay-reviews.js?v=20261118rv2" defer></script>
+<script src="site-nav.js?v=20261124m" defer></script>
+</body>
+</html>

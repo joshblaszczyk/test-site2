@@ -1,4 +1,4 @@
-// ThomKat shop admin → Consignors: people, their pieces, sales from every channel, checks, private links,
+// ThomKat shop admin → Consignors: people, their pieces, sales from every channel, checks, private links, their password,
 // her spreadsheet import, and the register (Square) sync. Uses admin.js helpers via window.TKAdmin.
 (function () {
   'use strict';
@@ -14,6 +14,8 @@
   let current = null;      // the open consignor's detail
   let openForm = null;     // which inline form is open: 'edit' | 'add' | 'sold:<id>' | 'item:<id>' | 'check'
   let lastLink = null;     // {id, url} shown once after making a link
+  let pwShown = null;      // {id, pw}: the temporary password she just set, shown once (never sent back by the server)
+  let pwNote = null;       // {id, text}: what the last password action did
 
   A.tabs.consignors = loadList;
 
@@ -94,6 +96,8 @@
   }
 
   async function openConsignor(id, quiet = false) {
+    if (pwShown && pwShown.id !== id) pwShown = null;
+    if (pwNote && pwNote.id !== id) pwNote = null;
     try {
       current = await api('admin/consignors/' + id);
       document.querySelectorAll('.cs-row').forEach(b => b.classList.toggle('on', Number(b.dataset.id) === id));
@@ -194,17 +198,39 @@
     const form = el('form', { class: 'inline-form' },
       el('strong', {}, `Mark ${item.item_no} sold`),
       el('div', { class: 'form-grid' },
+        field('Discount (% off)', 'pct', '', { inputmode: 'decimal', placeholder: 'e.g. 20' }),
         field('Sold for ($, after any discount)', 'amount', dollars(item.price_cents), { required: true, inputmode: 'decimal' }),
         field('Discount given ($)', 'discount', '', { inputmode: 'decimal', placeholder: '0.00' }),
         field('Date', 'date', new Date().toISOString().slice(0, 10), { type: 'date' })),
       el('p', { class: 'muted cut-preview' }),
       el('div', { class: 'row' }, el('button', { class: 'btn small', type: 'submit' }, 'Mark sold'),
         el('button', { class: 'btn ghost small', type: 'button', onclick: () => { openForm = null; renderDetail(); } }, 'Cancel')));
+    // "% off" fills in what it sold for and the discount from the price on the tag; typing either one keeps the others in step.
+    const price = item.price_cents === null || item.price_cents === undefined ? null : Number(item.price_cents);
+    const pctText = p => String(Math.round(p * 10) / 10);
     const preview = () => {
       const cents = Math.round(parseFloat(form.amount.value || '0') * 100) || 0;
-      form.querySelector('.cut-preview').textContent = `${current.consignor.name.split(' ')[0]} gets ${item.split}% = ${money(Math.floor((cents * item.split + 50) / 100))}; the shop keeps ${money(cents - Math.floor((cents * item.split + 50) / 100))}.`;
+      const off = price !== null && cents < price ? price - cents : 0;
+      form.querySelector('.cut-preview').textContent = `Sold for ${money(cents)}${off ? ` (${pctText(off * 100 / price)}% off ${money(price)})` : ''}: `
+        + `${current.consignor.name.split(' ')[0]} gets ${item.split}% = ${money(Math.floor((cents * item.split + 50) / 100))}; the shop keeps ${money(cents - Math.floor((cents * item.split + 50) / 100))}.`;
     };
-    form.amount.addEventListener('input', preview);
+    form.pct.addEventListener('input', () => {
+      const p = parseFloat(form.pct.value);
+      if (price !== null && Number.isFinite(p) && p >= 0 && p <= 100) {
+        const cents = Math.round(price * (100 - p) / 100);
+        form.amount.value = (cents / 100).toFixed(2);
+        form.discount.value = price - cents > 0 ? ((price - cents) / 100).toFixed(2) : '';
+      } else if (price !== null && form.pct.value.trim() === '') { form.amount.value = (price / 100).toFixed(2); form.discount.value = ''; }
+      preview();
+    });
+    form.amount.addEventListener('input', () => {
+      const cents = Math.round(parseFloat(form.amount.value || '0') * 100);
+      if (price !== null && Number.isFinite(cents)) {
+        form.discount.value = cents < price ? ((price - cents) / 100).toFixed(2) : '';
+        form.pct.value = cents < price && price > 0 ? pctText((price - cents) * 100 / price) : '';
+      }
+      preview();
+    });
     preview();
     form.addEventListener('submit', event => { event.preventDefault(); act(`admin/consign-items/${item.id}/action`, { action: 'sold', ...formData(form) }); });
     return form;
@@ -212,12 +238,12 @@
 
   function checkForm(t) {
     const form = el('form', { class: 'inline-form' },
-      el('strong', {}, 'Record a check'),
+      el('strong', {}, 'Paid out in store'),
       el('div', { class: 'form-grid' },
-        field('Check number', 'check_no', '', { maxlength: 30 }),
+        field('Note (optional: cash, check #…)', 'check_no', '', { maxlength: 30 }),
         field('Date', 'date', new Date().toISOString().slice(0, 10), { type: 'date' }),
         field('Amount ($)', 'amount', dollars(Math.max(0, t.owed_cents)), { inputmode: 'decimal' })),
-      el('div', { class: 'row' }, el('button', { class: 'btn small', type: 'submit' }, 'Save check'),
+      el('div', { class: 'row' }, el('button', { class: 'btn small', type: 'submit' }, 'Save payout'),
         el('button', { class: 'btn ghost small', type: 'button', onclick: () => { openForm = null; renderDetail(); } }, 'Cancel')));
     form.addEventListener('submit', event => { event.preventDefault(); act(`admin/consignors/${current.consignor.id}/payouts`, formData(form)); });
     return form;
@@ -227,7 +253,7 @@
   function statusCell(i) {   // el() flattens one level, so this returns a flat list
     if (i.status === 'sold' && i.sale) {
       return [el('span', { class: 'badge ok' }, 'sold ' + (CHANNEL[i.sale.channel] || i.sale.channel)), el('br'), el('span', { class: 'muted' }, day(i.sale.sold_at)),
-        i.sale.payout_id ? [el('br'), el('span', { class: 'muted' }, 'paid' + (i.sale.check_no ? ' · ck ' + i.sale.check_no : ''))] : null].flat();
+        i.sale.payout_id ? [el('br'), el('span', { class: 'muted' }, 'paid out' + (i.sale.check_no ? ' · ' + i.sale.check_no : ''))] : null].flat();
     }
     const label = { in_store: 'in store', returned: 'given back', donated: 'donated', sold: 'sold' }[i.status] || i.status;
     return [el('span', { class: 'badge ' + (i.status === 'in_store' ? 'pink' : 'dim') }, label),
@@ -245,7 +271,7 @@
       links.push(el('button', { class: 'link', type: 'button', onclick: go('donated', `Mark ${i.item_no} donated? It comes off the website.`) }, 'Donated'));
       if (!i.sales.length) links.push(el('button', { class: 'link', type: 'button', onclick: go('delete', `Delete ${i.item_no}? Only for a mistake — it has no sales.`) }, 'Delete'));
     } else if (i.status === 'sold') {
-      links.push(el('button', { class: 'link', type: 'button', onclick: go('unsell', `Undo the sale of ${i.item_no}? The consignor’s cut is taken back${i.sale?.payout_id ? ' (it was already paid, so the next check is smaller)' : ''}.`) }, 'Undo sale'));
+      links.push(el('button', { class: 'link', type: 'button', onclick: go('unsell', `Undo the sale of ${i.item_no}? The consignor’s cut is taken back${i.sale?.payout_id ? ' (it was already paid out, so their next payout is smaller)' : ''}.`) }, 'Undo sale'));
     } else {
       links.push(el('button', { class: 'link', type: 'button', onclick: go('back') }, 'Back in store'));
     }
@@ -260,7 +286,7 @@
       ['Their split', i.split + '%'], ['Their cut if sold', i.potential_cut_cents !== null && i.potential_cut_cents !== undefined ? money(i.potential_cut_cents) : '—'],
       ['Where', i.location], ['Received', i.received_at ? day(i.received_at) : ''], ['Website SKU', i.sku],
       ['Sold', i.sale ? `${money(i.sale.sold_cents)} on ${day(i.sale.sold_at)} via ${CHANNEL[i.sale.channel] || i.sale.channel}` : ''],
-      ['Their cut', i.sale ? money(i.sale.cut_cents) : ''], ['Paid', i.sale ? (i.sale.payout_id ? 'Yes' + (i.sale.check_no ? ' · check ' + i.sale.check_no : '') : 'Not yet') : '']]
+      ['Their cut', i.sale ? money(i.sale.cut_cents) : ''], ['Paid', i.sale ? (i.sale.payout_id ? 'Yes' + (i.sale.check_no ? ' · ' + i.sale.check_no : '') : 'Not yet') : '']]
       .filter(r => r[1] !== '' && r[1] !== null && r[1] !== undefined);
     const close = () => overlay.remove();
     const overlay = el('div', { style: 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:12px', onclick: e => { if (e.target === overlay) close(); } },
@@ -291,7 +317,7 @@
         el('div', {}, el('p', { class: 'mono' }, 'Sold'), el('div', { class: 'big' }, money(t.earned_cents)), el('span', { class: 'muted' }, `their share of ${money(t.sold_cents)} in sales`)),
         el('div', { class: t.owed_cents < 0 ? 'neg' : 'owed' }, el('p', { class: 'mono' }, t.owed_cents < 0 ? 'They owe back' : 'Owed now'), el('div', { class: 'big' }, money(Math.abs(t.owed_cents))),
           el('span', { class: 'muted' }, t.owed_cents < 0 ? 'a paid piece was refunded' : 'not paid yet')),
-        el('div', {}, el('p', { class: 'mono' }, 'Paid'), el('div', { class: 'big' }, money(t.paid_cents)), el('span', { class: 'muted' }, `${d.payouts.length} check(s)`)),
+        el('div', {}, el('p', { class: 'mono' }, 'Paid'), el('div', { class: 'big' }, money(t.paid_cents)), el('span', { class: 'muted' }, `${d.payouts.length} payout(s)`)),
         el('div', {}, el('p', { class: 'mono' }, 'If the rest sell'), el('div', { class: 'big' }, '+' + money(t.pending_cents)), el('span', { class: 'muted' }, `${t.items.in_store} piece(s) in store`))),
     ];
 
@@ -331,18 +357,37 @@
 
     // checks
     parts.push(el('div', { class: 'section' },
-      el('div', { class: 'bar' }, el('h3', {}, 'Checks'),
+      el('div', { class: 'bar' }, el('h3', {}, 'Payouts (picked up in store)'),
         t.owed_cents > 0 && openForm !== 'check' ? el('button', { class: 'btn small', type: 'button', onclick: () => { openForm = 'check'; renderDetail(); } }, `Pay ${money(t.owed_cents)}`) : null),
       openForm === 'check' ? checkForm(t) : null,
-      d.payouts.length ? el('table', { class: 'table' }, el('thead', {}, el('tr', {}, ['Date', 'Check', 'Amount', 'Covers', ''].map(h => el('th', {}, h)))),
+      d.payouts.length ? el('table', { class: 'table' }, el('thead', {}, el('tr', {}, ['Date', 'Note', 'Amount', 'Covers', ''].map(h => el('th', {}, h)))),
         el('tbody', {}, d.payouts.map(p => el('tr', {}, el('td', {}, day(p.paid_at)), el('td', {}, p.check_no || '—'), el('td', { class: 'money' }, money(p.amount_cents)),
           el('td', {}, `${p.sales} sale(s)`),
-          el('td', {}, el('button', { class: 'link', type: 'button', onclick: () => act(`admin/consign-payouts/${p.id}/delete`, {}, `Remove check ${p.check_no || ''} for ${money(p.amount_cents)}? Only if it was entered by mistake.`) }, 'Remove'))))))
-        : el('p', { class: 'muted' }, 'No checks yet.')));
+          el('td', {}, el('button', { class: 'link', type: 'button', onclick: () => act(`admin/consign-payouts/${p.id}/delete`, {}, `Remove the payout of ${money(p.amount_cents)}${p.check_no ? ' (' + p.check_no + ')' : ''}? Only if it was entered by mistake.`) }, 'Remove'))))))
+        : el('p', { class: 'muted' }, 'Nothing paid out yet.')));
+
+    // their password for the consignor page (email + password; lib/consign.php consign_admin_password, owner only)
+    const first = c.name.split(' ')[0];
+    const shown = pwShown && pwShown.id === c.id ? pwShown : null;
+    const note = pwNote && pwNote.id === c.id ? pwNote.text : '';
+    parts.push(el('div', { class: 'section', id: 'csPassword' }, el('h3', {}, 'Their sign-in'),
+      el('p', {}, el('strong', {}, 'Password: '), c.has_password ? `set on ${day(c.password_set_at)}` : 'not set yet',
+        c.locked ? el('span', { class: 'badge bad', style: 'margin-left:8px' }, 'locked a few minutes (many wrong tries)') : null),
+      el('p', { class: 'muted' }, c.email ? `${first} signs in on the consignor page with ${c.email} and their password.` : 'Add their email first (Edit details): they sign in with their email and a password.'),
+      note ? el('p', { class: 'msg ok' }, note) : null,
+      shown ? el('div', { class: 'portal-link', id: 'csTempPw' }, el('p', {}, `Tell ${first} this password. It is shown only now; they can change it after signing in.`),
+        el('div', { class: 'copy' }, (() => { const i = el('input', { readonly: true, 'aria-label': 'Their temporary password' }); i.value = shown.pw; return i; })(),
+          el('button', { class: 'btn small', type: 'button', onclick: async e => { try { await navigator.clipboard.writeText(shown.pw); e.target.textContent = 'Copied'; } catch { e.target.previousSibling.select(); } } }, 'Copy')),
+        el('div', { class: 'row' }, el('button', { class: 'btn ghost small', type: 'button', onclick: () => { pwShown = null; renderDetail(); } }, 'Done, hide it'))) : null,
+      openForm === 'password' ? passwordForm(c) : null,
+      el('div', { class: 'row' },
+        c.status === 'active' && c.email && openForm !== 'password' ? el('button', { class: 'btn ghost small', type: 'button', onclick: () => { pwNote = null; openForm = 'password'; renderDetail(); } }, 'Set a password for them') : null,
+        c.status === 'active' && c.email ? el('button', { class: 'btn ghost small', type: 'button', onclick: sendPasswordLink }, 'Send password link') : null,
+        c.has_password ? el('button', { class: 'btn ghost small', type: 'button', onclick: removePassword }, 'Remove password') : null)));
 
     // private account page
     const linkBox = lastLink && lastLink.id === c.id
-      ? el('div', { class: 'portal-link' }, el('p', {}, `Text or email this link to ${c.name.split(' ')[0]}. It shows their pieces, what sold, their cut and their checks — nothing else. Anyone with the link can see it, so send it only to them.`),
+      ? el('div', { class: 'portal-link' }, el('p', {}, `Text or email this link to ${c.name.split(' ')[0]}. It shows their pieces, what sold, their cut and their payouts — nothing else. Anyone with the link can see it, so send it only to them.`),
         el('div', { class: 'copy' }, (() => { const i = el('input', { readonly: true, 'aria-label': 'Private link' }); i.value = lastLink.url; return i; })(),
           el('button', { class: 'btn small', type: 'button', onclick: async e => { try { await navigator.clipboard.writeText(lastLink.url); e.target.textContent = 'Copied'; } catch { e.target.previousSibling.select(); } } }, 'Copy')))
       : null;
@@ -358,6 +403,39 @@
     box.replaceChildren(...parts);
     const firstInput = box.querySelector('.inline-form input:not([type=date])');
     if (firstInput) firstInput.focus({ preventScroll: false });
+  }
+
+  function passwordForm(c) {
+    const first = c.name.split(' ')[0];
+    const input = el('input', { name: 'password', type: 'text', minlength: 8, maxlength: 72, required: true, autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false' });
+    const form = el('form', { class: 'inline-form' },
+      el('strong', {}, `Set a password for ${first}`),
+      el('div', { class: 'form-grid' }, el('label', { class: 'wide' }, 'Temporary password (at least 8 characters)', input,
+        el('span', { class: 'field-note' }, `Tell ${first} this password; they can change it after signing in. Setting it signs them out on every device.`))),
+      el('div', { class: 'row' }, el('button', { class: 'btn small', type: 'submit' }, 'Set password'),
+        el('button', { class: 'btn ghost small', type: 'button', onclick: () => { openForm = null; renderDetail(); } }, 'Cancel')));
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const pw = input.value;
+      if (pw.length < 8) { flashDetail('Use at least 8 characters for the password.'); return; }
+      const data = await act(`admin/consignors/${c.id}/password`, { password: pw }, c.has_password ? `Replace ${first}’s password? They are signed out everywhere and need the new one.` : null);
+      if (data && data.password_set) { pwShown = { id: c.id, pw }; pwNote = null; renderDetail(); }
+    });
+    return form;
+  }
+
+  async function sendPasswordLink() {
+    const c = current.consignor;
+    pwNote = null;
+    const data = await act(`admin/consignors/${c.id}/password-link`, {}, `Email ${c.name.split(' ')[0]} a link to set their password (to ${c.email})? It works once, for 24 hours.`);
+    if (data && data.link_sent_to) { pwNote = { id: c.id, text: `Sent a password link to ${data.link_sent_to}. It works once, for 24 hours.` }; renderDetail(); }
+  }
+
+  async function removePassword() {
+    const c = current.consignor;
+    pwNote = null;
+    const data = await act(`admin/consignors/${c.id}/password-remove`, {}, `Remove ${c.name.split(' ')[0]}’s password? They are signed out everywhere and can’t sign in until a new password is set.`);
+    if (data) { pwShown = null; pwNote = { id: c.id, text: 'Password removed. They are signed out everywhere.' }; renderDetail(); }
   }
 
   async function makeLink() {
@@ -430,6 +508,7 @@
   window.TKConsignors = {
     importData(name, data) { pending = { name, data }; document.querySelector('[data-tab="consignors"]')?.click(); runImport(false); },
     putOnWebsite,
+    open(id) { current = null; document.querySelector('[data-tab="consignors"]')?.click(); openForm = null; openConsignor(Number(id)); },   // the Customers tab links here
   };
   const panel = document.querySelector('[data-panel="consignors"]');
   if (panel) {

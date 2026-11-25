@@ -56,7 +56,7 @@ label input[type=checkbox], label input[type=radio] { width: auto; min-height: 0
 .order .top-line { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; }
 .order .items { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .order .badges { display: flex; flex-wrap: wrap; gap: 4px; }
-.detail { position: sticky; top: 92px; max-height: calc(100vh - 110px); overflow: auto; }
+.detail { position: sticky; top: calc(var(--top-h, 92px) + 8px); max-height: calc(100vh - var(--top-h, 92px) - 24px); overflow: auto; }
 .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 8px 0 14px; }
 .kv dt { color: var(--muted); }
 .kv dd { margin: 0; }
@@ -210,3 +210,195 @@ fieldset.keys legend { font-weight: 700; padding: 0 6px; }
 /* Forgot password (sign-in card) and the reset page. */
 .forgot-row { margin: 14px 0 0; text-align: center; font-size: 14px; }
 .reset-page .login-card .hint { margin: 0 0 14px; color: var(--muted, #766c72); font-size: 14px; line-height: 1.5; }
+
+
+/* ---- phones (audit 2026-11-14) ------------------------------------------------------------------------ */
+.badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.more-pieces { display: block; margin: 14px auto 0; }
+#squareByPeriod td:first-child { white-space: nowrap; }
+.product-tag .sample-product-photo { margin-top: 8px; }
+@media (max-width: 640px) {
+  /* The header scrolls away instead of covering a third of the screen; the tabs are one row you can swipe. */
+  .top { position: static; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button { flex: none; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  /* Wide tables keep their columns and scroll sideways, with a shadow at the edge that still has more. */
+  .scroll-x { background: linear-gradient(to right, #fff 30%, rgba(255,255,255,0)), linear-gradient(to left, #fff 30%, rgba(255,255,255,0)) 100% 0,
+      radial-gradient(farthest-side at 0 50%, rgba(23,18,23,.2), transparent), radial-gradient(farthest-side at 100% 50%, rgba(23,18,23,.2), transparent) 100% 0;
+    background-repeat: no-repeat; background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%; background-attachment: local, local, scroll, scroll; }
+  .scroll-x table:not(.cs-items) th, .scroll-x table:not(.cs-items) td { white-space: nowrap; }
+  /* A consignor's pieces: one card per piece instead of a table squeezed to a few letters per column. */
+  .scroll-x:has(> table.cs-items) { overflow: visible; background: none; }
+  table.cs-items, table.cs-items tbody, table.cs-items tr, table.cs-items td { display: block; width: auto; }
+  table.cs-items thead { display: none; }
+  table.cs-items tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  table.cs-items td { border: 0; padding: 2px 0; font-size: 14px; }
+  table.cs-items td:empty { display: none; }
+  table.cs-items td:nth-child(3):not(:only-child)::before { content: "Price: "; color: var(--muted); }
+  table.cs-items td:nth-child(5):not(:only-child)::before { content: "Sold · their cut: "; color: var(--muted); }
+  table.cs-items .acts { gap: 2px 18px; margin-top: 6px; }
+  table.cs-items .acts .link { font-size: 14px; min-height: 40px; white-space: nowrap; }
+  table.cs-items .inline-form, .inline-form { width: auto; max-width: 100%; box-sizing: border-box; }
+  /* iPhones zoom into any box with text under 16px: every field is 16px on a phone. */
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]), select, textarea { font-size: 16px !important; }
+  input[type=checkbox], input[type=radio] { width: 20px; height: 20px; }
+  /* Fingers, not mouse pointers. */
+  .btn, .btn.small, .chip, .seg button { min-height: 40px; }
+  button.link { min-height: 36px; }
+  #logout { min-height: 40px; padding: 0 6px; }
+  .badge, th { font-size: 11px; }
+}
+
+/* ---- desktop (audit 2026-11-14) ---- */
+@media (min-width: 641px) {
+  .items-table td .badge { margin-left: 8px; }
+}
+/* Orders: find an order + edit its details (2026-11-15) */
+.order-search { display: flex; gap: 8px; align-items: center; margin: 0 0 10px; }
+.order-search input { flex: 1; min-width: 0; margin: 0; }
+.order-search-note { margin: 0 0 10px; }
+.oedit { margin: 4px 0 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.oedit fieldset { margin: 8px 0; border: 1px solid var(--line); border-radius: 10px; }
+.oedit legend { font-size: 12px; font-weight: 700; }
+.oedit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0 12px; }
+.ohistory summary { cursor: pointer; font-weight: 700; }
+.ohistory ul { margin: 8px 0 0; padding-left: 18px; max-height: 16rem; overflow: auto; font-size: 13px; }
+.ohistory s { color: var(--bad); }
+@media (max-width: 560px) { .order-search { flex-wrap: wrap; } .order-search input { flex-basis: 100%; } .order-search .btn { flex: 1; } }
+[data-panel="orders"] [hidden] { display: none !important; }
+
+/* Orders → eBay orders to ship (ebay-ship.js) */
+.ebay-ship .eship-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.ebay-ship .eship-head h2 { margin: 0; }
+.ebay-ship .count { display: inline-block; margin-left: 8px; min-width: 24px; padding: 1px 8px; border-radius: 99px; background: var(--pink-pale); font: 500 13px "DM Sans", sans-serif; text-align: center; vertical-align: middle; }
+.eship-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.eship-row img, .eship-noimg { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; background: #f3eff0; display: block; }
+.eship-row.late { background: linear-gradient(90deg, var(--bad-pale), transparent 60%); }
+.eship-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.eship-main strong { overflow-wrap: anywhere; }
+.ebay-ship .sub, .eship-ship .sub, .dlg .eship-item .sub { color: var(--muted); font-size: 12px; }
+.eship-main .badges, .eship-ship .badge { display: inline-flex; flex-wrap: wrap; gap: 5px; }
+.eship-recent { margin-top: 10px; }
+.eship-recent summary, .eship-hand summary { cursor: pointer; color: var(--pink-dark); }
+.eship-ship { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid var(--line); }
+.eship-ship strong { font-family: "DM Mono", monospace; font-size: 12px; overflow-wrap: anywhere; }
+.eship-items { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 12px; }
+.eship-item { display: flex; gap: 10px; align-items: center; }
+.eship-item img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; }
+.eship-box { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.eship-box input { width: 100%; }
+.eship-rates { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.eship-rate { display: flex !important; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+.eship-rate input { width: auto; margin: 0; }
+.dlg .eship-rate .sub { display: inline; margin: 0; }
+.eship-hand { margin-top: 14px; }
+.eship-hand .copy { margin-top: 8px; }
+.eship-hand select { width: auto; }
+@media (max-width: 560px) {
+  .eship-row { grid-template-columns: 40px 1fr; }
+  .eship-row > .btn { grid-column: 1 / -1; justify-self: start; }
+  .eship-row img, .eship-noimg { width: 40px; height: 40px; }
+  .eship-box { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ======================= Staff sign-in and the Staff tab (2026-11-16) ======================= */
+/* A worker's page: the owner-only tabs and buttons stay in the page (other scripts click them) but are never shown. */
+body[data-role="staff"] [data-owner-only] { display: none !important; }
+body[data-role="staff"] .top-inner > .tabs { display: none !important; }
+body[data-role="staff"] #warnings, body[data-role="staff"] #modeBadge { display: none !important; }
+.who-chip { display: inline-flex; align-items: center; min-height: 32px; max-width: 12em; padding: 0 12px; border: 1px solid var(--ink); border-radius: 99px; background: var(--pink-pale); font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tab-count { display: inline-block; margin-left: 6px; min-width: 20px; padding: 0 6px; border-radius: 99px; background: var(--pink); color: var(--ink); font: 700 11px/18px "DM Sans", sans-serif; text-align: center; vertical-align: 1px; }
+.tabs button[aria-selected="true"] .tab-count { border: 1px solid #fff; }
+
+/* sign-in */
+.login-card .hint { margin: 0 0 12px; font-size: 14px; }
+.login-card .switch-row { margin-top: 6px; }
+.login-card .check-row { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; margin: 12px 0 4px; font-weight: 500; font-size: 14px; }
+.login-card .check-row input[type=checkbox] { flex: none; margin: 2px 0 0; }
+#staffForm input[type=text] { min-height: 48px; font-size: 18px; }
+#staffForm #staffCode { font-family: "DM Mono", monospace; letter-spacing: .18em; }
+#staffForm .btn.big, .btn.big { min-height: 52px; font-size: 14px; }
+#staffForm .link, #loginForm .switch-row .link { min-height: 44px; }
+
+/* the Staff tab: one column of stacked cards, thumb-sized */
+#staffPanel { max-width: 760px; }
+#staffPanel .btn { min-height: 44px; }
+#staffPanel .st-h { display: flex; align-items: center; gap: 10px; margin: 22px 0 10px; }
+#staffPanel .st-h h2 { margin: 0; font-size: 20px; }
+#staffPanel .st-count { padding: 1px 9px; border-radius: 99px; background: var(--pink); font-weight: 700; font-size: 12px; }
+.st-card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; margin-bottom: 10px; }
+.st-card.st-removed { background: #faf6f7; }
+.st-card.st-removed .st-name, .st-card.st-ended .st-name { color: var(--muted); }
+.st-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.st-name { font: 600 19px "Playfair Display", serif; overflow-wrap: anywhere; }
+.st-sub { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
+.st-chip { flex: none; display: inline-block; padding: 3px 11px; border-radius: 99px; border: 1px solid var(--ink); background: #fff; font-weight: 700; font-size: 12px; white-space: nowrap; }
+.st-chip.active { background: var(--ok-pale); border-color: var(--ok); color: var(--ok); }
+.st-chip.ends { background: var(--warn-pale); border-color: #c99b17; }
+.st-chip.locked, .st-chip.ended { background: var(--bad-pale); border-color: var(--bad); color: var(--bad); }
+.st-chip.removed { background: #f3eff0; border-color: var(--line); color: var(--muted); }
+.st-chip.why { background: var(--pink-pale); }
+.st-today { margin: 8px 0 0; font-size: 13px; }
+.st-more { margin-top: 10px; }
+.st-more > summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--pink-dark); font-weight: 700; }
+.st-switch { display: flex; align-items: center; gap: 12px; min-height: 44px; margin: 0; padding: 4px 0; font-size: 15px; font-weight: 500; border-top: 1px solid var(--line); cursor: pointer; }
+.st-switch input[type=checkbox] { flex: none; width: 24px; height: 24px; margin: 0; }
+.st-switch .st-hint { display: block; color: var(--muted); font-size: 12px; font-weight: 400; }
+.st-more label.st-field { margin: 10px 0; }
+.st-more select, .st-add select, .st-add input[type=text] { min-height: 44px; }
+.st-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.st-actions .btn { flex: 1 1 120px; }
+.st-pend { display: grid; grid-template-columns: 76px 1fr; gap: 12px; }
+.st-pend img, .st-noimg { width: 76px; height: 100px; object-fit: cover; border-radius: 10px; background: var(--pink-pale); display: block; }
+.st-price { font: 500 26px "DM Mono", monospace; margin: 2px 0; }
+.st-pend .st-actions { grid-column: 1 / -1; margin-top: 0; }
+.st-add { border-style: dashed; }
+.st-add > summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; color: var(--pink-dark); }
+.st-reveal { background: var(--ok-pale); border: 2px solid var(--ok); border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+.st-code { font: 500 34px/1.15 "DM Mono", monospace; letter-spacing: .06em; margin: 6px 0 10px; overflow-wrap: anywhere; }
+.st-linkbox { margin-top: 8px; }
+.st-act { list-style: none; margin: 0; padding: 0; }
+.st-act li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.st-act li:first-child { border-top: 0; }
+.st-act time { display: block; color: var(--muted); font-size: 12px; }
+.st-act li.price { background: var(--warn-pale); border-radius: 10px; padding: 10px; margin: 4px 0; border-top: 0; }
+.st-act li.price b { color: var(--bad); }
+.st-danger { margin-top: 26px; }
+.st-danger .btn { width: 100%; }
+@media (min-width: 641px) { .st-actions .btn { flex: 0 1 auto; } }
+
+/* Orders: "Fix address + new label" */
+.afix .addr-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+.afix .addr-card { text-align: left; font: inherit; cursor: pointer; color: inherit; min-height: 48px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow-wrap: anywhere; }
+@media (max-width: 560px) { .afix .addr-cards { grid-template-columns: 1fr; } }
+
+.afix .addr-card:hover { border-color: #171217; }
+.afix .addr-card:focus-visible { outline: 3px solid #b52f62; outline-offset: 2px; }
+.afix .addr-card em { display: block; margin-top: 6px; font-style: normal; font-weight: 700; color: #b52f62; }
+
+/* eBay queue card (ebay-queue.js) and the "Also list on eBay" ticks in Weekly uploads (weekly-uploads.js) */
+.ebay-queue .eq-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.ebay-queue .eq-head h2 { margin: 0; }
+.eq-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.eq-chip { padding: 3px 10px; border-radius: 99px; background: #f3eff0; font-size: 13px; }
+.eq-chip.pink { background: var(--pink-pale); } .eq-chip.bad { background: var(--bad-pale); } .eq-chip.ok { background: var(--ok-pale); } .eq-chip.test { background: var(--warn-pale); }
+.eq-group h3 { margin: 14px 0 4px; font-size: 14px; }
+.eq-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.eq-row img, .eq-noimg { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; background: #f3eff0; display: block; }
+.eq-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.eq-main .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.eq-detail { font-size: 13px; color: var(--muted); }
+.eq-buttons { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 640px) { .eq-row { grid-template-columns: 48px 1fr; } .eq-buttons { grid-column: 1 / -1; justify-content: flex-start; } }
+.eq-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 10px 0; padding: 8px 12px; border-radius: 12px; background: var(--pink-pale); }
+.eq-bar .eq-count { flex: 1 1 220px; }
+.eq-label { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
+.eq-box { width: 20px; height: 20px; }
+
+/* eBay reviews card in Setup (ebay-reviews.js) */
+.ebay-reviews .ebr-quote { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+.ebay-reviews .ebr-quote .btn { flex: none; }
+.ebay-reviews .ebr-hidden .ebr-text { opacity: .45; text-decoration: line-through; }
+.ebay-reviews .ebr-total { margin: 8px 0; font-size: 16px; }

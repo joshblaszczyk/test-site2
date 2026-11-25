@@ -104,6 +104,7 @@
         post.remove();
         seen();
         A().reloadPieces();
+        document.dispatchEvent(new CustomEvent('tk-ebay-listed', { detail: { sku: p.sku } }));   // the eBay queue card refreshes
       } catch (error) { status.replaceChildren(msg(error.message, 'error')); post.disabled = false; seen(); }
     });
 
@@ -114,6 +115,7 @@
       el('div', { class: 'form-grid' },
         field('Her eBay store', store), field('Price on eBay ($)', price),
         el('div', { class: 'wide' }, field('eBay title', title, null), count)),
+      ...((o.test_stores || []).includes(o.store) ? [msg('Test account: this listing is real and public on eBay, and anyone can buy it. Use a made-up piece or a high price, and end it when the test is done.', 'error')] : []),
       el('h3', {}, 'Category'), catBox, otherCat,
       el('h3', {}, 'Details'), details,
       el('h3', {}, 'Her eBay policies'),

@@ -1,5 +1,6 @@
-// A consignor's own account page (consignor.html#k=KEY): their pieces, what sold, their cut, their checks.
-// The key stays in the address bar's #fragment (never sent with page requests) and goes to the API in a header.
+// A consignor's own account page: their pieces, what sold, their cut, their checks. They sign in with their email and a
+// password (the boutique sets one for them, or they use an emailed set-password link: consignor.html#setpw=…), or open a
+// private link (consignor.html#k=KEY). Codes stay in the address bar's #fragment (never sent with page requests).
 // The static /site/ link is sandboxed and has no shop backend, so hand consignors over to the live shop app.
 if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + location.hostname + ':8446/consignor.html' + location.search + location.hash); }
 (function () {
@@ -24,7 +25,7 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
 
   function problem(title, text, phone) {
     main.replaceChildren(el('div', { class: 'state' }, el('h1', {}, title), el('p', {}, text),
-      el('p', {}, 'Call us at ', el('a', { href: 'tel:' + (phone || '630.615.0640').replace(/\D/g, '') }, phone || '630.615.0640'), ' and we’ll send you a new link.')));
+      el('p', {}, 'Call us at ', el('a', { href: 'tel:' + (phone || '224.474.4625').replace(/\D/g, '') }, phone || '224.474.4625'), ' and we’ll send you a new link.')));
   }
 
   function splitBar(pct, pending) {
@@ -365,7 +366,7 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
     document.title = `${c.first_name}'s consignment account | ThomKat & The Ladies' Room`;
     main.replaceChildren(...[
       el('div', { class: 'intro' }, el('div', {}, el('div', { class: 'eyebrow' }, `Consignor ${c.number}`), el('h1', {}, `Hi ${c.first_name}, here’s your consignment `, el('em', {}, 'at a glance.')),
-        el('p', {}, 'Your pieces, what has sold, your cut of each sale, and the checks we’ve sent. It updates as pieces sell in the store, on our website and on eBay.')),
+        el('p', {}, 'Your pieces, what has sold, your cut of each sale, and what you’ve been paid. It updates as pieces sell in the store, on our website and on eBay.')),
         el('div', { class: 'demo' }, el('strong', {}, agreement), el('br'), `Your share: ${c.split_pct}% of each piece’s selling price.`, el('br'),
           'Questions? Call ', el('a', { href: 'tel:' + String(d.phone).replace(/\D/g, '') }, d.phone), '.')),
       el('div', { class: 'summary', 'aria-label': 'Your consignment summary' },
@@ -377,60 +378,152 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
             el('i', { style: `width:${whole > 0 ? (100 * t.earned_cents / whole).toFixed(1) : 0}%` })),
           el('small', {}, t.pending_cents > 0 ? `+ ${money(t.pending_cents)} more if the other ${inStore} sell` : 'Everything with a price has sold'))),
       el('p', { class: 'paidline' }, el('span', {}, 'Paid to you ', el('b', {}, money(t.paid_cents))),
-        t.owed_cents > 0 ? el('span', {}, 'Coming on your next check ', el('b', {}, money(t.owed_cents))) : null),
+        t.owed_cents > 0 ? el('span', {}, 'Ready to pick up at the boutique: ', el('b', {}, money(t.owed_cents))) : null),
       el('div', { class: 'heading' }, el('h2', {}, 'Your pieces'), el('p', { class: 'split-note' }, el('b', {}, 'Your split'), `${c.split_pct}% of each piece’s selling price, as set in your consignment agreement`)),
       d.items.length ? el('section', { class: 'grid', 'aria-label': 'Your pieces' }, d.items.map(card)) : el('p', {}, 'No pieces yet.'),
-      d.payouts.length ? el('section', { class: 'checks' }, el('div', { class: 'heading' }, el('h2', {}, 'Your checks')),
-        el('table', {}, el('thead', {}, el('tr', {}, el('th', {}, 'Date'), el('th', {}, 'Check'), el('th', {}, 'Amount'))),
-          el('tbody', {}, d.payouts.map(p => el('tr', {}, el('td', {}, day(p.paid_at)), el('td', {}, p.check_no ? '#' + p.check_no : '—'), el('td', {}, money(p.amount_cents))))))) : null,
-      el('p', { class: 'footnote' }, el('a', { href: '#', id: 'signout' }, 'Sign out of this device'), ' · This page is private to you, so please don’t share the link. If you think someone else has it, call us and we’ll make you a new one (the old link then stops working).')].filter(Boolean));
+      d.payouts.length ? el('section', { class: 'checks' }, el('div', { class: 'heading' }, el('h2', {}, 'Your payouts')),
+        el('table', {}, el('thead', {}, el('tr', {}, el('th', {}, 'Date'), el('th', {}, 'Note'), el('th', {}, 'Amount'))),
+          el('tbody', {}, d.payouts.map(p => el('tr', {}, el('td', {}, day(p.paid_at)), el('td', {}, p.check_no || '—'), el('td', {}, money(p.amount_cents))))))) : null,
+      d.signed_in ? changePasswordBox() : null,
+      d.signed_in
+        ? el('p', { class: 'footnote' }, el('a', { href: '#', id: 'signout' }, 'Sign out of this device'), ` · This page is private to you. If you think someone else knows your password, change it above or call us at ${d.phone}.`)
+        : el('p', { class: 'footnote' }, el('a', { href: '#', id: 'signout' }, 'Sign out of this device'), ' · This page is private to you, so please don’t share the link. If you think someone else has it, call us and we’ll make you a new one (the old link then stops working).')].filter(Boolean));
+  }
+
+  // ---- Signing in: email + password (2026-11-18). The contract-number sign-in and the emailed sign-in links are gone. ----
+  // These forms are drawn here (not in consignor.html, whose live copy is patched on the server); they reuse its .loginbox styles.
+  const CHECK = 'display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;margin-top:14px';
+  function loginCss() {
+    if (document.getElementById('pwCss')) return;
+    document.head.append(el('style', { id: 'pwCss' }, '.pwchange{margin-top:44px}.pwchange summary{cursor:pointer;font:normal 22px Georgia,serif}.pwchange .loginbox{margin-top:16px}'
+      + '.loginbox .linkmsg.ok{border-left-color:#2e7d4f}.loginbox .back{display:inline-block;margin-top:16px;font-size:13px}'));
+  }
+  function post(path, body) {
+    return fetch('shop/api/' + path, { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, cache: 'no-store', credentials: 'same-origin', body: JSON.stringify(body || {}) })
+      .then(r => r.json().catch(() => ({})).then(d => ({ ok: r.ok && d.ok === true, status: r.status, d })));
+  }
+  // The Tailscale preview address without :8446 has no shop backend: hand over to the shop app.
+  function wrongHost() {
+    if (location.port !== '8446' && /ts\.net$/.test(location.hostname)) { location.replace('https://' + location.hostname + ':8446/consignor.html'); return true; }
+    return false;
+  }
+  function showToggle(...inputs) {
+    const box = el('input', { type: 'checkbox' });
+    box.addEventListener('change', () => inputs.forEach(i => { i.type = box.checked ? 'text' : 'password'; }));
+    return el('label', { style: CHECK }, box, 'Show password');
+  }
+  function intro(eyebrow, title, text) {
+    return el('div', { class: 'intro' }, el('div', {}, el('div', { class: 'eyebrow' }, eyebrow), el('h1', {}, title, el('em', {}, 'at a glance.')), el('p', {}, text)));
   }
 
   function loginForm(msg) {
-    const name = el('input', { id: 'cname', name: 'name', type: 'text', autocomplete: 'name', placeholder: 'e.g. Jane Smith' });
-    const email = el('input', { id: 'cemail', name: 'email', type: 'email', autocomplete: 'email', placeholder: 'you@example.com' });
+    loginCss();
+    const email = el('input', { id: 'cemail', name: 'email', type: 'email', autocomplete: 'username', inputmode: 'email', required: true, maxlength: 160, placeholder: 'you@example.com' });
+    const pw = el('input', { id: 'cpw', name: 'password', type: 'password', autocomplete: 'current-password', required: true, maxlength: 200 });
     const rem = el('input', { id: 'crem', type: 'checkbox', checked: true });
-    const no = el('input', { id: 'cno', name: 'contract_no', type: 'text', autocomplete: 'off', required: true, placeholder: 'e.g. 1042' });
     const err = el('p', { class: 'loginerr', role: 'alert' }, msg || '');
-    const btn = el('button', { type: 'submit' }, 'View my account');
-    const form = el('form', { class: 'loginbox' },
-      el('label', { for: 'cno' }, 'Contract number'), no,
-      el('p', { class: 'hint' }, 'Then enter your name or your email. Just one is enough.'),
-      el('label', { for: 'cname' }, 'Your name'), name,
+    const btn = el('button', { type: 'submit' }, 'Sign in');
+    const form = el('form', { class: 'loginbox', id: 'signinForm' },
       el('label', { for: 'cemail' }, 'Your email'), email,
-      el('label', { style: 'display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;margin-top:14px' }, rem, 'Keep me signed in on this device'),
+      el('label', { for: 'cpw' }, 'Password'), pw,
+      showToggle(pw),
+      el('label', { style: CHECK }, rem, 'Keep me signed in on this device'),
       err, btn,
-      el('p', { class: 'hint' }, 'Your contract number is on your 2026 Consignment Contract. Can’t find it? We can email you a sign-in link instead (below).'));
+      el('p', { class: 'hint' }, 'Use the email on your consignment agreement. No password yet, or forgot it? Use “Set or forgot your password?” below.'));
+    const done = () => { btn.disabled = false; btn.textContent = 'Sign in'; };
     form.addEventListener('submit', ev => {
       ev.preventDefault(); err.textContent = '';
-      if (!name.value.trim() && !email.value.trim()) { err.textContent = 'Please enter your name or your email.'; return; } btn.disabled = true; btn.textContent = 'Checking…';
-      fetch('shop/api/consignor/login', { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, cache: 'no-store', credentials: 'same-origin',
-        body: JSON.stringify({ name: name.value, email: email.value, contract_no: no.value, remember: rem.checked }) })
-        .then(r => r.json().then(d => ({ ok: r.ok, d })))
-        .then(({ ok, d }) => { if (ok && d.ok) render(d); else { err.textContent = d.error || 'We couldn’t find that account.'; btn.disabled = false; btn.textContent = 'View my account'; } })
-        .catch(() => { if (location.port !== '8446' && /ts\.net$/.test(location.hostname)) { location.replace('https://' + location.hostname + ':8446/consignor.html'); return; } err.textContent = 'We couldn’t reach the shop. Please try again.'; btn.disabled = false; btn.textContent = 'View my account'; });
+      if (!email.value.trim() || !pw.value) { err.textContent = 'Please enter your email and your password.'; return; }
+      btn.disabled = true; btn.textContent = 'Signing in…';
+      post('consignor/signin', { email: email.value, password: pw.value, remember: rem.checked })
+        .then(({ ok, d }) => { if (ok) { render(d); return; } err.textContent = d.error || 'That email and password don’t match.'; pw.value = ''; pw.focus(); done(); })
+        .catch(() => { if (wrongHost()) return; err.textContent = 'We couldn’t reach the shop. Please try again.'; done(); });
     });
-    // No contract number handy: a one-time sign-in link to the email on the agreement.
-    const linkEmail = el('input', { id: 'lemail', name: 'email', type: 'email', autocomplete: 'email', required: true, placeholder: 'you@example.com' });
+    // "Set or forgot your password?": a one-time link to the email on the agreement (only while consignor emails are on).
+    const linkEmail = el('input', { id: 'lemail', name: 'email', type: 'email', autocomplete: 'email', inputmode: 'email', required: true, maxlength: 160, placeholder: 'you@example.com' });
     const linkMsg = el('p', { class: 'linkmsg', role: 'status', 'aria-live': 'polite' });
-    const linkBtn = el('button', { type: 'submit' }, 'Email me a sign-in link');
-    const linkForm = el('form', { class: 'loginbox linkbox' },
-      el('label', { for: 'lemail' }, 'Sign in by email'),
-      el('p', { class: 'hint' }, 'Enter the email on your consignment agreement and we’ll send you a link that signs you in.'),
+    const linkBtn = el('button', { type: 'submit' }, 'Email me a password link');
+    const linkForm = el('form', { class: 'loginbox linkbox', id: 'pwlinkForm' },
+      el('label', { for: 'lemail' }, 'Set or forgot your password?'),
+      el('p', { class: 'hint' }, 'Enter the email on your consignment agreement and we’ll email you a link to choose a password.'),
       linkEmail, linkMsg, linkBtn);
     linkForm.addEventListener('submit', ev => {
       ev.preventDefault(); linkMsg.textContent = ''; linkMsg.className = 'linkmsg'; linkBtn.disabled = true; linkBtn.textContent = 'Sending…';
-      fetch('shop/api/consignor/email-link', { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, cache: 'no-store', credentials: 'same-origin',
-        body: JSON.stringify({ email: linkEmail.value }) })
-        .then(r => r.json().then(d => ({ ok: r.ok, d })))
-        .then(({ ok, d }) => { const good = ok && d.ok; linkMsg.className = good ? 'linkmsg' : 'linkmsg err'; linkMsg.textContent = good ? d.message : (d.error || 'We couldn’t send the link. Please call the boutique.'); })
-        .catch(() => { linkMsg.className = 'linkmsg err'; linkMsg.textContent = 'We couldn’t reach the shop. Please try again.'; })
-        .finally(() => { linkBtn.disabled = false; linkBtn.textContent = 'Email me a sign-in link'; });
+      post('consignor/password-link', { email: linkEmail.value })
+        .then(({ ok, d }) => { linkMsg.className = ok ? 'linkmsg' : 'linkmsg err'; linkMsg.textContent = ok ? d.message : (d.error || 'We couldn’t send the link. Please call the boutique.'); })
+        .catch(() => { if (wrongHost()) return; linkMsg.className = 'linkmsg err'; linkMsg.textContent = 'We couldn’t reach the shop. Please try again.'; })
+        .finally(() => { linkBtn.disabled = false; linkBtn.textContent = 'Email me a password link'; });
     });
-    main.replaceChildren(el('div', { class: 'intro' }, el('div', {}, el('div', { class: 'eyebrow' }, 'Consignor login'),
-      el('h1', {}, 'Your consignment ', el('em', {}, 'at a glance.')),
-      el('p', {}, 'Enter your contract number and your name or email to see your pieces, what has sold, your cut of each sale, and the checks we’ve sent.'))), form, linkForm);
-    name.focus();
+    main.replaceChildren(intro('Consignor sign-in', 'Your consignment ', 'Sign in with your email and your password to see your pieces, what has sold, your cut of each sale, and what you’ve been paid.'), form, linkForm);
+    email.focus();
+  }
+
+  // The emailed set-password link (consignor.html#setpw=…): choose a password, then this device is signed in.
+  function setPasswordForm(linkKey) {
+    loginCss();
+    const pw1 = el('input', { id: 'npw', name: 'password', type: 'password', autocomplete: 'new-password', required: true, minlength: 8, maxlength: 72 });
+    const pw2 = el('input', { id: 'npw2', name: 'password2', type: 'password', autocomplete: 'new-password', required: true, minlength: 8, maxlength: 72 });
+    const rem = el('input', { id: 'nrem', type: 'checkbox', checked: true });
+    const err = el('p', { class: 'loginerr', role: 'alert' });
+    const btn = el('button', { type: 'submit' }, 'Save my password');
+    const back = el('a', { href: '#', class: 'back' }, '← Back to sign in');
+    back.addEventListener('click', ev => { ev.preventDefault(); loginForm(); });
+    const form = el('form', { class: 'loginbox', id: 'setpwForm' },
+      el('label', { for: 'npw' }, 'New password'), pw1,
+      el('p', { class: 'hint' }, 'At least 8 characters. A short sentence is easy to remember.'),
+      el('label', { for: 'npw2' }, 'Type it again'), pw2,
+      showToggle(pw1, pw2),
+      el('label', { style: CHECK }, rem, 'Keep me signed in on this device'),
+      err, btn, back);
+    const done = () => { btn.disabled = false; btn.textContent = 'Save my password'; };
+    form.addEventListener('submit', ev => {
+      ev.preventDefault(); err.textContent = '';
+      if (pw1.value.length < 8) { err.textContent = 'Please use at least 8 characters for your password.'; return; }
+      if (pw1.value !== pw2.value) { err.textContent = 'The two passwords don’t match. Please type them again.'; pw2.value = ''; pw2.focus(); return; }
+      btn.disabled = true; btn.textContent = 'Saving…';
+      post('consignor/set-password', { key: linkKey, password: pw1.value, remember: rem.checked })
+        .then(({ ok, status, d }) => {
+          if (ok) { render(d); return; }
+          if (status === 410) { loginForm(d.error || 'This password link has expired or was already used. Ask for a new one below.'); return; }
+          err.textContent = d.error || 'We couldn’t save that password. Please try another one.'; done();
+        })
+        .catch(() => { if (wrongHost()) return; err.textContent = 'We couldn’t reach the shop. Please try again.'; done(); });
+    });
+    main.replaceChildren(el('div', { class: 'intro' }, el('div', {}, el('div', { class: 'eyebrow' }, 'Consignor account'), el('h1', {}, 'Choose your ', el('em', {}, 'password.')),
+      el('p', {}, 'From now on you sign in with the email on your consignment agreement and this password.'))), form);
+    pw1.focus();
+  }
+
+  // "Change your password" on the signed-in page: the current one, then the new one twice.
+  function changePasswordBox() {
+    loginCss();
+    const cur = el('input', { id: 'opw', name: 'current', type: 'password', autocomplete: 'current-password', required: true, maxlength: 200 });
+    const pw1 = el('input', { id: 'cpw1', name: 'password', type: 'password', autocomplete: 'new-password', required: true, minlength: 8, maxlength: 72 });
+    const pw2 = el('input', { id: 'cpw2', name: 'password2', type: 'password', autocomplete: 'new-password', required: true, minlength: 8, maxlength: 72 });
+    const msg = el('p', { class: 'linkmsg', role: 'status', 'aria-live': 'polite' });
+    const btn = el('button', { type: 'submit' }, 'Change password');
+    const form = el('form', { class: 'loginbox linkbox', id: 'changePwForm' },
+      el('label', { for: 'opw' }, 'Current password'), cur,
+      el('label', { for: 'cpw1' }, 'New password'), pw1,
+      el('p', { class: 'hint' }, 'At least 8 characters.'),
+      el('label', { for: 'cpw2' }, 'New password again'), pw2,
+      showToggle(cur, pw1, pw2), msg, btn);
+    const say = (text, good) => { msg.className = 'linkmsg ' + (good ? 'ok' : 'err'); msg.textContent = text; };
+    form.addEventListener('submit', ev => {
+      ev.preventDefault(); msg.textContent = '';
+      if (pw1.value.length < 8) { say('Please use at least 8 characters for your new password.'); return; }
+      if (pw1.value !== pw2.value) { say('The two new passwords don’t match. Please type them again.'); pw2.value = ''; pw2.focus(); return; }
+      btn.disabled = true; btn.textContent = 'Saving…';
+      post('consignor/password', { current: cur.value, password: pw1.value })
+        .then(({ ok, status, d }) => {
+          if (ok) { cur.value = pw1.value = pw2.value = ''; say('Your password is changed. Any other device signed in to your account was signed out.', true); return; }
+          if (status === 401 && d.code === 'no_session') { loginForm('Please sign in again.'); return; }
+          say(d.error || 'We couldn’t change your password. Please try again.');
+        })
+        .catch(() => say('We couldn’t reach the shop. Please try again.'))
+        .finally(() => { btn.disabled = false; btn.textContent = 'Change password'; });
+    });
+    return el('details', { class: 'pwchange' }, el('summary', {}, 'Change your password'), form);
   }
 
   main.addEventListener('click', ev => {
@@ -438,15 +531,12 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
     ev.preventDefault();
     fetch('shop/api/consignor/logout', { method: 'POST', credentials: 'same-origin' }).finally(() => { history.replaceState(null, '', location.pathname); loginForm(); });
   });
-  // The emailed sign-in link (consignor.html#login=…): works once, then this device stays signed in.
-  const loginKey = (new URLSearchParams(location.hash.slice(1))).get('login') || '';
-  if (loginKey) {
-    history.replaceState(null, '', location.pathname);
-    fetch('shop/api/consignor/link-login', { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }, cache: 'no-store', credentials: 'same-origin',
-      body: JSON.stringify({ key: loginKey }) })
-      .then(r => r.json().then(d => ({ ok: r.ok, d })))
-      .then(({ ok, d }) => { if (ok && d.ok) render(d); else loginForm(d.error || 'This sign-in link no longer works. You can ask for a new one below.'); })
-      .catch(() => loginForm('We couldn’t reach the shop. Please try again.'));
+  const fragment = new URLSearchParams(location.hash.slice(1));
+  const setpwKey = fragment.get('setpw') || '';
+  if (setpwKey || fragment.get('login')) {
+    history.replaceState(null, '', location.pathname);   // the one-time code leaves the address bar at once
+    if (/^[a-f0-9]{64}$/.test(setpwKey)) setPasswordForm(setpwKey);
+    else loginForm(setpwKey ? 'This password link is not complete. Ask for a new one below.' : 'Emailed sign-in links have been replaced by passwords. Sign in with your email and password, or set a password below.');
     return;
   }
   if (!key) {
@@ -459,6 +549,6 @@ if (location.pathname.indexOf('/site/') === 0) { location.replace('https://' + l
   if (!/^[a-f0-9]{48}$/.test(key)) { problem('This link is not complete', 'The address should end in a long code after “#k=”. Try opening the link from your message again.'); return; }
   fetch('shop/api/consignor', { headers: { Accept: 'application/json', 'X-Consignor-Key': key }, cache: 'no-store', credentials: 'omit' })
     .then(r => r.json().then(d => ({ ok: r.ok, d })))
-    .then(({ ok, d }) => { if (ok && d.ok) render(d); else loginForm(d.error ? d.error + ' You can sign in with your name and contract number instead.' : ''); })
+    .then(({ ok, d }) => { if (ok && d.ok) render(d); else loginForm(d.error ? d.error + ' You can sign in with your email and password instead.' : ''); })
     .catch(() => problem('We couldn’t load your account', 'Please check your connection and try again.'));
 })();

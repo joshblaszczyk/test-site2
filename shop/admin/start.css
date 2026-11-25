@@ -40,3 +40,40 @@
   .start-step .start-body { padding-left: 14px; }
   .start-buttons .btn { flex: 1 1 100%; }
 }
+
+/* "Grow your shop" (2026-11-22): four cards, built on the Start here styles above. */
+.grow-lede { margin: -4px 0 18px; color: var(--muted); font-size: 16px; line-height: 1.5; }
+.grow-card { padding: 22px; margin-bottom: 18px; }
+.grow-card > h2 { font: 600 24px/1.2 "Playfair Display", serif; margin: 4px 0 8px; }
+.grow-card > .muted { margin: 0 0 14px; }
+.grow-card h3 { font: 500 11px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 22px 0 8px; }
+#next .grow-card { border: 2px solid var(--ink); }
+.grow-run, .grow-week, .grow-tips, .grow-signins { list-style: none; margin: 0; padding: 0; }
+.grow-run-row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); }
+.grow-run-row:first-child { border-top: 0; }
+.grow-dot { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%;
+  font: 600 13px "DM Sans", sans-serif; color: #fff; background: var(--ok); }
+.grow-run-row.wait .grow-dot { background: #c98a12; }
+.grow-run-row.bad .grow-dot { background: var(--bad); }
+.grow-run-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 15px; line-height: 1.45; }
+.grow-run-detail { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+.grow-run-row.wait .grow-run-detail { color: #8a5d00; }
+.grow-run-row.bad .grow-run-detail { color: var(--bad); }
+.grow-week { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.grow-week-row { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+.grow-week-row.wait { border-color: #e0b04f; background: var(--warn-pale); }
+.grow-week-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 14px; }
+.grow-week-top strong { font: 600 20px "DM Sans", sans-serif; white-space: nowrap; }
+.grow-week-row p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.grow-week-row .btn { align-self: flex-start; text-decoration: none; }
+.grow-tips li { position: relative; padding: 6px 0 6px 22px; font-size: 15px; line-height: 1.5; }
+.grow-tips li::before { content: "★"; position: absolute; left: 0; color: var(--pink); }
+.grow-signins li { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.grow-signins li:first-child { border-top: 0; }
+.grow-signin-link { font-weight: 600; font-size: 16px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+#listings .start-step { margin-top: 8px; }
+#listings .start-bar { margin-bottom: 8px; }
+@media (max-width: 560px) {
+  .grow-card { padding: 16px; }
+  .grow-card > h2 { font-size: 21px; }
+}

@@ -51,3 +51,58 @@ footer .footer-nav .mono { margin: 0 0 14px; color: #b52f62; font: 400 11px "DM 
 footer .footer-links { display: flex; flex-wrap: wrap; gap: 11px 26px; font-size: 12px; }
 footer .footer-links a { color: #564c51; }
 footer .footer-links a:hover, footer .footer-links a:focus-visible { color: #b52f62; }
+
+/* ---- phones and tablets (audit 2026-11-14) -------------------------------------------------------------- */
+/* Boutique pages (class tk-boutique): between phone and desktop the full menu does not fit, so it folds into the
+   ☰ button there too (it used to run off a 768px tablet). Same look as their phone menu. */
+@media (min-width: 681px) and (max-width: 1040px) {
+  header.tk-boutique .nav { height: 72px; }
+  header.tk-boutique .brand { min-width: auto; }
+  header.tk-boutique .nav-links { display: none; position: absolute; top: calc(72px + var(--division-h, 0px)); left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px max(24px, calc((100% - 1180px) / 2)) 25px; background: var(--paper, #eee); border-bottom: 1px solid var(--line, #d9ced1); }
+  header.tk-boutique .nav-links.open { display: flex; }
+  header.tk-boutique .menu-button { display: grid; }
+  header.tk-boutique .nav-links .xp-dd { width: 100%; }
+  header.tk-boutique .nav-links .xp-btn { display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 0; font-size: inherit; }
+  header.tk-boutique .nav-links .xp-list { position: static; box-shadow: none; border: 0; padding: 13px 0 0 15px; background: transparent; min-width: 0; }
+  header.tk-boutique .nav-links .xp-list a { padding: 5px 0; font-size: inherit; font-weight: 600; white-space: normal; }
+}
+/* Pop-up windows never taller than the screen: they scroll inside. */
+.modal-backdrop .modal { max-height: calc(100dvh - 24px); overflow-y: auto; }
+@media (max-width: 680px) {
+  /* The shop's piece window: its × stays in reach while you scroll the photos and details. */
+  .product-modal .pm-close { position: sticky; top: 8px; display: block; margin: 8px 8px -48px auto; z-index: 6; }
+  /* iPhones zoom into any box with text under 16px. */
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=submit]):not([type=button]), select, textarea { font-size: 16px !important; }
+  /* Fingers, not mouse pointers. */
+  .icon-button, .menu-button, #searchToggle { min-width: 40px; min-height: 40px; }
+  #navLinks .nav-dropdown-toggle, #navLinks .xp-btn { min-height: 44px; }
+  .modal-close { min-width: 40px; min-height: 40px; }
+  .announcement, .tk-strip { font-size: 11px; }
+}
+
+/* ---- desktop screens (audit 2026-11-14) ------------------------------------------------------------------ */
+@media (min-width: 681px) {
+  /* Page content lines up with the header and footer (1180px wide, 24px gutters) instead of 1120/1200/1240. */
+  main.container, main.wrap, main.login-page, .portal > .container, main.page:not([id]) { width: min(1180px, calc(100% - 48px)); }
+  /* In-page links (#prices, #hours, #recreation ...) stop below the sticky header; rules a page sets itself still win. */
+  :where(main [id], section[id]) { scroll-margin-top: 96px; }
+}
+@media (min-width: 761px) {
+  /* The shop's "Find your piece" block sat inside .page and was inset a second time (1184px inside 1240px). */
+  .page > .shop-tiles { width: auto; margin-left: 0; margin-right: 0; }
+}
+@media (min-width: 681px) {
+  /* The piece window's round close button sat on top of the second photo thumbnail: give it its own strip above the photos. */
+  .product-modal .pm-close { top: 10px; right: 14px; }
+  .product-modal .pm-gallery { margin-top: 62px; }
+  /* Checkout: breathing room between the payment choices and the Pay button. */
+  .button.pay { margin-top: 18px; }
+}
+
+/* Home page menus: an open Explore list steps aside while Gowns / TLR / About / Policy is open or hovered
+   (it used to stay open on top of them). */
+@media (min-width: 681px) {
+  .nav-links:has(.nav-dropdown:hover, .nav-dropdown.open) .xp-dd.open .xp-list { display: none; }
+}
+/* The shop's piece window on a tablet: no 9px sideways wobble inside it. */
+@media (min-width: 681px) and (max-width: 900px) { dialog.product-modal { overflow-x: hidden; } }
